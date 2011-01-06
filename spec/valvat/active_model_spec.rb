@@ -39,6 +39,12 @@ describe Invoice do
     it "should not be valid" do
       Invoice.new(:vat_number => "DE123").should_not be_valid
     end
+    
+    it "should add default error message" do
+      i = Invoice.new(:vat_number => "DE123")
+      i.valid?
+      i.errors[:vat_number].should eql(["is not a valid european vat number."])
+    end
   end
   
   context "with blank vat number" do
