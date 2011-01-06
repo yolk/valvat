@@ -8,7 +8,7 @@ Validates european vat numbers. Supports simple syntax verification and lookup v
 
 == Basic Usage
 
-To verify the syntax of an vat number:
+To verify the syntax of a vat number:
 
   Valvat::Syntax.validate("DE345789003")
   => true or false
@@ -21,6 +21,22 @@ To check if the given vat number exists:
 Keep in mind that the VIES webservice might be offline at some time for some countries. If this happens Valvat::Lookup.validate returns nil.
 
 See http://ec.europa.eu/taxation_customs/vies/viesspec.do for more accurate information at what time the service for a specific country will be down.
+
+== Utilities
+
+To split a vat number into the ISO country code and the remaining chars:
+
+  Valvat::Utils.split("ATU345789003")
+  => ["AT", "U345789003"]
+  
+_split_ always returns an array. If it can not detect the country it returns [nil, nil].
+
+To normalize a vat number:
+
+  Valvat::Utils.normalize("atu345789003")
+  => "ATU345789003"
+  
+This basically just removes trailing spaces and ensures all chars are upcase.
 
 == Links
 
