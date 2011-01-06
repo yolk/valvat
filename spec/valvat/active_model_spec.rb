@@ -5,11 +5,23 @@ class Invoice < ModelBase
 end
 
 describe Invoice do
-  it "validate with valid vat number" do
-    Invoice.new(:vat_number => "DE345889003").should be_valid
+  context "with valid vat number" do
+    before do
+      Valvat::Syntax.stub(:validate => true)
+    end
+    
+    it "should be valid" do
+      Invoice.new(:vat_number => "DE345889003").should be_valid
+    end
   end
   
-  it "not validate with invalid vat number" do
-    Invoice.new(:vat_number => "DEX45889003").should_not be_valid
+  context "with invalid vat number" do
+    before do
+      Valvat::Syntax.stub(:validate => false)
+    end
+    
+    it "should be valid" do
+      Invoice.new(:vat_number => "DE345889003").should_not be_valid
+    end
   end
 end
