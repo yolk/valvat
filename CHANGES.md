@@ -1,6 +1,10 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.0.2...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.0.2...0.0.3)
+
+### 0.0.3 / 2011-01-06
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.0.1...v0.0.2)
 
 * Basic support for ActiveModel validation
 
