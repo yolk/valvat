@@ -1,12 +1,14 @@
-== valvat
+## valvat
 
 Validates european vat numbers. Supports simple syntax verification and lookup via the VIES web service.
 
-== Installation
+valvat is tested and works with ruby 1.8.7 and 1.9.2.
+
+### Installation
 
   gem install valvat
 
-== Basic Usage
+### Basic Usage
 
 To verify the syntax of a vat number:
 
@@ -22,7 +24,7 @@ Keep in mind that the VIES webservice might be offline at some time for some cou
 
 See http://ec.europa.eu/taxation_customs/vies/viesspec.do for more accurate information at what time the service for a specific country will be down.
 
-== Utilities
+### Utilities
 
 To split a vat number into the ISO country code and the remaining chars:
 
@@ -38,12 +40,15 @@ To normalize a vat number:
   
 This basically just removes trailing spaces and ensures all chars are upcase.
 
-== Links
+### Links
 
 * http://ec.europa.eu/taxation_customs/vies
-* http://www.bzst.de/DE/Steuern_International/USt_Identifikationsnummer/Merkblaetter/Aufbau_USt_IdNr.html (german)
+* http://bzst.de/DE/Steuern_International/USt_Identifikationsnummer/Merkblaetter/Aufbau_USt_IdNr.html (german)
 * http://en.wikipedia.org/wiki/European_Union_Value_Added_Tax
+* http://isvat.appspot.com/
 
-== BlaBla
+### BlaBla
 
 Copyright (c) 2011 Yolk Sebastian Munz & Julia Soergel GbR
+
+Beyond that, the implementation is licensed under the MIT License.
