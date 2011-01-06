@@ -21,7 +21,4 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'guard-rspec', '>=0.1.9'
   s.add_development_dependency 'growl', '>=1.0.3'
   s.add_development_dependency 'rb-fsevent', '>=0.3.9'
-  
-  s.has_rdoc         = true
-  s.extra_rdoc_files = ['README.rdoc']
 end
