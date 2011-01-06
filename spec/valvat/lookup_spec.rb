@@ -10,8 +10,9 @@ describe Valvat::Lookup do
       Valvat::Lookup.validate("BE0817331994").should eql(false)
     end
     
-    it "returns nil on invalid input" do
-      Valvat::Lookup.validate("AE259597697").should eql(nil)
+    it "returns false on invalid country code / input" do
+      Valvat::Lookup.validate("AE259597697").should eql(false)
+      Valvat::Lookup.validate("").should eql(false)
     end
   end
 end
