@@ -2,6 +2,9 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.1.0...master)
 
+* Stubbed web service specs with fakeweb
+* Fixed issue with country web service down and added spec
+
 ### 0.1.0 / 2011-01-07
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.0.3...v0.1.0)

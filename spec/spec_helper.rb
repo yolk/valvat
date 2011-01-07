@@ -1,7 +1,10 @@
 require 'rspec'
 require 'active_model'
+require 'fakeweb'
 
 require File.dirname(__FILE__) + '/../lib/valvat.rb'
+
+$fakeweb = true
 
 class ModelBase
   include ActiveModel::Serialization
