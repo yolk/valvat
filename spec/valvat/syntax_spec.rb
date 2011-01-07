@@ -267,14 +267,4 @@ describe Valvat::Syntax do
       Valvat::Syntax.validate("BEFR").should eql(false)
     end
   end
-
-  context "#validate!" do
-    it "returns true on valid vat number" do
-      Valvat::Syntax.validate!("DE345889003").should eql(true)
-    end
-    
-    it "raises Valvat::InvalidSyntax on invalid vat number" do
-      lambda { Valvat::Syntax.validate!("DE34588900") }.should raise_error(Valvat::InvalidSyntax)
-    end
-  end
 end

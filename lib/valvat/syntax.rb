@@ -1,8 +1,6 @@
 require 'valvat/utils'
 
 module Valvat
-  class InvalidSyntax < StandardError;end
-  
   module Syntax
     
     VAT_PATTERNS = {
@@ -38,10 +36,6 @@ module Valvat
     def self.validate(vat)
       pattern = VAT_PATTERNS[Valvat::Utils.split(vat)[0]]
       !!(pattern && pattern =~ vat)
-    end
-  
-    def self.validate!(vat)
-      validate(vat) || raise(Valvat::InvalidSyntax.new("#{vat.inspect} is an invalid vat number!"))
     end
   end
 
