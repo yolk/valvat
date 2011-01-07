@@ -14,7 +14,7 @@ valvat is tested and works with ruby 1.8.7/1.9.2 and ActiveModel 3.0.
 
 ### Installation
 
-  gem install valvat
+``gem install valvat``
 
 ### Basic Usage
 
