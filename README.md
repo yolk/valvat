@@ -54,7 +54,7 @@ By default this will validate to true if the VIES web service is down. To fail i
 
     validates :vat_number, :valvat => {:lookup => :fail_if_down}
   
-By default blank vat numbers validate to false, to change this add the `:allow_blank` option:
+By default blank vat numbers validate to false. To change this add the `:allow_blank` option:
 
     validates :vat_number, :valvat => {:allow_blank => true}
 
