@@ -5,7 +5,9 @@ module Valvat
     
     def self.split(vat)
       COUNTRY_PATTERN =~ vat 
-      [$1, $2]
+      result = [$1, $2]
+      result[0] = "GR" if result[0] == "EL"
+      result
     end
     
     def self.normalize(vat)

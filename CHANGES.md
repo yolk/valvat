@@ -5,6 +5,7 @@
 * ActiveModel validation: added optional lookup support
 * ActiveModel validation: I18n support with country specific messages
 * ActiveModel validation: I18n locales in english and german
+* Fixed bug with wrong iso country code on greek vat number (EL != GR)
 
 ### 0.0.3 / 2011-01-06
 

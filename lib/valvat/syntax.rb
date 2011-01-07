@@ -14,7 +14,7 @@ module Valvat
         'DE' => /\ADE[0-9]{9}\Z/,                                           # Germany
         'DK' => /\ADK[0-9]{8}\Z/,                                           # Denmark
         'EE' => /\AEE[0-9]{9}\Z/,                                           # Estonia
-        'EL' => /\AEL[0-9]{9}\Z/,                                           # Greece
+        'GR' => /\AEL[0-9]{9}\Z/,                                           # Greece
         'ES' => /\AES([A-Z][0-9]{8}|[0-9]{8}[A-Z]|[A-Z][0-9]{7}[A-Z])\Z/,   # Spain
         'FI' => /\AFI[0-9]{8}\Z/,                                           # Finland
         'FR' => /\AFR[A-Z0-9]{2}[0-9]{9}\Z/,                                # France

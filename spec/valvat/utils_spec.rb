@@ -14,6 +14,10 @@ describe Valvat::Utils do
       Valvat::Utils.split("1234").should eql([nil, nil])
       Valvat::Utils.split(" ").should eql([nil, nil])
     end
+    
+    it "returns GR on greek vat" do
+      Valvat::Utils.split("EL999999999").should eql(["GR", "999999999"])
+    end
   end
   
   context "#normalize" do
