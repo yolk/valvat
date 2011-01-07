@@ -70,13 +70,13 @@ By default blank vat numbers validate to false. To change this add the `:allow_b
     
 To allow vat numbers from outside of europe, add something like this to your model (country_code should return a upcase iso country code):
 
-  class MyModel < ActiveRecord::Base
-    validates :vat_number, :valvat => true, :if => :eu?
-    
-    def eu?
-      Valvat::Utils::EU_COUNTRIES.include?(country_code)
+    class MyModel < ActiveRecord::Base
+      validates :vat_number, :valvat => true, :if => :eu?
+      
+      def eu?
+        Valvat::Utils::EU_COUNTRIES.include?(country_code)
+      end
     end
-  end
 
 ### Utilities
 
