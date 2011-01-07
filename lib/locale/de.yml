@@ -1,0 +1,34 @@
+de:
+  errors:
+    messages:
+      invalid_vat: ist kein gültige %{country_adjective} UStId-Nr.
+  valvat:
+    country_adjectives:
+      eu: europäische
+      at: österreichische
+      be: belgische
+      bg: bulgarische
+      cy: zypriotische
+      cz: tschechische
+      de: deutsche
+      dk: dänische
+      ee: estnisch
+      es: spanisch
+      fi: finnische
+      fr: französische
+      gb: britische
+      gr: griechische
+      hu: ungarische
+      ie: irische
+      it: italienische
+      lt: litauisch
+      lu: luxemburgisch
+      lv: lettische
+      mt: malteser
+      nl: niederländische
+      pl: polnische
+      pt: portugiesische
+      ro: rumänische
+      se: schwedische
+      si: slowenische
+      sk: slowakische

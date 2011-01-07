@@ -1,0 +1,34 @@
+en:
+  errors:
+    messages:
+      invalid_vat: is not a valid %{country_adjective} vat number
+  valvat:
+    country_adjectives:
+      eu: european
+      at: austrian
+      be: belgian
+      bg: bulgarian
+      cy: cypriot
+      cz: czech
+      de: german
+      dk: danish
+      ee: estonian
+      es: spanish
+      fi: finnish
+      fr: french
+      gb: british
+      gr: greek
+      hu: hungarian
+      ie: irish
+      it: italian
+      lt: lithuanian
+      lu: luxembourg
+      lv: latvian
+      mt: maltese
+      nl: dutch
+      pl: polish
+      pt: portuguese
+      ro: rumanian
+      se: swedish
+      si: slovenian
+      sk: slovakian

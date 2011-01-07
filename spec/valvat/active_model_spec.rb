@@ -40,10 +40,48 @@ describe Invoice do
       Invoice.new(:vat_number => "DE123").should_not be_valid
     end
     
-    it "should add default error message" do
+    it "should add default (country specific) error message" do
       i = Invoice.new(:vat_number => "DE123")
       i.valid?
-      i.errors[:vat_number].should eql(["is not a valid european vat number."])
+      i.errors[:vat_number].should eql(["is not a valid german vat number"])
+    end
+    
+    context "with i18n translation in place" do
+      before do
+        I18n.backend.store_translations(:en, :activemodel => {
+          :errors => {:models => {:invoice => {:invalid_vat => "is ugly."}}}
+        })
+      end
+      
+      after { I18n.reload! }
+      
+      it "should use translation" do
+        i = Invoice.new(:vat_number => "DE123")
+        i.valid?
+        i.errors[:vat_number].should eql(["is ugly."])
+      end
+    end
+    
+    context "with i18n translation with country adjective placeholder in place" do
+      before do
+        I18n.backend.store_translations(:en, :activemodel => {
+          :errors => {:models => {:invoice => {:invalid_vat => "is not a %{country_adjective} vat"}}}
+        })
+      end
+
+      after { I18n.reload! }
+
+      it "should replace country adjective placeholder" do
+        i = Invoice.new(:vat_number => "IE123")
+        i.valid?
+        i.errors[:vat_number].should eql(["is not a irish vat"])
+      end
+
+      it "should fall back to 'european' if country is missing" do
+        i = Invoice.new(:vat_number => "XX123")
+        i.valid?
+        i.errors[:vat_number].should eql(["is not a european vat"])
+      end
     end
   end
   

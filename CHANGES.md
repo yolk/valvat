@@ -3,6 +3,8 @@
 [full changelog](http://github.com/yolk/valvat/compare/v0.0.3...master)
 
 * ActiveModel validation: added optional lookup support
+* ActiveModel validation: I18n support with country specific messages
+* ActiveModel validation: I18n locales in english and german
 
 ### 0.0.3 / 2011-01-06
 

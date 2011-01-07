@@ -1,7 +1,8 @@
+require 'active_model'
+
 module ActiveModel
   module Validations
     class ValvatValidator < ::ActiveModel::EachValidator
-      DEFAULT_MESSAGE = "is not a valid european vat number."
       
       def validate_each(record, attribute, value)
         is_valid = Valvat::Syntax.validate(value)
@@ -10,9 +11,19 @@ module ActiveModel
           is_valid = Valvat::Lookup.validate(value)
           is_valid.nil? && is_valid = (options[:lookup] != :fail_if_down)
         end
-
-        record.errors.add(attribute, :invalid_vat, :message => options[:message] || DEFAULT_MESSAGE) unless is_valid
+        
+        unless is_valid
+          record.errors.add(attribute, :invalid_vat, 
+            :message => options[:message], 
+            :country_adjective => I18n.t(
+              :"valvat.country_adjectives.#{(Valvat::Utils.split(value)[0] || "eu").downcase}", 
+              :default => [:"valvat.country_adjectives.eu", "european"]
+            )
+          )
+        end
       end
     end
   end
 end
+
+I18n.load_path << File.dirname(__FILE__) + '/../locale/en.yml'
