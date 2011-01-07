@@ -4,7 +4,12 @@ describe Valvat::Utils do
   context "#split" do
     it "returns country and rest on vat number as array" do
       Valvat::Utils.split("DE345889003").should eql(["DE", "345889003"])
-      Valvat::Utils.split("XY345889003").should eql(["XY", "345889003"])
+      Valvat::Utils.split("ESX4588900X").should eql(["ES", "X4588900X"])
+    end
+    
+    it "returns two nils on non-european iso codes as array" do
+      Valvat::Utils.split("US345889003").should eql([nil, nil])
+      Valvat::Utils.split("RUX4588900X").should eql([nil, nil])
     end
     
     it "returns two nils on non-sense input as array" do
