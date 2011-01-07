@@ -30,7 +30,7 @@ To check if the given vat number exists:
   
 Keep in mind that the VIES webservice might be offline at some time for some countries. If this happens `Valvat::Lookup.validate` returns `nil`.
 
-See http://ec.europa.eu/taxation_customs/vies/viesspec.do for more accurate information at what time the service for a specific country will be down.
+Visit [http://ec.europa.eu/taxation_customs/vies/viesspec.do](http://ec.europa.eu/taxation_customs/vies/viesspec.do) for more accurate information at what time the service for a specific country will be down.
 
 ### ActiveModel/Rails3 Usage
 
@@ -76,10 +76,10 @@ This basically just removes trailing spaces and ensures all chars are upcase.
 
 ### Links
 
-* http://ec.europa.eu/taxation_customs/vies
-* http://bzst.de/DE/Steuern_International/USt_Identifikationsnummer/Merkblaetter/Aufbau_USt_IdNr.html (german)
-* http://en.wikipedia.org/wiki/European_Union_Value_Added_Tax
-* http://isvat.appspot.com/
+* [VIES web service](http://ec.europa.eu/taxation_customs/vies)
+* [European vat number formats (german)](http://bzst.de/DE/Steuern_International/USt_Identifikationsnummer/Merkblaetter/Aufbau_USt_IdNr.html)
+* [European vat number formats on Wikipedia](http://en.wikipedia.org/wiki/European_Union_Value_Added_Tax)
+* [isvat VIES REST wrapper](http://isvat.appspot.com/)
 
 ### BlaBla
 
