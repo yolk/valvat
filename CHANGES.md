@@ -1,6 +1,12 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.2.0...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.2.1...master)
+
+### 0.2.1 / 2011-01-07
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.2.0...v0.2.1)
+
+* Fixed blocker in valvat/lookup
 
 ### 0.2.0 / 2011-01-07
 
