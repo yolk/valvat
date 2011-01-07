@@ -1,6 +1,10 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.0.3...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.1.0...master)
+
+### 0.1.0 / 2011-01-07
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.0.3...v0.1.0)
 
 * ActiveModel validation: added optional lookup support
 * ActiveModel validation: I18n support with country specific messages
