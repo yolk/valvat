@@ -20,17 +20,27 @@ valvat is tested and works with ruby 1.8.7/1.9.2 and ActiveModel 3.0.
 
 To verify the syntax of a vat number:
 
+    Valvat.new("DE345789003").valid?
+    => true or false
+  
+To check if the given vat number exists via the VIES web service:
+
+    Valvat.new("DE345789003").exists?
+    => true or false or nil
+  
+Keep in mind that the VIES web service might be offline at some time for some countries. If this happens `Valvat::Lookup.validate` returns `nil`.
+
+Visit [http://ec.europa.eu/taxation_customs/vies/viesspec.do](http://ec.europa.eu/taxation_customs/vies/viesspec.do) for more accurate information at what time the service for a specific country will be down.
+
+It is also possible to bypass initializing a Valvat instance and check the syntax of a var number string directly with:
+
     Valvat::Syntax.validate("DE345789003")
     => true or false
   
-To check if the given vat number exists:
+Or to lookup a vat number string directly via VIES web service:
 
     Valvat::Lookup.validate("DE345789003")
     => true or false or nil
-  
-Keep in mind that the VIES webservice might be offline at some time for some countries. If this happens `Valvat::Lookup.validate` returns `nil`.
-
-Visit [http://ec.europa.eu/taxation_customs/vies/viesspec.do](http://ec.europa.eu/taxation_customs/vies/viesspec.do) for more accurate information at what time the service for a specific country will be down.
 
 ### ActiveModel/Rails3 Usage
 
@@ -74,15 +84,30 @@ To split a vat number into the country code and the remaining chars:
 
     Valvat::Utils.split("ATU345789003")
     => ["AT", "U345789003"]
+    
+or
+
+    Valvat.new("ATU345789003").to_a
+    => ["AT", "U345789003"]
   
-`split` always returns an array. If it can not detect the country or the given country is located outside of europe it returns `[nil, nil]`. Please note that this does not strictly returns the iso country code: for greek vat numbers this returns the iso language code 'EL' instead of the iso country code 'GR'.
+Both methods always return an array. If it can not detect the country or the given country is located outside of europe it returns `[nil, nil]`. Please note that this does not strictly return the iso country code: for greek vat numbers this returns the iso language code 'EL' instead of the iso country code 'GR'.
+
+To extract the iso country code of a given vat number:
+
+    Valvat.new("EL7345789003").iso_country_code
+    => "GR"
+  
+To extract the vat country code (first two chars in every european vat number):
+
+    Valvat.new("EL7345789003").vat_country_code
+    => "EL"
 
 To normalize a vat number:
 
     Valvat::Utils.normalize("atu345789003")
     => "ATU345789003"
   
-This basically just removes trailing spaces and ensures all chars are upcase.
+This basically just removes trailing spaces and ensures all chars are uppercase.
 
 ### Links
 
