@@ -1,6 +1,10 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.1.0...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.1.1...master)
+
+### 0.1.1 / 2011-01-07
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.1.0...v0.1.1)
 
 * Fixed issue with country web service down and added spec
 * Stubbed web service specs with fakeweb
