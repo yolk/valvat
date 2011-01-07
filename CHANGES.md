@@ -1,6 +1,10 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.1.1...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.2.0...master)
+
+### 0.2.0 / 2011-01-07
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.1.1...v0.2.0)
 
 * Rewrote Valvat module to a vat number class for convenience + internal use of Valvat instances
 * I18n: Default error messages in german
