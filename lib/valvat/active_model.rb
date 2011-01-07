@@ -7,12 +7,10 @@ module ActiveModel
     class ValvatValidator < ::ActiveModel::EachValidator
       
       def validate_each(record, attribute, value)
-        is_valid = Valvat::Syntax.validate(value)
+        vat = Valvat(value)
         
-        if is_valid && options[:lookup]
-          is_valid = Valvat::Lookup.validate(value)
-          is_valid.nil? && is_valid = (options[:lookup] != :fail_if_down)
-        end
+        is_valid = options[:lookup] ? vat.valid? && vat.exists? : vat.valid?
+        is_valid.nil? && is_valid = (options[:lookup] != :fail_if_down)
         
         unless is_valid
           record.errors.add(attribute, :invalid_vat, 

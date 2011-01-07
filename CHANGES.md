@@ -2,6 +2,8 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.1.1...master)
 
+* Rewrote Valvat module to a vat number class for convenience + internal use of Valvat instances
+
 ### 0.1.1 / 2011-01-07
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.1.0...v0.1.1)

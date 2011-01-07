@@ -1,18 +1,18 @@
-require 'valvat/utils'
+require 'valvat'
 require 'net/http'
 require 'yaml'
 
-module Valvat
+class Valvat
   module Lookup
     def self.validate(vat)
-      parts = Valvat::Utils.split(vat)
-      return false unless parts[0]
-      
+      vat = Valvat(vat)
+      return false unless vat.european?
       result = begin
         YAML.load(Net::HTTP.start("isvat.appspot.com", 80) {|http|
-          http.get("/#{parts.join("/")}/")
+          http.get("/#{vat.to_a.join("/")}/")
         }.body)
-      rescue
+      rescue => err
+        raise if FakeWeb::NetConnectNotAllowedError === err
         nil
       end
       

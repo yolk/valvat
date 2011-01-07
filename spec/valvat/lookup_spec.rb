@@ -10,6 +10,10 @@ describe Valvat::Lookup do
       it "returns true" do
         Valvat::Lookup.validate("BE0817331995").should eql(true)
       end
+      
+      it "allows Valvat instance as input" do
+        Valvat::Lookup.validate(Valvat.new("BE0817331995")).should eql(true)
+      end
     end
     
     context "not existing vat number" do
@@ -23,9 +27,7 @@ describe Valvat::Lookup do
     end
     
     context "invalid country code / input" do
-      before do
-        FakeWeb.register_uri(:get, "http://isvat.appspot.com/AE/259597697/", :body => "false")
-      end if $fakeweb
+      without_any_web_requests!
       
       it "returns false" do
         Valvat::Lookup.validate("AE259597697").should eql(false)

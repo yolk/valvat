@@ -70,12 +70,12 @@ To allow vat numbers from outside of europe, add something like this to your mod
 
 ### Utilities
 
-To split a vat number into the ISO country code and the remaining chars:
+To split a vat number into the country code and the remaining chars:
 
     Valvat::Utils.split("ATU345789003")
     => ["AT", "U345789003"]
   
-`split` always returns an array. If it can not detect the country or the given country is located outside of europe it returns `[nil, nil]`.
+`split` always returns an array. If it can not detect the country or the given country is located outside of europe it returns `[nil, nil]`. Please note that this does not strictly returns the iso country code: for greek vat numbers this returns the iso language code 'EL' instead of the iso country code 'GR'.
 
 To normalize a vat number:
 

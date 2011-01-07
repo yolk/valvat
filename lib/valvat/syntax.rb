@@ -1,6 +1,6 @@
-require 'valvat/utils'
+require 'valvat'
 
-module Valvat
+class Valvat
   module Syntax
     
     VAT_PATTERNS = {
@@ -34,8 +34,9 @@ module Valvat
       }
 
     def self.validate(vat)
-      pattern = VAT_PATTERNS[Valvat::Utils.split(vat)[0]]
-      !!(pattern && pattern =~ vat)
+      vat = Valvat(vat)
+      pattern = VAT_PATTERNS[vat.iso_country_code]
+      !!(pattern && pattern =~ vat.to_s)
     end
   end
 

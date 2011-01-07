@@ -266,5 +266,10 @@ describe Valvat::Syntax do
       Valvat::Syntax.validate("xxxxxxxxxx").should eql(false)
       Valvat::Syntax.validate("BEFR").should eql(false)
     end
+  
+    it "allows Valvat instance as input" do
+      Valvat::Syntax.validate(Valvat.new("DE345889003")).should eql(true)
+      Valvat::Syntax.validate(Valvat.new("DE34588900X")).should eql(false)
+    end
   end
 end

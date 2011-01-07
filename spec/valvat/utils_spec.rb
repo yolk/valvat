@@ -20,8 +20,8 @@ describe Valvat::Utils do
       Valvat::Utils.split(" ").should eql([nil, nil])
     end
     
-    it "returns GR on greek vat" do
-      Valvat::Utils.split("EL999999999").should eql(["GR", "999999999"])
+    it "returns EL (language iso code) on greek vat" do
+      Valvat::Utils.split("EL999999999").should eql(["EL", "999999999"])
     end
   end
   
@@ -40,6 +40,18 @@ describe Valvat::Utils do
     it "dors not change already normalized vat numbers" do
       Valvat::Utils.normalize("DE345889003").should eql("DE345889003")
       Valvat::Utils.normalize("ESX4588900X").should eql("ESX4588900X")
+    end
+  end
+  
+  context "#vat_country_to_iso_country" do
+    it "returns iso country code on greek iso language 'EL'" do
+      Valvat::Utils.vat_country_to_iso_country("EL").should eql("GR")
+    end
+    
+    Valvat::Utils::EU_COUNTRIES.each do |iso|
+      it "returns unchanged iso country code '#{iso}'" do
+        Valvat::Utils.vat_country_to_iso_country(iso).should eql(iso)
+      end
     end
   end
 end
