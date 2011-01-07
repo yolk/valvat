@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
   s.authors     = ["Sebastian Munz"]
   s.email       = ["sebastian@yo.lk"]
   s.homepage    = "https://github.com/yolk/valvat"
-  s.summary     = %q{Validates european vat numbers. Standalone or as an ActiveModel validator.}
+  s.summary     = %q{Validates european vat numbers. Standalone or as a ActiveModel validator.}
   s.description = <<-END
-  Validates european vat numbers. Standalone or as an ActiveModel validator.
+  Validates european vat numbers. Standalone or as a ActiveModel validator.
   
   * Simple syntax verification
   * Lookup via the VIES web service

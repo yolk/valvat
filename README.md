@@ -1,6 +1,6 @@
 ## valvat
 
-Validates european vat numbers. Standalone or as an ActiveModel validator.
+Validates european vat numbers. Standalone or as a ActiveModel validator.
 
 ### Features
 
