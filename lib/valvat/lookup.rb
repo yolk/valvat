@@ -12,7 +12,8 @@ class Valvat
           http.get("/#{vat.to_a.join("/")}/")
         }.body)
       rescue => err
-        raise if FakeWeb::NetConnectNotAllowedError === err
+        # Ugly, ugly for better specs
+        raise if defined?(FakeWeb::NetConnectNotAllowedError) && FakeWeb::NetConnectNotAllowedError === err
         nil
       end
       
