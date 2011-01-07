@@ -4,6 +4,7 @@
 
 * Fixed issue with country web service down and added spec
 * Stubbed web service specs with fakeweb
+* Added documentation for ActiveModel support
 
 ### 0.1.0 / 2011-01-07
 

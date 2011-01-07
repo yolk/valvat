@@ -1,8 +1,16 @@
 ## valvat
 
-Validates european vat numbers. Supports simple syntax verification and lookup via the VIES web service.
+Validates european vat numbers. Standalone or as an ActiveModel validator.
 
-valvat is tested and works with ruby 1.8.7 and 1.9.2.
+### Features
+
+* Simple syntax verification
+* Lookup via the VIES web service
+* Works standalone without any gem dependencies
+* (Optional) ActiveModel/Rails3 integration
+* I18n locales for country specific error messages
+
+valvat is tested and works with ruby 1.8.7/1.9.2 and ActiveModel 3.0.
 
 ### Installation
 
@@ -23,6 +31,32 @@ To check if the given vat number exists:
 Keep in mind that the VIES webservice might be offline at some time for some countries. If this happens Valvat::Lookup.validate returns nil.
 
 See http://ec.europa.eu/taxation_customs/vies/viesspec.do for more accurate information at what time the service for a specific country will be down.
+
+### ActiveModel/Rails3 Usage
+
+When the valvat gem is required and ActiveModel is already loaded, everything will work fine out of the box. If your load order differs just add
+
+  require 'valvat/active_model'
+  
+after ActiveModel has been loaded.
+  
+To validate the attribute _vat_number_ add this to your model:
+
+  class MyModel < ActiveRecord::Base
+    validates :vat_number, :valvat => true
+  end
+  
+To additionally perform a lookup via VIES:
+
+  validates :vat_number, :valvat => {:lookup => true}
+  
+By default this will validate to true if the VIES web service is down. To fail in this case simply add the _:fail_if_down_ option:
+
+  validates :vat_number, :valvat => {:lookup => :fail_if_down}
+  
+By default blank vat numbers validate to false, to change this add the _:allow_blank_ option:
+
+  validates :vat_number, :valvat => {:allow_blank => true}
 
 ### Utilities
 
