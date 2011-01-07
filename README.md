@@ -65,7 +65,7 @@ To split a vat number into the ISO country code and the remaining chars:
     Valvat::Utils.split("ATU345789003")
     => ["AT", "U345789003"]
   
-`split` always returns an array. If it can not detect the country it returns `[nil, nil]`.
+`split` always returns an array. If it can not detect the country or the given country is located outside of europe it returns `[nil, nil]`.
 
 To normalize a vat number:
 
