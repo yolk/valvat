@@ -1,8 +1,12 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.2.2...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.2.3...master)
 
-# Valvat::Utils.normalize removes spaces and special chars anywhere
+### 0.2.3 / 2011-01-10
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.2.2...v0.2.3)
+
+* Valvat::Utils.normalize now removes spaces and special chars anywhere
 
 ### 0.2.2 / 2011-01-10
 
