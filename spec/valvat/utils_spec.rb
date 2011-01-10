@@ -37,9 +37,18 @@ describe Valvat::Utils do
       Valvat::Utils.normalize("DE345889003 ").should eql("DE345889003")
     end
     
-    it "dors not change already normalized vat numbers" do
+    it "does not change already normalized vat numbers" do
       Valvat::Utils.normalize("DE345889003").should eql("DE345889003")
       Valvat::Utils.normalize("ESX4588900X").should eql("ESX4588900X")
+    end
+    
+    it "removes spaces" do
+      Valvat::Utils.normalize("DE 345889003").should eql("DE345889003")
+      Valvat::Utils.normalize("ESX  458 8900 X").should eql("ESX4588900X")
+    end
+    
+    it "removes special chars" do
+      Valvat::Utils.normalize("DE.345-889_00:3,;").should eql("DE345889003")
     end
   end
   

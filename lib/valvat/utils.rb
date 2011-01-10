@@ -3,6 +3,7 @@ class Valvat
     
     EU_COUNTRIES = %w(AT BE BG CY CZ DE DK EE ES FI FR GB GR HU IE IT LT LU LV MT NL PL PT RO SE SI SK)
     COUNTRY_PATTERN = /\A([A-Z]{2})(.+)\Z/
+    NORMALIZE_PATTERN = /[-\.:_\s,;]+/
     
     def self.split(vat)
       COUNTRY_PATTERN =~ vat 
@@ -12,7 +13,7 @@ class Valvat
     end
     
     def self.normalize(vat)
-      vat.upcase.gsub(/\A\s+|\s+\Z/, "")
+      vat.upcase.gsub(NORMALIZE_PATTERN, "")
     end
     
     def self.vat_country_to_iso_country(vat_country)
