@@ -2,6 +2,8 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.2.1...master)
 
+* Using vies directly via soap/savon again; isvat.appspot.com is not _really_ reliable.
+
 ### 0.2.1 / 2011-01-07
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.2.0...v0.2.1)
