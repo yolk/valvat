@@ -13,6 +13,7 @@ class Valvat
   def exists?
     Valvat::Lookup.validate(self)
   end
+  alias_method :exist?, :exists?
   
   def iso_country_code
     Valvat::Utils.vat_country_to_iso_country(vat_country_code)

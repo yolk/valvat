@@ -3,6 +3,7 @@
 [full changelog](http://github.com/yolk/valvat/compare/v0.2.1...master)
 
 * Using vies directly via soap/savon again; isvat.appspot.com is not _really_ reliable.
+* Added support for Valvat#exist? as an alias of Valvat#exists?
 
 ### 0.2.1 / 2011-01-07
 

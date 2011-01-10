@@ -39,15 +39,17 @@ describe Valvat do
       end
     end
     
-    context "#exist?" do
+    context "#exist(s)?" do
       context "on existing vat numbers" do
         before do
           Valvat::Lookup.stub(:validate => true)
         end
         
         it "returns true" do
-          de_vat.should be_exist
-          gr_vat.should be_exist
+          de_vat.exists?.should eql(true)
+          gr_vat.exists?.should eql(true)
+          de_vat.exist?.should eql(true)
+          gr_vat.exist?.should eql(true)
         end
       end
       
@@ -57,7 +59,8 @@ describe Valvat do
         end
         
         it "returns false" do
-          at_vat.should_not be_exist
+          at_vat.exists?.should eql(false)
+          at_vat.exist?.should eql(false)
         end
       end
     end
