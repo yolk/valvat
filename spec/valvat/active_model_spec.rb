@@ -160,26 +160,31 @@ describe InvoiceAllowBlankOnAll do
 end
 
 describe InvoiceCheckCountry do
-  context "with blank vat number" do
-    it "should be not valid on blank country" do
-      InvoiceCheckCountry.new(:country => nil, :vat_number => "DE259597697").should_not be_valid
-      InvoiceCheckCountry.new(:country => "", :vat_number => "DE259597697").should_not be_valid
-    end
-    
-    it "should be not valid on wired country" do
-      InvoiceCheckCountry.new(:country => "XAXXX", :vat_number => "DE259597697").should_not be_valid
-      InvoiceCheckCountry.new(:country => "ZO", :vat_number => "DE259597697").should_not be_valid
-    end
-    
-    it "should be not valid on mismatching (eu) country" do
-      InvoiceCheckCountry.new(:country => "FR", :vat_number => "DE259597697").should_not be_valid
-      InvoiceCheckCountry.new(:country => "AT", :vat_number => "DE259597697").should_not be_valid
-      InvoiceCheckCountry.new(:country => "DE", :vat_number => "ATU65931334").should_not be_valid
-    end
-    
-    it "should be valid on matching country" do
-      InvoiceCheckCountry.new(:country => "DE", :vat_number => "DE259597697").should be_valid
-      InvoiceCheckCountry.new(:country => "AT", :vat_number => "ATU65931334").should be_valid
-    end
+  it "should be not valid on blank country" do
+    InvoiceCheckCountry.new(:country => nil, :vat_number => "DE259597697").should_not be_valid
+    InvoiceCheckCountry.new(:country => "", :vat_number => "DE259597697").should_not be_valid
   end
+  
+  it "should be not valid on wired country" do
+    InvoiceCheckCountry.new(:country => "XAXXX", :vat_number => "DE259597697").should_not be_valid
+    InvoiceCheckCountry.new(:country => "ZO", :vat_number => "DE259597697").should_not be_valid
+  end
+  
+  it "should be not valid on mismatching (eu) country" do
+    InvoiceCheckCountry.new(:country => "FR", :vat_number => "DE259597697").should_not be_valid
+    InvoiceCheckCountry.new(:country => "AT", :vat_number => "DE259597697").should_not be_valid
+    InvoiceCheckCountry.new(:country => "DE", :vat_number => "ATU65931334").should_not be_valid
+  end
+  
+  it "should be valid on matching country" do
+    InvoiceCheckCountry.new(:country => "DE", :vat_number => "DE259597697").should be_valid
+    InvoiceCheckCountry.new(:country => "AT", :vat_number => "ATU65931334").should be_valid
+  end
+  
+  it "should give back error message with country from :country_match" do
+    invoice = InvoiceCheckCountry.new(:country => "FR", :vat_number => "DE259597697")
+    invoice.valid?
+    invoice.errors[:vat_number].should eql(["is not a valid french vat number"])
+  end
+  
 end

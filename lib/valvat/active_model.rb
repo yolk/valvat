@@ -8,6 +8,7 @@ module ActiveModel
       
       def validate_each(record, attribute, value)
         vat = Valvat(value)
+        iso_country_code = vat.iso_country_code
         is_valid = options[:lookup] ? vat.valid? && vat.exists? : vat.valid?
         
         if is_valid.nil?
@@ -15,14 +16,16 @@ module ActiveModel
         end
         
         if is_valid && options[:match_country]
-          is_valid = (record.send(options[:match_country]) || "").upcase == vat.iso_country_code
+          iso_country_code = (record.send(options[:match_country]) || "").upcase
+          is_valid = iso_country_code == vat.iso_country_code
         end
         
         unless is_valid
+          iso_country_code = "eu" if iso_country_code.blank? 
           record.errors.add(attribute, :invalid_vat, 
             :message => options[:message], 
             :country_adjective => I18n.t(
-              :"valvat.country_adjectives.#{(Valvat::Utils.split(value)[0] || "eu").downcase}", 
+              :"valvat.country_adjectives.#{iso_country_code.downcase}", 
               :default => [:"valvat.country_adjectives.eu", "european"]
             )
           )

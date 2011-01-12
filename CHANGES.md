@@ -2,6 +2,8 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.3.0...master)
 
+* ActiveModel validation: Failed validations with _match_counrty_ now use error message with country from given attribute
+
 ### 0.3.0 / 2011-01-12
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.2.3...v0.3.0)
