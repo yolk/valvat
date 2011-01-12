@@ -2,13 +2,13 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.3.0...master)
 
-* ActiveModel validation: Failed validations with _match_counrty_ now use error message with country from given attribute
+* ActiveModel validation: Failed validations with _match_country_ now use error message with country from given attribute
 
 ### 0.3.0 / 2011-01-12
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.2.3...v0.3.0)
 
-* ActiveModel validation: added _match_counrty_ option to validate if iso country code of vat number matches another attribute.
+* ActiveModel validation: added _match_country_ option to validate if iso country code of vat number matches another attribute.
 
 ### 0.2.3 / 2011-01-10
 
