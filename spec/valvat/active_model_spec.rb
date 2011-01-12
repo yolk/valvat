@@ -20,30 +20,31 @@ class InvoiceAllowBlankOnAll < ModelBase
   validates :vat_number, :valvat => true, :allow_blank => true
 end
 
+class InvoiceCheckCountry < ModelBase  
+  validates :vat_number, :valvat => {:match_country => :country}
+  
+  def country
+    @attributes[:country]
+  end
+end
+
 describe Invoice do
   context "with valid vat number" do
-    before do
-      Valvat::Syntax.stub(:validate => true)
-    end
-    
     it "should be valid" do
-      Invoice.new(:vat_number => "DE123").should be_valid
+      Invoice.new(:vat_number => "DE259597697").should be_valid
     end
   end
   
   context "with invalid vat number" do
-    before do
-      Valvat::Syntax.stub(:validate => false)
-    end
+    let(:invoice) { Invoice.new(:vat_number => "DE259597697123") }
     
     it "should not be valid" do
-      Invoice.new(:vat_number => "DE123").should_not be_valid
+      invoice.should_not be_valid
     end
     
     it "should add default (country specific) error message" do
-      i = Invoice.new(:vat_number => "DE123")
-      i.valid?
-      i.errors[:vat_number].should eql(["is not a valid german vat number"])
+      invoice.valid?
+      invoice.errors[:vat_number].should eql(["is not a valid german vat number"])
     end
     
     context "with i18n translation in place" do
@@ -56,9 +57,8 @@ describe Invoice do
       after { I18n.reload! }
       
       it "should use translation" do
-        i = Invoice.new(:vat_number => "DE123")
-        i.valid?
-        i.errors[:vat_number].should eql(["is ugly."])
+        invoice.valid?
+        invoice.errors[:vat_number].should eql(["is ugly."])
       end
     end
     
@@ -72,15 +72,15 @@ describe Invoice do
       after { I18n.reload! }
 
       it "should replace country adjective placeholder" do
-        i = Invoice.new(:vat_number => "IE123")
-        i.valid?
-        i.errors[:vat_number].should eql(["is not a irish vat"])
+        invoice = Invoice.new(:vat_number => "IE123")
+        invoice.valid?
+        invoice.errors[:vat_number].should eql(["is not a irish vat"])
       end
 
       it "should fall back to 'european' if country is missing" do
-        i = Invoice.new(:vat_number => "XX123")
-        i.valid?
-        i.errors[:vat_number].should eql(["is not a european vat"])
+        invoice = Invoice.new(:vat_number => "XX123")
+        invoice.valid?
+        invoice.errors[:vat_number].should eql(["is not a european vat"])
       end
     end
   end
@@ -155,6 +155,31 @@ describe InvoiceAllowBlankOnAll do
     it "should be valid" do
       InvoiceAllowBlankOnAll.new(:vat_number => "").should be_valid
       InvoiceAllowBlankOnAll.new(:vat_number => nil).should be_valid
+    end
+  end
+end
+
+describe InvoiceCheckCountry do
+  context "with blank vat number" do
+    it "should be not valid on blank country" do
+      InvoiceCheckCountry.new(:country => nil, :vat_number => "DE259597697").should_not be_valid
+      InvoiceCheckCountry.new(:country => "", :vat_number => "DE259597697").should_not be_valid
+    end
+    
+    it "should be not valid on wired country" do
+      InvoiceCheckCountry.new(:country => "XAXXX", :vat_number => "DE259597697").should_not be_valid
+      InvoiceCheckCountry.new(:country => "ZO", :vat_number => "DE259597697").should_not be_valid
+    end
+    
+    it "should be not valid on mismatching (eu) country" do
+      InvoiceCheckCountry.new(:country => "FR", :vat_number => "DE259597697").should_not be_valid
+      InvoiceCheckCountry.new(:country => "AT", :vat_number => "DE259597697").should_not be_valid
+      InvoiceCheckCountry.new(:country => "DE", :vat_number => "ATU65931334").should_not be_valid
+    end
+    
+    it "should be valid on matching country" do
+      InvoiceCheckCountry.new(:country => "DE", :vat_number => "DE259597697").should be_valid
+      InvoiceCheckCountry.new(:country => "AT", :vat_number => "ATU65931334").should be_valid
     end
   end
 end

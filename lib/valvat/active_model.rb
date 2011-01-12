@@ -8,9 +8,15 @@ module ActiveModel
       
       def validate_each(record, attribute, value)
         vat = Valvat(value)
-        
         is_valid = options[:lookup] ? vat.valid? && vat.exists? : vat.valid?
-        is_valid.nil? && is_valid = (options[:lookup] != :fail_if_down)
+        
+        if is_valid.nil?
+          is_valid = options[:lookup] != :fail_if_down
+        end
+        
+        if is_valid && options[:match_country]
+          is_valid = (record.send(options[:match_country]) || "").upcase == vat.iso_country_code
+        end
         
         unless is_valid
           record.errors.add(attribute, :invalid_vat, 

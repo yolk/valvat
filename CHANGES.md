@@ -2,6 +2,8 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.2.3...master)
 
+* ActiveModel validation: added _match_counrty_ option to validate if iso country code of vat number matches another attribute.
+
 ### 0.2.3 / 2011-01-10
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.2.2...v0.2.3)
