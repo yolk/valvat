@@ -1,8 +1,8 @@
-## valvat
+# valvat
 
 Validates european vat numbers. Standalone or as a ActiveModel validator.
 
-### Features
+## Features
 
 * Simple syntax verification
 * Lookup via the VIES web service
@@ -12,11 +12,11 @@ Validates european vat numbers. Standalone or as a ActiveModel validator.
 
 valvat is tested and works with ruby 1.8.7/1.9.2 and ActiveModel 3.0.
 
-### Installation
+## Installation
 
     gem install valvat
 
-### Basic Usage
+## Basic Usage
 
 To verify the syntax of a vat number:
 
@@ -42,19 +42,25 @@ Or to lookup a vat number string directly via VIES web service:
     Valvat::Lookup.validate("DE345789003")
     => true or false or nil
 
-### ActiveModel/Rails3 Usage
+## ActiveModel/Rails3 Usage
+
+### Loading
 
 When the valvat gem is required and ActiveModel is already loaded, everything will work fine out of the box. If your load order differs just add
 
     require 'valvat/active_model'
   
 after ActiveModel has been loaded.
+
+### Simple syntax validation
   
 To validate the attribute `vat_number` add this to your model:
 
     class MyModel < ActiveRecord::Base
       validates :vat_number, :valvat => true
     end
+
+### Additional lookup validation
   
 To additionally perform a lookup via VIES:
 
@@ -63,12 +69,24 @@ To additionally perform a lookup via VIES:
 By default this will validate to true if the VIES web service is down. To fail in this case simply add the `:fail_if_down` option:
 
     validates :vat_number, :valvat => {:lookup => :fail_if_down}
-  
+
+### Additional ISO country code validation
+
+If you want the vat number’s (ISO) country to match another country attribute, use the _match_country_ option: 
+
+    validates :vat_number, :valvat => {:match_country => :country}
+
+where it is supposed that your model has a method named _country_ which returns the country ISO code you want to match.
+
+### Allow blank
+
 By default blank vat numbers validate to false. To change this add the `:allow_blank` option:
 
     validates :vat_number, :valvat => {:allow_blank => true}
-    
-To allow vat numbers from outside of europe, add something like this to your model (country_code should return a upcase iso country code):
+
+### Allow vat numbers outside of europe
+  
+To allow vat numbers from outside of europe, add something like this to your model (country_code should return a upcase ISO country code):
 
     class MyModel < ActiveRecord::Base
       validates :vat_number, :valvat => true, :if => :eu?
@@ -77,8 +95,8 @@ To allow vat numbers from outside of europe, add something like this to your mod
         Valvat::Utils::EU_COUNTRIES.include?(country_code)
       end
     end
-
-### Utilities
+    
+## Utilities
 
 To split a vat number into the country code and the remaining chars:
 
@@ -90,9 +108,9 @@ or
     Valvat.new("ATU345789003").to_a
     => ["AT", "U345789003"]
   
-Both methods always return an array. If it can not detect the country or the given country is located outside of europe it returns `[nil, nil]`. Please note that this does not strictly return the iso country code: for greek vat numbers this returns the iso language code 'EL' instead of the iso country code 'GR'.
+Both methods always return an array. If it can not detect the country or the given country is located outside of europe it returns `[nil, nil]`. Please note that this does not strictly return the ISO country code: for greek vat numbers this returns the ISO language code 'EL' instead of the ISO country code 'GR'.
 
-To extract the iso country code of a given vat number:
+To extract the ISO country code of a given vat number:
 
     Valvat.new("EL7345789003").iso_country_code
     => "GR"
@@ -109,13 +127,13 @@ To normalize a vat number:
   
 This basically just removes trailing spaces and ensures all chars are uppercase.
 
-### Links
+## Links
 
 * [VIES web service](http://ec.europa.eu/taxation_customs/vies)
 * [European vat number formats (german)](http://bzst.de/DE/Steuern_International/USt_Identifikationsnummer/Merkblaetter/Aufbau_USt_IdNr.html)
 * [European vat number formats on Wikipedia](http://en.wikipedia.org/wiki/European_Union_Value_Added_Tax)
 
-### BlaBla
+## BlaBla
 
 Copyright (c) 2011 Yolk Sebastian Munz & Julia Soergel GbR
 
