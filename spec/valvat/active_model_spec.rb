@@ -28,6 +28,14 @@ class InvoiceCheckCountry < ModelBase
   end
 end
 
+class InvoiceCheckCountryWithLookup < ModelBase  
+  validates :vat_number, :valvat => {:match_country => :country, :lookup => true}
+  
+  def country
+    @attributes[:country]
+  end
+end
+
 describe Invoice do
   context "with valid vat number" do
     it "should be valid" do
@@ -187,4 +195,28 @@ describe InvoiceCheckCountry do
     invoice.errors[:vat_number].should eql(["is not a valid french vat number"])
   end
   
+  it "should give back error message with country from :country_match even on invalid vat number" do
+    invoice = InvoiceCheckCountry.new(:country => "FR", :vat_number => "DE259597697123")
+    invoice.valid?
+    invoice.errors[:vat_number].should eql(["is not a valid french vat number"])
+  end
+end
+
+describe InvoiceCheckCountryWithLookup do
+  before do
+    Valvat::Syntax.stub(:validate => true)
+    Valvat::Lookup.stub(:validate => true)
+  end
+  
+  it "avoids lookup or syntax check on failed because of mismatching country" do
+    Valvat::Syntax.should_not_receive(:validate)
+    Valvat::Lookup.should_not_receive(:validate)
+    InvoiceCheckCountryWithLookup.new(:country => "FR", :vat_number => "DE259597697").valid?
+  end
+  
+  it "check syntax and looup on matching country" do
+    Valvat::Syntax.should_receive(:validate).and_return(true)
+    Valvat::Lookup.should_receive(:validate).and_return(true)
+    InvoiceCheckCountryWithLookup.new(:country => "DE", :vat_number => "DE259597697").valid?
+  end
 end

@@ -3,6 +3,7 @@
 [full changelog](http://github.com/yolk/valvat/compare/v0.3.0...master)
 
 * ActiveModel validation: Failed validations with _match_country_ now use error message with country from given attribute
+* ActiveModel validation: Failed validations with _match_country_ skip lookup and syntax checks
 
 ### 0.3.0 / 2011-01-12
 
