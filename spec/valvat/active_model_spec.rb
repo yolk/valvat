@@ -52,7 +52,7 @@ describe Invoice do
     
     it "should add default (country specific) error message" do
       invoice.valid?
-      invoice.errors[:vat_number].should eql(["is not a valid german vat number"])
+      invoice.errors[:vat_number].should eql(["is not a valid German vat number"])
     end
     
     context "with i18n translation in place" do
@@ -82,13 +82,13 @@ describe Invoice do
       it "should replace country adjective placeholder" do
         invoice = Invoice.new(:vat_number => "IE123")
         invoice.valid?
-        invoice.errors[:vat_number].should eql(["is not a irish vat"])
+        invoice.errors[:vat_number].should eql(["is not a Irish vat"])
       end
 
-      it "should fall back to 'european' if country is missing" do
+      it "should fall back to 'European' if country is missing" do
         invoice = Invoice.new(:vat_number => "XX123")
         invoice.valid?
-        invoice.errors[:vat_number].should eql(["is not a european vat"])
+        invoice.errors[:vat_number].should eql(["is not a European vat"])
       end
     end
   end
@@ -192,13 +192,13 @@ describe InvoiceCheckCountry do
   it "should give back error message with country from :country_match" do
     invoice = InvoiceCheckCountry.new(:country => "FR", :vat_number => "DE259597697")
     invoice.valid?
-    invoice.errors[:vat_number].should eql(["is not a valid french vat number"])
+    invoice.errors[:vat_number].should eql(["is not a valid French vat number"])
   end
   
   it "should give back error message with country from :country_match even on invalid vat number" do
     invoice = InvoiceCheckCountry.new(:country => "FR", :vat_number => "DE259597697123")
     invoice.valid?
-    invoice.errors[:vat_number].should eql(["is not a valid french vat number"])
+    invoice.errors[:vat_number].should eql(["is not a valid French vat number"])
   end
 end
 
