@@ -1,8 +1,13 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.3.1...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.3.2...master)
+
+### 0.3.2 / 2011-01-14
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.3,1...v0.3.2)
 
 * Fixed localization strings (en/de)
+* Moved locales folder to lib/valvat/locales
 
 ### 0.3.1 / 2011-01-12
 
