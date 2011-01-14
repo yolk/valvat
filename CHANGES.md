@@ -2,6 +2,8 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.3.1...master)
 
+* Fixed localization strings (en/de)
+
 ### 0.3.1 / 2011-01-12
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.3,0...v0.3.1)
