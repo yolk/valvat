@@ -19,5 +19,9 @@ class Valvat
     def self.vat_country_to_iso_country(vat_country)
       vat_country == "EL" ? "GR" : vat_country
     end
+    
+    def self.iso_country_to_vat_country(iso_country)
+      iso_country == "GR" ? "EL" : iso_country
+    end
   end
 end
