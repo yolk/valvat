@@ -1,6 +1,12 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.3.2...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.3.3...master)
+
+### 0.3.3 / 2011-06-02
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.3,2...v0.3.3)
+
+* Add Valvat::Utils.iso_country_to_vat_country (by [Deb Bassett](https://github.com/urbanwide))
 
 ### 0.3.2 / 2011-01-14
 
