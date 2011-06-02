@@ -63,4 +63,16 @@ describe Valvat::Utils do
       end
     end
   end
+  
+  context "#iso_country_to_vat_country" do
+    it "returns vat country on greek iso country code 'GR'" do
+      Valvat::Utils.iso_country_to_vat_country("GR").should eql("EL")
+    end
+
+    Valvat::Utils::EU_COUNTRIES.reject{|c| c == "GR"}.each do |c|
+      it "returns unchanged vat country code '#{c}'" do
+        Valvat::Utils.iso_country_to_vat_country(c).should eql(c)
+      end
+    end
+  end
 end
