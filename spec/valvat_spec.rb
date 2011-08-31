@@ -9,6 +9,11 @@ describe Valvat do
       lambda{ Valvat.new("a", "b") }.should raise_error(ArgumentError)
       lambda{ Valvat.new("a") }.should_not raise_error
     end
+
+    it "normalizes input string" do
+      Valvat.new("de25.9597,69 7").to_s.should eql("DE259597697")
+      Valvat.new("de25.9597,69 7").iso_country_code.should eql("DE")
+    end
   end
 
   context "Valvat()" do
