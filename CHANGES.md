@@ -1,6 +1,12 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.3.3...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.3.4...master)
+
+### 0.3.4 / 2011-08-01
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.3,3...v0.3.4)
+
+* Normalize all input on initialization (by [SpoBo](https://github.com/SpoBo))
 
 ### 0.3.3 / 2011-06-02
 
