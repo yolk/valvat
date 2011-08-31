@@ -4,7 +4,7 @@ describe Valvat::Syntax do
   context "#validate" do
     it "validates a DE vat number" do
       Valvat::Syntax.validate("DE345889003").should eql(true)
-      
+
       Valvat::Syntax.validate("DE34588900").should eql(false)
       Valvat::Syntax.validate("DE3458890090").should eql(false)
       Valvat::Syntax.validate("DE34588900C").should eql(false)
@@ -12,7 +12,7 @@ describe Valvat::Syntax do
 
     it "validates a AT vat number" do
       Valvat::Syntax.validate("ATU03458890").should eql(true)
-      
+
       Valvat::Syntax.validate("ATU034588908").should eql(false)
       Valvat::Syntax.validate("ATU0345908").should eql(false)
       Valvat::Syntax.validate("ATU0345889Y").should eql(false)
@@ -20,7 +20,7 @@ describe Valvat::Syntax do
 
     it "should validate BE vat number" do
       Valvat::Syntax.validate("BE0817331995").should eql(true)
-      
+
       Valvat::Syntax.validate("BE081733199").should eql(false)
       Valvat::Syntax.validate("BE08173319944").should eql(false)
       Valvat::Syntax.validate("BE081733199H").should eql(false)
@@ -228,14 +228,14 @@ describe Valvat::Syntax do
 
     it "validates a SK vat number" do
       Valvat::Syntax.validate("SK5683075682").should eql(true)
-      
+
       Valvat::Syntax.validate("SK56830756821").should eql(false)
       Valvat::Syntax.validate("SK568307568").should eql(false)
     end
 
     it "validates a SI vat number" do
       Valvat::Syntax.validate("SI74357893").should eql(true)
-      
+
       Valvat::Syntax.validate("SI743578931").should eql(false)
       Valvat::Syntax.validate("SI7435789").should eql(false)
     end
@@ -266,7 +266,7 @@ describe Valvat::Syntax do
       Valvat::Syntax.validate("xxxxxxxxxx").should eql(false)
       Valvat::Syntax.validate("BEFR").should eql(false)
     end
-  
+
     it "allows Valvat instance as input" do
       Valvat::Syntax.validate(Valvat.new("DE345889003")).should eql(true)
       Valvat::Syntax.validate(Valvat.new("DE34588900X")).should eql(false)

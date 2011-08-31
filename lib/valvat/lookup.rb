@@ -4,11 +4,11 @@ require 'yaml'
 
 class Valvat
   module Lookup
-    
+
     def self.validate(vat)
       vat = Valvat(vat)
       return false unless vat.european?
-      
+
       begin
         client.request("n1", "checkVat") do
           soap.body = {"n1:countryCode" => vat.vat_country_code, "n1:vatNumber" => vat.to_s_wo_country}

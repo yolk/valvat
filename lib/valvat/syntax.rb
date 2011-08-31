@@ -2,7 +2,7 @@ require 'valvat'
 
 class Valvat
   module Syntax
-    
+
     VAT_PATTERNS = {
         'AT' => /\AATU[0-9]{8}\Z/,                                          # Austria
         'BE' => /\ABE[0-9]{10}\Z/,                                          # Belgium
