@@ -1,0 +1,34 @@
+sv:
+  errors:
+    messages:
+      invalid_vat: är inte ett giltigt %{country_adjective} momsnummer
+  valvat:
+    country_adjectives:
+      eu: europeiskt
+      at: österrikiskt
+      be: belgiskt
+      bg: bulgariskt
+      cy: cypriotiskt
+      cz: tjeckiskt
+      de: tyskt
+      dk: danskt
+      ee: estniskt
+      es: spanskt
+      fi: finskt
+      fr: franskt
+      gb: brittiskt
+      gr: grekiskt
+      hu: ungerskt
+      ie: irländskt
+      it: italienskt
+      lt: litauiskt
+      lu: luxemburgskt
+      lv: lettiskt
+      mt: maltesiskt
+      nl: nederländskt
+      pl: polskt
+      pt: portugisiskt
+      ro: rumänskt
+      se: svenskt
+      si: slovenskt
+      sk: slovakiskt
