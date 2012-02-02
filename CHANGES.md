@@ -1,6 +1,13 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.3.4...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.3.5...master)
+
+### 0.3.5 / 2012-02-02
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.3,4...v0.3.5)
+
+* Swedish translation (by [henrik](https://github.com/henrik))
+* English fixes (by [henrik](https://github.com/henrik))
 
 ### 0.3.4 / 2011-08-01
 
