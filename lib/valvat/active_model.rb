@@ -39,6 +39,4 @@ module ActiveModel
   end
 end
 
-%w(en de).each do |locale|
-  I18n.load_path << "#{File.dirname(__FILE__)}/locales/#{locale}.yml"
-end
+I18n.load_path += Dir["#{File.dirname(__FILE__)}/locales/*.yml"]
