@@ -24,6 +24,7 @@ describe Valvat::Syntax do
       Valvat::Syntax.validate("BE081733199").should eql(false)
       Valvat::Syntax.validate("BE08173319944").should eql(false)
       Valvat::Syntax.validate("BE081733199H").should eql(false)
+      Valvat::Syntax.validate("BE1817331999").should eql(false)
     end
 
     it "validates a BG vat number" do
