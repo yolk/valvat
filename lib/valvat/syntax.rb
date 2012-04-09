@@ -5,7 +5,7 @@ class Valvat
 
     VAT_PATTERNS = {
         'AT' => /\AATU[0-9]{8}\Z/,                                          # Austria
-        'BE' => /\ABE[0-9]{10}\Z/,                                          # Belgium
+        'BE' => /\ABE0[0-9]{9}\Z/,                                          # Belgium
         'BG' => /\ABG[0-9]{9,10}\Z/,                                        # Bulgaria
         'CY' => /\ACY[0-9]{8}[A-Z]\Z/,                                      # Cyprus
         'CZ' => /\ACZ[0-9]{8,10}\Z/,                                        # Czech Republic
