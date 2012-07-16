@@ -41,6 +41,18 @@ Or to lookup a vat number string directly via VIES web service:
 
     Valvat::Lookup.validate("DE345789003")
     => true or false or nil
+    
+If you need all details and not only if the VAT is valid, pass true as second parameter to the lookup call.
+
+   Valvat::Lookup.validate("IE6388047V",true)
+   => {:country_code=>"IE", :vat_number=>"6388047V", :request_date=>#<Date: 2012-05-05 ((2456053j,0s,0n),+0s,2299161j)>, :valid=>true, :name=>"GOOGLE IRELAND LIMITED", :address=>"1ST & 2ND FLOOR ,GORDON HOUSE ,BARROW STREET ,DUBLIN 4", :@xmlns=>"urn:ec.europa.eu:taxud:vies:services:checkVat:types"}
+
+According to EU law, or at least as Austria sees it, it's mandatory to verify the UID number of every new customer, but also to check the UID Number periodicaly. To prove that you have checked the UID number, the VIES Web service can return a requestIdentifier.
+To receive a requestIdentifier you need to pass your own VAT number and the VAT number you want to check. 
+In this Example, Google (VAT IE6388047V) is checking the validity of eBays VAT number (LU21416127)
+
+   Valvat::Lookup.validate_with_id("LU21416127","IE6388047V")
+   => {:country_code=>"LU", :vat_number=>"21416127", :request_date=>#<Date: 2012-05-05 ((2456053j,0s,0n),+0s,2299161j)>, :valid=>true, :trader_name=>"EBAY EUROPE S.A R.L.", :trader_company_type=>"---", :trader_address=>"22, BOULEVARD ROYAL\nL-2449  LUXEMBOURG", :request_identifier=>"WAPIAAAATcdf80jt", :@xmlns=>"urn:ec.europa.eu:taxud:vies:services:checkVat:types"}
 
 ## ActiveModel/Rails3 Usage
 
