@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Valvat::Syntax do
-  context "#validate" do
+  describe "#validate" do
     it "validates a DE vat number" do
       Valvat::Syntax.validate("DE345889003").should eql(true)
 

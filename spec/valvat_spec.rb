@@ -3,7 +3,7 @@ require 'spec_helper'
 require 'spec_helper'
 
 describe Valvat do
-  context "#new" do
+  describe "#new" do
     it "demands one and only one argument" do
       lambda{ Valvat.new }.should raise_error(ArgumentError)
       lambda{ Valvat.new("a", "b") }.should raise_error(ArgumentError)
@@ -33,7 +33,7 @@ describe Valvat do
     let(:at_vat) { Valvat.new("ATU458890031") } # invalid
     let(:gr_vat) { Valvat.new("EL999943280") } # valid & exists
 
-    context "#valid?" do
+    describe "#valid?" do
       it "returns true on valid numbers" do
         de_vat.should be_valid
         gr_vat.should be_valid
@@ -44,7 +44,7 @@ describe Valvat do
       end
     end
 
-    context "#exist(s)?" do
+    describe "#exist(s)?" do
       context "on existing vat numbers" do
         before do
           Valvat::Lookup.stub(:validate => true)
@@ -77,7 +77,7 @@ describe Valvat do
       end
     end
 
-    context "#iso_country_code" do
+    describe "#iso_country_code" do
       it "returns iso country code on iso_country_code" do
         de_vat.iso_country_code.should eql("DE")
         at_vat.iso_country_code.should eql("AT")
@@ -88,7 +88,7 @@ describe Valvat do
       end
     end
 
-    context "#vat_country_code" do
+    describe "#vat_country_code" do
       it "returns iso country code on iso_country_code" do
         de_vat.vat_country_code.should eql("DE")
         at_vat.vat_country_code.should eql("AT")
@@ -99,7 +99,7 @@ describe Valvat do
       end
     end
 
-    context "#european?" do
+    describe "#european?" do
       it "returns true" do
         de_vat.should be_european
         at_vat.should be_european
@@ -107,7 +107,7 @@ describe Valvat do
       end
     end
 
-    context "#to_s" do
+    describe "#to_s" do
       it "returns full vat number" do
         de_vat.to_s.should eql("DE259597697")
         at_vat.to_s.should eql("ATU458890031")
@@ -115,7 +115,7 @@ describe Valvat do
       end
     end
 
-    context "#inspect" do
+    describe "#inspect" do
       it "returns vat number with iso country code" do
         de_vat.inspect.should eql("#<Valvat DE259597697 DE>")
         at_vat.inspect.should eql("#<Valvat ATU458890031 AT>")
@@ -123,7 +123,7 @@ describe Valvat do
       end
     end
 
-    context "#to_a" do
+    describe "#to_a" do
       it "calls Valvat::Utils.split with raw vat number and returns result" do
         de_vat # initialize
         Valvat::Utils.should_receive(:split).once.with("DE259597697").and_return(["a", "b"])
@@ -136,14 +136,14 @@ describe Valvat do
     let(:us_vat) { Valvat.new("US345889003") }
     let(:ch_vat) { Valvat.new("CH445889003") }
 
-    context "#valid?" do
+    describe "#valid?" do
       it "returns false" do
         us_vat.should_not be_valid
         ch_vat.should_not be_valid
       end
     end
 
-    context "#exist?" do
+    describe "#exist?" do
       without_any_web_requests!
 
       it "returns false" do
@@ -152,35 +152,35 @@ describe Valvat do
       end
     end
 
-    context "#iso_country_code" do
+    describe "#iso_country_code" do
       it "returns nil" do
         us_vat.iso_country_code.should eql(nil)
         ch_vat.iso_country_code.should eql(nil)
       end
     end
 
-    context "#vat_country_code" do
+    describe "#vat_country_code" do
       it "returns nil" do
         us_vat.vat_country_code.should eql(nil)
         ch_vat.vat_country_code.should eql(nil)
       end
     end
 
-    context "#european?" do
+    describe "#european?" do
       it "returns false" do
         us_vat.should_not be_european
         ch_vat.should_not be_european
       end
     end
 
-    context "#to_s" do
+    describe "#to_s" do
       it "returns full given vat number" do
         us_vat.to_s.should eql("US345889003")
         ch_vat.to_s.should eql("CH445889003")
       end
     end
 
-    context "#inspect" do
+    describe "#inspect" do
       it "returns vat number without iso country code" do
         us_vat.inspect.should eql("#<Valvat US345889003>")
         ch_vat.inspect.should eql("#<Valvat CH445889003>")
@@ -195,7 +195,7 @@ describe Valvat do
     let(:empty_vat) { Valvat.new("") }
     let(:nil_vat) { Valvat.new("") }
 
-    context "#valid?" do
+    describe "#valid?" do
       it "returns false" do
         only_iso_vat.should_not be_valid
         num_vat.should_not be_valid
@@ -204,7 +204,7 @@ describe Valvat do
       end
     end
 
-    context "#exist?" do
+    describe "#exist?" do
       without_any_web_requests!
 
       it "returns false" do
@@ -215,7 +215,7 @@ describe Valvat do
       end
     end
 
-    context "#iso_country_code" do
+    describe "#iso_country_code" do
       it "returns nil" do
         only_iso_vat.iso_country_code.should eql(nil)
         num_vat.iso_country_code.should eql(nil)
@@ -224,7 +224,7 @@ describe Valvat do
       end
     end
 
-    context "#vat_country_code" do
+    describe "#vat_country_code" do
       it "returns nil" do
         only_iso_vat.vat_country_code.should eql(nil)
         num_vat.vat_country_code.should eql(nil)
@@ -233,7 +233,7 @@ describe Valvat do
       end
     end
 
-    context "#european?" do
+    describe "#european?" do
       it "returns false" do
         only_iso_vat.should_not be_european
         num_vat.should_not be_european
@@ -242,7 +242,7 @@ describe Valvat do
       end
     end
 
-    context "#to_s" do
+    describe "#to_s" do
       it "returns full given vat number" do
         only_iso_vat.to_s.should eql("DE")
         num_vat.to_s.should eql("12445889003")
@@ -251,7 +251,7 @@ describe Valvat do
       end
     end
 
-    context "#inspect" do
+    describe "#inspect" do
       it "returns vat number without iso country code" do
         only_iso_vat.inspect.should eql("#<Valvat DE>")
         num_vat.inspect.should eql("#<Valvat 12445889003>")

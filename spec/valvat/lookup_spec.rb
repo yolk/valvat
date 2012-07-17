@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Valvat::Lookup do
-  context "#validate" do
+  describe "#validate" do
     context "existing vat number" do
 
       it "returns true" do

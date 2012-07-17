@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Valvat::Utils do
-  context "#split" do
+  describe "#split" do
     it "returns country and rest on vat number as array" do
       Valvat::Utils.split("DE345889003").should eql(["DE", "345889003"])
       Valvat::Utils.split("ESX4588900X").should eql(["ES", "X4588900X"])
@@ -25,7 +25,7 @@ describe Valvat::Utils do
     end
   end
 
-  context "#normalize" do
+  describe "#normalize" do
     it "returns vat number with upcase chars" do
       Valvat::Utils.normalize("de345889003").should eql("DE345889003")
       Valvat::Utils.normalize("EsX4588900y").should eql("ESX4588900Y")
@@ -52,7 +52,7 @@ describe Valvat::Utils do
     end
   end
 
-  context "#vat_country_to_iso_country" do
+  describe "#vat_country_to_iso_country" do
     it "returns iso country code on greek iso language 'EL'" do
       Valvat::Utils.vat_country_to_iso_country("EL").should eql("GR")
     end
@@ -64,7 +64,7 @@ describe Valvat::Utils do
     end
   end
 
-  context "#iso_country_to_vat_country" do
+  describe "#iso_country_to_vat_country" do
     it "returns vat country on greek iso country code 'GR'" do
       Valvat::Utils.iso_country_to_vat_country("GR").should eql("EL")
     end
