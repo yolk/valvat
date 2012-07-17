@@ -68,6 +68,22 @@ describe Valvat::Lookup do
         })
       end
     end
+    
+    context "error on request" do
+      before do
+        @request = mock("request")
+        Valvat::Lookup::Request.stub(:new => @request)
+        @request.stub(:perform).and_raise(ArgumentError.new)
+      end
+      
+      it "should return nil" do
+        Valvat::Lookup.validate("LU21416127").should eql(nil)
+      end
+      
+      it "should raise error with raise_error option" do
+        lambda {Valvat::Lookup.validate("LU21416127", :raise_error => true)}.should raise_error(ArgumentError)
+      end
+    end
 
     # TODO : Reactivate with coorect "down" response
     # context "country web service down" do

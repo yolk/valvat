@@ -2,6 +2,8 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.4.1...master)
 
+* Added :raise_error option to throw errors instead of returning nil
+
 ### 0.4.1 / 2012-07-17
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.4,0...v0.4.1)
