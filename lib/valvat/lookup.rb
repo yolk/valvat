@@ -18,7 +18,6 @@ class Valvat
         response[:valid] && (options[:detail] || options[:requester_vat]) ? 
           filter_detail(response) : response[:valid]
       rescue => err
-        @last_error = err
         if err.respond_to?(:to_hash) && err.to_hash[:fault] && err.to_hash[:fault][:faultstring] == "{ 'INVALID_INPUT' }"
           return false
         end
@@ -43,11 +42,7 @@ class Valvat
         end
       end
     end
-    
-    def self.last_error
-      @last_error
-    end
-    
+
     private
     
     REMOVE_KEYS = [:valid, :@xmlns] 
