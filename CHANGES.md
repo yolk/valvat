@@ -1,9 +1,13 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.3.6...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.4.0...master)
+
+### 0.4.0 / 2012-07-17
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.3,6...v0.4.0)
 
 * Added support for company details and requester identifiers in successful responses
-(by [lcx](https://github.com/lcx))
+(by [lcx](https://github.com/lcx)) 
 * Added Valvat::Lookup.last_error for debugging 
 
 ### 0.3.6 / 2012-04-10
