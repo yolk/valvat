@@ -10,8 +10,8 @@ class Valvat
     Valvat::Syntax.validate(self)
   end
 
-  def exists?
-    Valvat::Lookup.validate(self)
+  def exists?(options={})
+    Valvat::Lookup.validate(self, options)
   end
   alias_method :exist?, :exists?
 
@@ -43,5 +43,7 @@ end
 require 'valvat/utils'
 require 'valvat/syntax'
 require 'valvat/lookup'
+require 'valvat/lookup/request'
+require 'valvat/lookup/request_with_id'
 require 'valvat/version'
 require 'valvat/active_model' if defined?(ActiveModel)

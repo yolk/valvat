@@ -28,7 +28,7 @@ To check if the given vat number exists via the VIES web service:
     Valvat.new("DE345789003").exists?
     => true or false or nil
   
-Keep in mind that the VIES web service might be offline at some time for some countries. If this happens `Valvat::Lookup.validate` returns `nil`.
+*IMPORTANT* Keep in mind that the VIES web service might be offline at some time for some countries. If this happens `exists?` or `Valvat::Lookup.validate` will return `nil`.
 
 Visit [http://ec.europa.eu/taxation_customs/vies/viesspec.do](http://ec.europa.eu/taxation_customs/vies/viesspec.do) for more accurate information at what time the service for a specific country will be down.
 
@@ -41,6 +41,29 @@ Or to lookup a vat number string directly via VIES web service:
 
     Valvat::Lookup.validate("DE345789003")
     => true or false or nil
+    
+## Details & request identifier
+
+If you need all details and not only if the VAT is valid, pass {:detail => true} as second parameter to the lookup call.
+
+    Valvat.new("IE6388047V").exists?(:detail => true)
+    => {
+      :country_code=>"IE", :vat_number => "6388047V", 
+      :request_date => Date.today, :name=>"GOOGLE IRELAND LIMITED", 
+      :address=>"1ST & 2ND FLOOR ,GORDON HOUSE ,BARROW STREET ,DUBLIN 4"
+    } or false or nil
+    
+According to EU law, or at least as Austria sees it, it's mandatory to verify the UID number of every new customer, but also to check the UID Number periodicaly. To prove that you have checked the UID number, the VIES Web service can return a requestIdentifier.
+
+To receive a requestIdentifier you need to pass your own VAT number in the options hash. In this Example, Google (VAT IE6388047V) is checking the validity of eBays VAT number (LU21416127)
+
+    Valvat.new("LU21416127").exists?(:my_vat => "IE6388047V")
+    => {
+      :country_code=>"LU", :vat_number => "21416127", 
+      :request_date => Date.today, :name=>"EBAY EUROPE S.A R.L.", 
+      :address => "22, BOULEVARD ROYAL\nL-2449  LUXEMBOURG",
+      :company_type => nil, :request_identifier => "some_uniq_string"
+    } or false or nil
 
 ## ActiveModel/Rails3 Usage
 
@@ -132,6 +155,14 @@ This basically just removes trailing spaces and ensures all chars are uppercase.
 * [VIES web service](http://ec.europa.eu/taxation_customs/vies)
 * [European vat number formats (german)](http://bzst.de/DE/Steuern_International/USt_Identifikationsnummer/Merkblaetter/Aufbau_USt_IdNr.html)
 * [European vat number formats on Wikipedia](http://en.wikipedia.org/wiki/European_Union_Value_Added_Tax)
+
+## Contributions by
+
+* [lcx](https://github.com/lcx)
+* [opsidao](https://github.com/opsidao)
+* [henrik](https://github.com/henrik)
+* [SpoBo](https://github.com/SpoBo)
+* [Deb Bassett](https://github.com/urbanwide)
 
 ## BlaBla
 

@@ -5,15 +5,18 @@ require 'yaml'
 class Valvat
   module Lookup
 
-    def self.validate(vat)
+    def self.validate(vat, options={})
       vat = Valvat(vat)
       return false unless vat.european?
 
+      request = options[:requester_vat] ? 
+        Valvat::Lookup::RequestWithId.new(vat, Valvat(options[:requester_vat])) : 
+        Valvat::Lookup::Request.new(vat)
+      
       begin
-        client.request("n1", "checkVat") do
-          soap.body = {"n1:countryCode" => vat.vat_country_code, "n1:vatNumber" => vat.to_s_wo_country}
-          soap.namespaces["xmlns:n1"] = "urn:ec.europa.eu:taxud:vies:services:checkVat:types"
-        end.to_hash[:check_vat_response][:valid]
+        response = request.perform(self.client)
+        response[:valid] && (options[:detail] || options[:requester_vat]) ? 
+          filter_detail(response) : response[:valid]
       rescue => err
         if err.respond_to?(:to_hash) && err.to_hash[:fault] && err.to_hash[:fault][:faultstring] == "{ 'INVALID_INPUT' }"
           return false
@@ -34,6 +37,20 @@ class Valvat
         Savon::Client.new do
           wsdl.document = 'http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl'
         end
+      end
+    end
+    
+    private
+    
+    REMOVE_KEYS = [:valid, :@xmlns] 
+    
+    def self.filter_detail(response)
+      response.inject({}) do |hash, kv|
+        key, value = kv
+        unless REMOVE_KEYS.include?(key)
+          hash[key.to_s.sub(/^trader_/, "").to_sym] = (value == "---" ? nil : value)
+        end
+        hash
       end
     end
   end

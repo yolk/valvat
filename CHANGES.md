@@ -2,6 +2,9 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.3.6...master)
 
+* Added support for company details and requester identifiers in successful responses
+(by [lcx](https://github.com/lcx)) 
+
 ### 0.3.6 / 2012-04-10
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.3,5...v0.3.6)

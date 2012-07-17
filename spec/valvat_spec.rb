@@ -68,6 +68,13 @@ describe Valvat do
           at_vat.exist?.should eql(false)
         end
       end
+
+      context "with options" do
+        it "calls Valvat::Lookup.validate with options" do
+          Valvat::Lookup.should_receive(:validate).once.with(de_vat, :detail => true, :bla => 'blupp').and_return(true)
+          de_vat.exists?(:detail => true, :bla => 'blupp').should eql(true)
+        end
+      end
     end
 
     context "#iso_country_code" do
