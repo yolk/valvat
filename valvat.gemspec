@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
 
   * Simple syntax verification
   * Lookup via the VIES web service
-  * Works standalone without any gem dependencies
+  * Supports details & requester identification
   * (Optional) ActiveModel/Rails3 integration
   * I18n locales for country specific error messages
   END
