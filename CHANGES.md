@@ -1,6 +1,10 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.4.0...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.4.1...master)
+
+### 0.4.1 / 2012-07-17
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.4,0...v0.4.1)
 
 * Fixed issue with current savon version & required more recent savon version
 
