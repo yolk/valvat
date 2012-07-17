@@ -32,8 +32,10 @@ class Valvat
         require 'savon' unless defined?(Savon)
 
         # Quiet down Savon and HTTPI
-        Savon.logger.level = Logger::WARN
-        HTTPI.logger.level = Logger::WARN
+        Savon.configure do |config|
+          config.log = false
+        end
+        HTTPI.log = false
 
         Savon::Client.new do
           wsdl.document = 'http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl'
