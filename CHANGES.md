@@ -1,7 +1,13 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.4.1...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.4.2...master)
 
+### 0.4.2 / 2012-11-16
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.4,1...v0.4.2)
+
+* Fixed usage with savon version 1.2
+* Require version 1.2 of the savon gem from now on
 * Added :raise_error option to throw errors instead of returning nil
 
 ### 0.4.1 / 2012-07-17
