@@ -18,7 +18,7 @@ class Valvat
         response[:valid] && (options[:detail] || options[:requester_vat]) ?
           filter_detail(response) : response[:valid]
       rescue => err
-        if err.respond_to?(:to_hash) && err.to_hash[:fault] && err.to_hash[:fault][:faultstring] == "{ 'INVALID_INPUT' }"
+        if err.respond_to?(:to_hash) && err.to_hash[:fault] && e(rr.to_hash[:fault][:faultstring] || "").upcase =~ /INVALID_INPUT/
           return false
         end
         raise err if options[:raise_error]
@@ -37,9 +37,7 @@ class Valvat
         end
         HTTPI.log = false
 
-        Savon::Client.new do
-          wsdl.document = 'http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl'
-        end
+        Savon::Client.new('http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl')
       end
     end
 

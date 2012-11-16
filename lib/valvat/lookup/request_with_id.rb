@@ -10,13 +10,13 @@ class Valvat
 
       def body
         super.merge(
-          "n1:requesterCountryCode" => @requester_vat.vat_country_code, 
-          "n1:requesterVatNumber" => @requester_vat.to_s_wo_country
+          :requester_country_code => @requester_vat.vat_country_code,
+          :requester_vat_number => @requester_vat.to_s_wo_country
         )
       end
 
       def action
-        "checkVatApprox"
+        :check_vat_approx
       end
 
       def response_key
