@@ -6,20 +6,19 @@ class Valvat
       end
 
       def perform(client)
-        client.request("n1", action) do
-          soap.body = body
-          soap.namespaces["xmlns:n1"] = "urn:ec.europa.eu:taxud:vies:services:checkVat:types"    
+        client.request(action) do |r|
+          r.body = body
         end.to_hash[response_key]
       end
 
       private
 
       def body
-        {"n1:countryCode" => @vat.vat_country_code, "n1:vatNumber" => @vat.to_s_wo_country}
+        {:country_code => @vat.vat_country_code, :vat_number => @vat.to_s_wo_country}
       end
 
       def action
-        "checkVat"
+        :check_vat
       end
 
       def response_key
