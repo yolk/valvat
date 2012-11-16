@@ -9,13 +9,13 @@ class Valvat
       vat = Valvat(vat)
       return false unless vat.european?
 
-      request = options[:requester_vat] ? 
-        Valvat::Lookup::RequestWithId.new(vat, Valvat(options[:requester_vat])) : 
+      request = options[:requester_vat] ?
+        Valvat::Lookup::RequestWithId.new(vat, Valvat(options[:requester_vat])) :
         Valvat::Lookup::Request.new(vat)
-      
+
       begin
         response = request.perform(self.client)
-        response[:valid] && (options[:detail] || options[:requester_vat]) ? 
+        response[:valid] && (options[:detail] || options[:requester_vat]) ?
           filter_detail(response) : response[:valid]
       rescue => err
         if err.respond_to?(:to_hash) && err.to_hash[:fault] && err.to_hash[:fault][:faultstring] == "{ 'INVALID_INPUT' }"
@@ -44,9 +44,9 @@ class Valvat
     end
 
     private
-    
-    REMOVE_KEYS = [:valid, :@xmlns] 
-    
+
+    REMOVE_KEYS = [:valid, :@xmlns]
+
     def self.filter_detail(response)
       response.inject({}) do |hash, kv|
         key, value = kv
