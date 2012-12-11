@@ -2,7 +2,7 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.4.3...master)
 
-### 0.4.2 / 2012-11-16
+### 0.4.3 / 2012-12-11
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.4.2...v0.4.3)
 
