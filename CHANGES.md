@@ -1,10 +1,16 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.4.2...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.4.3...master)
 
 ### 0.4.2 / 2012-11-16
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.4,1...v0.4.2)
+[full changelog](http://github.com/yolk/valvat/compare/v0.4.2...v0.4.3)
+
+* Fixed error handling in Lookup (by [bmurzeau](https://github.com/bmurzeau))
+
+### 0.4.2 / 2012-11-16
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.4.1...v0.4.2)
 
 * Fixed usage with savon version 1.2
 * Require version 1.2 of the savon gem from now on
@@ -12,53 +18,53 @@
 
 ### 0.4.1 / 2012-07-17
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.4,0...v0.4.1)
+[full changelog](http://github.com/yolk/valvat/compare/v0.4.0...v0.4.1)
 
 * Fixed issue with current savon version & required more recent savon version
 
 ### 0.4.0 / 2012-07-17
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.3,6...v0.4.0)
+[full changelog](http://github.com/yolk/valvat/compare/v0.3.6...v0.4.0)
 
 * Added support for company details and requester identifiers in successful responses
-(by [lcx](https://github.com/lcx)) 
-* Added Valvat::Lookup.last_error for debugging 
+(by [lcx](https://github.com/lcx))
+* Added Valvat::Lookup.last_error for debugging
 
 ### 0.3.6 / 2012-04-10
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.3,5...v0.3.6)
+[full changelog](http://github.com/yolk/valvat/compare/v0.3.5...v0.3.6)
 
 * Fixed wrong regexp for Belgium numbers (by [opsidao](https://github.com/opsidao))
 
 ### 0.3.5 / 2012-02-02
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.3,4...v0.3.5)
+[full changelog](http://github.com/yolk/valvat/compare/v0.3.4...v0.3.5)
 
 * Swedish translation (by [henrik](https://github.com/henrik))
 * English fixes (by [henrik](https://github.com/henrik))
 
 ### 0.3.4 / 2011-08-01
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.3,3...v0.3.4)
+[full changelog](http://github.com/yolk/valvat/compare/v0.3.3...v0.3.4)
 
 * Normalize all input on initialization (by [SpoBo](https://github.com/SpoBo))
 
 ### 0.3.3 / 2011-06-02
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.3,2...v0.3.3)
+[full changelog](http://github.com/yolk/valvat/compare/v0.3.2...v0.3.3)
 
 * Add Valvat::Utils.iso_country_to_vat_country (by [Deb Bassett](https://github.com/urbanwide))
 
 ### 0.3.2 / 2011-01-14
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.3,1...v0.3.2)
+[full changelog](http://github.com/yolk/valvat/compare/v0.3.1...v0.3.2)
 
 * Fixed localization strings (en/de)
 * Moved locales folder to lib/valvat/locales
 
 ### 0.3.1 / 2011-01-12
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.3,0...v0.3.1)
+[full changelog](http://github.com/yolk/valvat/compare/v0.3.0...v0.3.1)
 
 * ActiveModel validation: Failed validations with _match_country_ now use error message with country from given attribute
 * ActiveModel validation: Failed validations with _match_country_ skip lookup and syntax checks
