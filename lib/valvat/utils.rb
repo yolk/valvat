@@ -13,7 +13,7 @@ class Valvat
     end
 
     def self.normalize(vat)
-      vat.upcase.gsub(NORMALIZE_PATTERN, "")
+      vat.to_s.upcase.gsub(NORMALIZE_PATTERN, "")
     end
 
     def self.vat_country_to_iso_country(vat_country)
