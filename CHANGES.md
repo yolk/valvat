@@ -1,6 +1,13 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.4.3...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.4.4...master)
+
+### 0.4.4 / 2013-01-07
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.4.3...v0.4.4)
+
+* Fixed dependency on savon version 1.2 (2.0 uses new api)
+* Convert to string before normalize (by [borodiychuk](https://github.com/borodiychuk))
 
 ### 0.4.3 / 2012-12-11
 

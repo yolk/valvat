@@ -166,6 +166,6 @@ This basically just removes trailing spaces and ensures all chars are uppercase.
 
 ## BlaBla
 
-Copyright (c) 2011-2012 Yolk Sebastian Munz & Julia Soergel GbR
+Copyright (c) 2011-2013 Yolk Sebastian Munz & Julia Soergel GbR
 
 Beyond that, the implementation is licensed under the MIT License.
