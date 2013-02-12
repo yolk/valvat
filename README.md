@@ -57,7 +57,7 @@ According to EU law, or at least as Austria sees it, it's mandatory to verify th
 
 To receive a requestIdentifier you need to pass your own VAT number in the options hash. In this Example, Google (VAT IE6388047V) is checking the validity of eBays VAT number (LU21416127)
 
-    Valvat.new("LU21416127").exists?(:my_vat => "IE6388047V")
+    Valvat.new("LU21416127").exists?(:requester_vat => "IE6388047V")
     => {
       :country_code=>"LU", :vat_number => "21416127",
       :request_date => Date.today, :name=>"EBAY EUROPE S.A R.L.",
