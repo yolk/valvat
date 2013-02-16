@@ -1,6 +1,12 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.4.4...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.4.5...master)
+
+### 0.4.5 / 2013-02-16
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.4.4...v0.4.5)
+
+* Added I18n locales in bulgarian (by [kirichkov](https://github.com/kirichkov))
 
 ### 0.4.4 / 2013-01-07
 

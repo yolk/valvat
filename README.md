@@ -8,7 +8,7 @@ Validates european vat numbers. Standalone or as a ActiveModel validator.
 * Lookup via the VIES web service
 * (Optional) ActiveModel/Rails3 integration
 * Works standalone without ActiveModel
-* I18n locales for country specific error messages
+* I18n locales for country specific error messages in english, german, swedish and bulgarian
 
 valvat is tested and works with ruby 1.8.7/1.9.3 and ActiveModel 3.2.9
 
@@ -159,6 +159,8 @@ This basically just removes trailing spaces and ensures all chars are uppercase.
 ## Contributions by
 
 * [lcx](https://github.com/lcx)
+* [kirichkov](https://github.com/kirichkov)
+* [borodiychuk](https://github.com/borodiychuk)
 * [opsidao](https://github.com/opsidao)
 * [henrik](https://github.com/henrik)
 * [SpoBo](https://github.com/SpoBo)
