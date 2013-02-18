@@ -19,6 +19,12 @@ class Valvat
         chk = n - prod
         chk = 0 if chk == 10
         chk == figures.last
+      },
+      "DK" => lambda{ |vat|
+        weight = [2, 7, 6, 5, 4, 3, 2, 1]
+        vat.to_s_wo_country.split("").map do |fig|
+          fig.to_i * weight.shift
+        end.inject(:+).modulo(11) == 0
       }
     }
 
