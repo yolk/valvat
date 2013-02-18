@@ -42,6 +42,7 @@ end
 
 require 'valvat/utils'
 require 'valvat/syntax'
+require 'valvat/checksum'
 require 'valvat/lookup'
 require 'valvat/lookup/request'
 require 'valvat/lookup/request_with_id'
