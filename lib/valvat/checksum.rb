@@ -3,7 +3,11 @@ require 'valvat'
 class Valvat
   module Checksum
     ALGORITHMS = {
-      "DE" => lambda{|vat|
+      "BE" => lambda{ |vat|
+        str = vat.to_s_wo_country
+        (97 - str[0..-3].to_i.modulo(97)) == str[-2..-1].to_i
+      },
+      "DE" => lambda{ |vat|
         m, n = 10, 11
         prod, sum = m, 0
         figures = vat.to_s_wo_country.split("").map(&:to_i)
