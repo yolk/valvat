@@ -25,6 +25,15 @@ class Valvat
         vat.to_s_wo_country.split("").map do |fig|
           fig.to_i * weight.shift
         end.inject(:+).modulo(11) == 0
+      },
+      "FI" => lambda{ |vat|
+        weight = [7, 9, 10, 5, 8, 4, 2]
+        r = 11 - vat.to_s_wo_country.split("")[0..-2].map do |fig|
+          fig.to_i * weight.shift
+        end.inject(:+).modulo(11)
+        return false if r == 10
+        r = 0 if r == 11
+        r == vat.to_s_wo_country[-1].to_i
       }
     }
 
