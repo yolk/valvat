@@ -114,10 +114,9 @@ class Valvat
 
     class IE < Base
       def check_digit
-        chk = figures.reverse.each_with_index.map do |fig, i|
+        figures.reverse.each_with_index.map do |fig, i|
           fig*(i+2)
         end.inject(:+).modulo(23)
-        chk
       end
 
       CHARS = "WABCDEFGHIJKLMNOPQRSTUV".split("")
@@ -158,6 +157,18 @@ class Valvat
 
       def check_digit
         figures_str.to_i.modulo(89)
+      end
+    end
+
+    class NL < Base
+      def check_digit
+        figures.reverse.each_with_index.map do |fig, i|
+          fig*(i+2)
+        end.inject(:+).modulo(11)
+      end
+
+      def str_wo_country
+        super[0..-4]
       end
     end
   end
