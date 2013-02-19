@@ -73,7 +73,7 @@ describe Valvat::Checksum do
     end
 
     context "validates IE" do
-      %w(IE8473625E IE0123459N).each do |valid_vat|
+      %w(IE8473625E IE0123459N IE9B12345N).each do |valid_vat|
         it "returns true on valid vat #{valid_vat}" do
           subject.validate(valid_vat).should eql(true)
         end

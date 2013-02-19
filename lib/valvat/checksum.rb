@@ -33,7 +33,7 @@ class Valvat
       private
 
       def given_check_digit_str
-        vat.to_s_wo_country[-self.class.check_digit_length..-1]
+        str_wo_country[-self.class.check_digit_length..-1]
       end
 
       def given_check_digit
@@ -41,11 +41,15 @@ class Valvat
       end
 
       def figures_str
-        vat.to_s_wo_country[0..-(self.class.check_digit_length+1)]
+        str_wo_country[0..-(self.class.check_digit_length+1)]
       end
 
       def figures
         figures_str.split("").map(&:to_i)
+      end
+
+      def str_wo_country
+        vat.to_s_wo_country
       end
     end
 
@@ -120,6 +124,16 @@ class Valvat
 
       def given_check_digit
         CHARS.index(given_check_digit_str)
+      end
+
+      def str_wo_country
+        str = super
+        # Convert old irish vat format to new one
+        if str =~ /\A[0-9][A-Z][0-9]{5}[A-Z]\Z/
+          "0#{str[2..6]}#{str[0]}#{str[7]}"
+        else
+          str
+        end
       end
     end
   end
