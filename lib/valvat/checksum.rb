@@ -7,7 +7,7 @@ class Valvat
     def self.validate(vat)
       vat = Valvat(vat)
       algo = ALGORITHMS[vat.iso_country_code]
-      !!(algo.nil? || algo.new(vat).validate)
+      Valvat::Syntax.validate(vat) && !!(algo.nil? || algo.new(vat).validate)
     end
 
     class Base

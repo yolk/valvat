@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Valvat::Checksum::SE do
-  %w(SE136695975523 SE556464687401 SE502052817901 SE556555952201 SE556084097601).each do |valid_vat|
+  %w(SE136695975501 SE556464687401 SE502052817901 SE556555952201 SE556084097601).each do |valid_vat|
     it "returns true on valid vat #{valid_vat}" do
       Valvat::Checksum.validate(valid_vat).should eql(true)
     end

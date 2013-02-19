@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Valvat::Checksum::BE do
-  %w(BE123456749 BE136695962 BE0817331995).each do |valid_vat|
+  %w(BE0123456749 BE0136695962 BE0817331995).each do |valid_vat|
     it "returns true on valid vat #{valid_vat}" do
       Valvat::Checksum.validate(valid_vat).should eql(true)
     end
