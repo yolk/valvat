@@ -7,7 +7,7 @@ class Valvat
   attr_reader :raw, :vat_country_code, :to_s_wo_country
 
   def valid?
-    Valvat::Syntax.validate(self)
+    Valvat::Checksum.validate(self)
   end
 
   def exists?(options={})
