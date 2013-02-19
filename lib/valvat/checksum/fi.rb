@@ -8,7 +8,6 @@ class Valvat
         chk = 11 - figures.map do |fig|
           fig * weight.shift
         end.inject(:+).modulo(11)
-        return false if chk == 10
         chk == 11 ? 0 : chk
       end
     end
