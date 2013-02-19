@@ -34,7 +34,15 @@ class Valvat
         return false if r == 10
         r = 0 if r == 11
         r == vat.to_s_wo_country[-1].to_i
-      }
+      },
+      "GR" => lambda{ |vat|
+        figures = []
+        vat.to_s_wo_country.split("")[0..-2].reverse.each_with_index do |fig, i|
+          figures << fig.to_i*(2**(i+1))
+        end
+        r = figures.inject(:+).modulo(11)
+        (r > 9 ? 0 : r) == vat.to_s_wo_country[-1].to_i
+      },
     }
 
     def self.validate(vat)
