@@ -32,8 +32,12 @@ class Valvat
 
       private
 
+      def given_check_digit_str
+        vat.to_s_wo_country[-self.class.check_digit_length..-1]
+      end
+
       def given_check_digit
-        vat.to_s_wo_country[-self.class.check_digit_length..-1].to_i
+        given_check_digit_str.to_i
       end
 
       def figures_str
@@ -72,15 +76,15 @@ class Valvat
     class DK < Base
       check_digit_length 0
 
-      def given_check_digit
-        0
-      end
-
       def check_digit
         weight = [2, 7, 6, 5, 4, 3, 2, 1]
         figures.map do |fig|
           fig * weight.shift
         end.inject(:+).modulo(11)
+      end
+
+      def given_check_digit
+        0
       end
     end
 
@@ -101,6 +105,21 @@ class Valvat
           fig*(2**(i+1))
         end.inject(:+).modulo(11)
         chk > 9 ? 0 : chk
+      end
+    end
+
+    class IE < Base
+      def check_digit
+        chk = figures.reverse.each_with_index.map do |fig, i|
+          fig*(i+2)
+        end.inject(:+).modulo(23)
+        chk
+      end
+
+      CHARS = "WABCDEFGHIJKLMNOPQRSTUV".split("")
+
+      def given_check_digit
+        CHARS.index(given_check_digit_str)
       end
     end
   end
