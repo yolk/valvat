@@ -39,5 +39,4 @@ class Valvat
       !!(pattern && pattern =~ vat.to_s)
     end
   end
-
 end
