@@ -6,6 +6,13 @@ class Valvat
       end
       
       def check_digit_natural_person
+        local_person_chk = check_digit_local_natural_person
+
+        return local_person_chk if given_check_digit == local_person_chk
+        check_digit_foreign_natural_person
+      end
+      
+      def check_digit_local_natural_person
         weight = [2, 4, 8, 5, 10, 9, 7, 3, 6]
         chk = figures.map do |fig|
           fig * weight.shift
@@ -15,6 +22,16 @@ class Valvat
         return 0
       end
       
+      def check_digit_foreign_natural_person
+        weight = [21, 19, 17, 13, 11, 9, 7, 3, 1]
+
+        chk = figures.map do |fig|
+          fig * weight.shift
+        end.inject(:+).modulo(10)
+        
+        chk
+      end
+
       def check_digit_legal_person
         prod = 0
         figures.each_with_index do |fig, index|
