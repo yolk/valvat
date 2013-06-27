@@ -108,6 +108,14 @@ describe Valvat::Syntax do
       subject.validate("HU6789459J").should eql(false)
     end
 
+    it "validates a HR vat number" do
+      subject.validate("HR12345678912").should eql(true)
+
+      subject.validate("HR6789459").should eql(false)
+      subject.validate("HR67894595L").should eql(false)
+      subject.validate("HR6789459J").should eql(false)
+    end
+
     it "validates a IE vat number" do
       subject.validate("IE1B12345J").should eql(true)
       subject.validate("IE1234567B").should eql(true)
