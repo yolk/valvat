@@ -17,6 +17,7 @@ class Valvat
         'FI' => /\AFI[0-9]{8}\Z/,                                           # Finland
         'FR' => /\AFR[A-Z0-9]{2}[0-9]{9}\Z/,                                # France
         'GB' => /\AGB([0-9]{9}|[0-9]{12}|(HA|GD)[0-9]{3})\Z/,               # United Kingdom
+        'HR' => /\AHR[0-9]{11}\Z/,                                          # Croatia
         'HU' => /\AHU[0-9]{8}\Z/,                                           # Hungary
         'IE' => /\AIE([0-9][A-Z][0-9]{5}|[0-9]{7})[A-Z]\Z/,                 # Ireland
         'IT' => /\AIT[0-9]{11}\Z/,                                          # Italy
