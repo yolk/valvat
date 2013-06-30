@@ -1,6 +1,10 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.4.5...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.4.6...master)
+
+### 0.4.6 / 2013-07-01
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.4.5...v0.4.6)
 
 * Added support for croatian vat numbers (by [mowli](https://github.com/mowli))
 
