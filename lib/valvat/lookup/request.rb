@@ -6,9 +6,7 @@ class Valvat
       end
 
       def perform(client)
-        client.request(action) do |r|
-          r.body = body
-        end.to_hash[response_key]
+        client.call(action, :message => body).to_hash[response_key]
       end
 
       private
