@@ -1,0 +1,34 @@
+ro:
+  errors:
+    messages:
+      invalid_vat: TVA invalid pentru %{country_adjective}
+  valvat:
+    country_adjectives:
+      eu: Europa
+      at: Austria
+      be: Belgia
+      bg: Bulgaria
+      cy: Cipru
+      cz: Cehia
+      de: Germania
+      dk: Danemarca
+      ee: Estonia
+      es: Spania
+      fi: Finlanda
+      fr: Franta
+      gb: Marea Britanie
+      gr: Grecia
+      hu: Ungaria
+      ie: Irlanda
+      it: Italia
+      lt: Lituania
+      lu: Luxembourg
+      lv: Latvia
+      mt: Malta
+      nl: Olanda
+      pl: Polonia
+      pt: Portugalia
+      ro: Romania
+      se: Suedia
+      si: Slovenia
+      sk: Slovacia
