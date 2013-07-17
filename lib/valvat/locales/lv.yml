@@ -1,0 +1,34 @@
+lv:
+  errors:
+    messages:
+      invalid_vat: nav derīgs %{country_adjective} PVN numurs
+  valvat:
+    country_adjectives:
+      eu: Eiropas
+      at: Austrijas
+      be: Beļģijas
+      bg: Bulgārijas
+      cy: Kipras
+      cz: Čehijas
+      de: Vācijas
+      dk: Dānijas
+      ee: Igaunijas
+      es: Spāņijas
+      fi: Somijas
+      fr: Francijas
+      gb: Lielbritānijas
+      gr: Grieķu
+      hu: Ungārijas
+      ie: Īrijas
+      it: Itālijas
+      lt: Lietuvas
+      lu: Luksemburgas
+      lv: Latvijas
+      mt: Maltas
+      nl: Holandiešu
+      pl: Polijas
+      pt: Portugāļu
+      ro: Rumānijas
+      se: Zviedrijas
+      si: Slovēnijas
+      sk: Slovāku
