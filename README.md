@@ -8,7 +8,7 @@ Validates european vat numbers. Standalone or as a ActiveModel validator.
 * Lookup via the VIES web service
 * (Optional) ActiveModel/Rails3 integration
 * Works standalone without ActiveModel
-* I18n locales for country specific error messages in english, german, swedish and bulgarian
+* I18n locales for country specific error messages in English, German, Swedish, Italian, Portuguese, Polish, Bulgarian, Romanian and Latvian.
 * *Experimental* checksum verification
 
 valvat is tested and works with ruby 1.8.7/1.9.3/2.0 and ActiveModel 3.2/4.0
