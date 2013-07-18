@@ -110,6 +110,13 @@ By default this will validate to true if the VIES web service is down. To fail i
 
     validates :vat_number, :valvat => {:lookup => :fail_if_down}
 
+
+### Additional (and experimental) checksum validation
+
+To additionally perform a checksum validation:
+
+    validates :vat_number, :valvat => {:checksum => true}
+
 ### Additional ISO country code validation
 
 If you want the vat number’s (ISO) country to match another country attribute, use the _match_country_ option:
