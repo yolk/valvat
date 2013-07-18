@@ -30,6 +30,7 @@ describe Valvat do
 
   context "on european vat number" do
     let(:de_vat) { Valvat.new("DE259597697") } # valid & exists
+    let(:invalid_checksum) { Valvat.new("DE259597687") } # valid & invalid checksum
     let(:at_vat) { Valvat.new("ATU458890031") } # invalid
     let(:gr_vat) { Valvat.new("EL999943280") } # valid & exists
 
@@ -41,6 +42,18 @@ describe Valvat do
 
       it "returns false on invalid numbers" do
         at_vat.should_not be_valid
+      end
+    end
+
+    describe "#valid_checksum?" do
+      it "returns true on valid numbers" do
+        de_vat.should be_valid_checksum
+        gr_vat.should be_valid_checksum
+      end
+
+      it "returns false on invalid numbers" do
+        at_vat.should_not be_valid_checksum
+        invalid_checksum.should_not be_valid_checksum
       end
     end
 
