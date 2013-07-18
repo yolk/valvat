@@ -33,14 +33,14 @@ if defined?(ActiveModel)
       @attributes[key]
     end
   end
+end
 
-  def without_any_web_requests!
-    before(:all) do
-      FakeWeb.clean_registry
-      FakeWeb.allow_net_connect = false
-    end
-    after(:all) do
-      FakeWeb.allow_net_connect = true
-    end
+def without_any_web_requests!
+  before(:all) do
+    FakeWeb.clean_registry
+    FakeWeb.allow_net_connect = false
+  end
+  after(:all) do
+    FakeWeb.allow_net_connect = true
   end
 end
