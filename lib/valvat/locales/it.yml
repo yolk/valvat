@@ -1,0 +1,34 @@
+it:
+  errors:
+    messages:
+      invalid_vat: IVA non valido per %{country_adjective}
+  valvat:
+    country_adjectives:
+      eu: Europa
+      at: Austria
+      be: Belgio
+      bg: Bulgaria
+      cy: Cipro
+      cz: Repubblica Ceca
+      de: Germania
+      dk: Danimarca
+      ee: Estonia
+      es: Spagna
+      fi: Finlandia
+      fr: Francia
+      gb: Regno Unito
+      gr: Grecia
+      hu: Ungheria
+      ie: Irlanda
+      it: Italia
+      lt: Lituania
+      lu: Lussemburgo
+      lv: Lettonia
+      mt: Malta
+      nl: Paesi Bassi
+      pl: Polonia
+      pt: Portogallo
+      ro: Romania
+      se: Svezia
+      si: Slovenia
+      sk: Slovacchia
