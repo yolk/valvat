@@ -1,5 +1,9 @@
 require 'rspec'
-require 'active_model' rescue nil
+begin
+  require 'active_model'
+rescue LoadError => err
+  puts "Running specs without active_model extension"
+end
 require 'fakeweb'
 
 require File.dirname(__FILE__) + '/../lib/valvat.rb'
