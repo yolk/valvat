@@ -1,7 +1,12 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.4.7...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.5.0...master)
 
+### 0.5.0 / 2013-07-18
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.4.7...v0.5.0)
+
+* Added experimental checksum verification for 17 european countries (with help from [kirichkov](https://github.com/kirichkov))
 * Works now with current version of savon gem (2.2.0) (by [nevesenin](https://github.com/nevesenin))
 
 ### 0.4.7 / 2013-07-18
