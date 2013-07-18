@@ -9,6 +9,7 @@ Validates european vat numbers. Standalone or as a ActiveModel validator.
 * (Optional) ActiveModel/Rails3 integration
 * Works standalone without ActiveModel
 * I18n locales for country specific error messages in english, german, swedish and bulgarian
+* *Experimental* checksum verification
 
 valvat is tested and works with ruby 1.8.7/1.9.3/2.0 and ActiveModel 3.2/4.0
 
@@ -41,6 +42,22 @@ Or to lookup a vat number string directly via VIES web service:
 
     Valvat::Lookup.validate("DE345789003")
     => true or false or nil
+
+## Experimental checksum verification
+
+valvat allows to check vat numbers from AT, BE, DE, DK, ES, FI, GR, IE, IT, LU, NL, PL, PT, SE and SI against a checksum calculation. All other countries will fall back to a simple syntax check:
+
+  Valvat.new("DE345789003").valid_checksum?
+  => true or false
+
+These results are more valuabel than a simple syntax check, but keep in mind: they can not replace a lookup via VIES.
+
+*IMPORTANT* This feature was tested against all vat numbers I could get my hand on, but it is still marked as *experimental* because these calculations are not documented and may return wrong results.
+
+To bypass initializing a Valvat instance:
+
+  Valvat::Checksum.validate("DE345789003")
+  => true or false
 
 ## Details & request identifier
 
