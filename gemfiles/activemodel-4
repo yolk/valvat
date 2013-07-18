@@ -1,0 +1,4 @@
+source "http://rubygems.org"
+
+gem "savon",       "2.2.0"
+gem "activemodel", "4.0"

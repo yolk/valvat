@@ -1,5 +1,5 @@
 require 'rspec'
-require 'active_model'
+require 'active_model' rescue nil
 require 'fakeweb'
 
 require File.dirname(__FILE__) + '/../lib/valvat.rb'
@@ -14,27 +14,29 @@ RSpec.configure do |config|
   config.backtrace_exclusion_patterns = [/rspec\/(core|expectations)/]
 end
 
-class ModelBase
-  include ActiveModel::Serialization
-  include ActiveModel::Validations
+if defined?(ActiveModel)
+  class ModelBase
+    include ActiveModel::Serialization
+    include ActiveModel::Validations
 
-  attr_accessor :attributes
+    attr_accessor :attributes
 
-  def initialize(attributes = {})
-    @attributes = attributes
+    def initialize(attributes = {})
+      @attributes = attributes
+    end
+
+    def read_attribute_for_validation(key)
+      @attributes[key]
+    end
   end
 
-  def read_attribute_for_validation(key)
-    @attributes[key]
-  end
-end
-
-def without_any_web_requests!
-  before(:all) do
-    FakeWeb.clean_registry
-    FakeWeb.allow_net_connect = false
-  end
-  after(:all) do
-    FakeWeb.allow_net_connect = true
+  def without_any_web_requests!
+    before(:all) do
+      FakeWeb.clean_registry
+      FakeWeb.allow_net_connect = false
+    end
+    after(:all) do
+      FakeWeb.allow_net_connect = true
+    end
   end
 end
