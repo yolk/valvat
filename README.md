@@ -158,8 +158,8 @@ This basically just removes trailing spaces and ensures all chars are uppercase.
 
 ## Contributions by
 
-* [nevesenin](https://github.com/nevesenin
-* [shaundaley39](https://github.com/shaundaley39
+* [nevesenin](https://github.com/nevesenin)
+* [shaundaley39](https://github.com/shaundaley39)
 * [lcx](https://github.com/lcx)
 * [kirichkov](https://github.com/kirichkov)
 * [borodiychuk](https://github.com/borodiychuk)
