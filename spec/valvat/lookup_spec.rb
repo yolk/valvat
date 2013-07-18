@@ -71,7 +71,7 @@ describe Valvat::Lookup do
 
     context "error on request" do
       before do
-        @request = mock("request")
+        @request = double("request")
         Valvat::Lookup::Request.stub(:new => @request)
         @request.stub(:perform).and_raise(ArgumentError.new)
       end
