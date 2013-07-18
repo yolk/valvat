@@ -17,7 +17,10 @@ module ActiveModel
         end
 
         if is_valid
-          is_valid = options[:lookup] ? vat.valid? && vat.exists? : vat.valid?
+          is_valid = vat.valid?
+
+          is_valid = vat.valid_checksum? if is_valid && options[:checksum]
+          is_valid = vat.exists? if is_valid && options[:lookup]
 
           if is_valid.nil?
             is_valid = options[:lookup] != :fail_if_down

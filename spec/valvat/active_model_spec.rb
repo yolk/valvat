@@ -36,6 +36,10 @@ class InvoiceCheckCountryWithLookup < ModelBase
   end
 end
 
+class InvoiceWithChecksum < ModelBase
+  validates :vat_number, :valvat => {:checksum => true}
+end
+
 describe Invoice do
   context "with valid vat number" do
     it "should be valid" do
@@ -218,5 +222,19 @@ describe InvoiceCheckCountryWithLookup do
     Valvat::Syntax.should_receive(:validate).and_return(true)
     Valvat::Lookup.should_receive(:validate).and_return(true)
     InvoiceCheckCountryWithLookup.new(:country => "DE", :vat_number => "DE259597697").valid?
+  end
+end
+
+describe InvoiceWithChecksum do
+  context "with valid vat number" do
+    it "should be valid" do
+      InvoiceWithChecksum.new(:vat_number => "DE259597697").should be_valid
+    end
+  end
+
+  context "with invalid vat number" do
+    it "should not be valid" do
+      InvoiceWithChecksum.new(:vat_number => "DE259597687").should_not be_valid
+    end
   end
 end
