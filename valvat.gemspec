@@ -6,6 +6,7 @@ Gem::Specification.new do |s|
   s.name        = "valvat"
   s.version     = Valvat::VERSION
   s.platform    = Gem::Platform::RUBY
+  s.license  = 'MIT'
   s.authors     = ["Sebastian Munz"]
   s.email       = ["sebastian@yo.lk"]
   s.homepage    = "https://github.com/yolk/valvat"
