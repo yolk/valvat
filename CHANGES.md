@@ -1,6 +1,12 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.4.6...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.4.7...master)
+
+### 0.4.7 / 2013-07-18
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.4.6...v0.4.7)
+
+* Added I18n locales for Polish, Romanian, Italian, Portuguese and Latvian (by [shaundaley39](https://github.com/shaundaley39))
 
 ### 0.4.6 / 2013-07-01
 
