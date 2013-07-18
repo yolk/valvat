@@ -1,7 +1,7 @@
 valvat
 ===========
 
-[![Gem Version](https://badge.fury.io/rb/valvat.png)](http://badge.fury.io/rb/valvat)
+[![Gem Version](https://badge.fury.io/rb/valvat.png)](http://badge.fury.io/rb/valvat) [![Build Status](https://travis-ci.org/yolk/valvat.png)](https://travis-ci.org/yolk/valvat)
 
 Validates european vat numbers. Standalone or as a ActiveModel validator.
 
