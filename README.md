@@ -110,7 +110,6 @@ By default this will validate to true if the VIES web service is down. To fail i
 
     validates :vat_number, :valvat => {:lookup => :fail_if_down}
 
-
 ### Additional (and experimental) checksum validation
 
 To additionally perform a checksum validation:
