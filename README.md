@@ -1,4 +1,7 @@
-# valvat
+valvat
+===========
+
+[![Gem Version](https://badge.fury.io/rb/valvat.png)](http://badge.fury.io/rb/valvat)
 
 Validates european vat numbers. Standalone or as a ActiveModel validator.
 
