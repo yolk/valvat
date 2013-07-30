@@ -31,14 +31,9 @@ class Valvat
         # Require Savon only if really needed!
         require 'savon' unless defined?(Savon)
 
-        # Quiet down HTTPI
-        HTTPI.log = false
-
         Savon::Client.new(
           wsdl: 'http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl',
-          namespace: 'urn:ec.europa.eu:taxud:vies:services:checkVat:types',
-          namespaces: {'xmlns:impl'=>'urn:ec.europa.eu:taxud:vies:services:checkVat:types'},
-          # Quiet down Savon
+          # Quiet down Savon and HTTPI
           log: false
         )
       end
