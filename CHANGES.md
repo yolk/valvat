@@ -2,6 +2,8 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.5.0...master)
 
+* Works now with current version of savon gem (2.3.0) (by [liggitt](https://github.com/liggitt))
+
 ### 0.5.0 / 2013-07-18
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.4.7...v0.5.0)
