@@ -184,6 +184,7 @@ This basically just removes trailing spaces and ensures all chars are uppercase.
 
 ## Contributions by
 
+* [liggitt](https://github.com/liggitt)
 * [nevesenin](https://github.com/nevesenin)
 * [shaundaley39](https://github.com/shaundaley39)
 * [lcx](https://github.com/lcx)
