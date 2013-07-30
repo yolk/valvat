@@ -5,17 +5,17 @@ describe Valvat::Lookup do
     context "existing vat number" do
 
       it "returns true" do
-        Valvat::Lookup.validate("BE0817331995").should eql(true)
+        Valvat::Lookup.validate("DE259597697").should eql(true)
       end
 
       it "allows Valvat instance as input" do
-        Valvat::Lookup.validate(Valvat.new("BE0817331995")).should eql(true)
+        Valvat::Lookup.validate(Valvat.new("DE259597697")).should eql(true)
       end
     end
 
     context "not existing vat number" do
       it "returns false" do
-        Valvat::Lookup.validate("BE08173319921").should eql(false)
+        Valvat::Lookup.validate("DE259597696").should eql(false)
       end
     end
 
@@ -48,7 +48,7 @@ describe Valvat::Lookup do
       end
 
       it "still returns false on not existing vat number" do
-        Valvat::Lookup.validate("BE08173319921", :detail => true).should eql(false)
+        Valvat::Lookup.validate("DE259597696", :detail => true).should eql(false)
       end
     end
 
