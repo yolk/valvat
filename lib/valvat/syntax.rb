@@ -19,7 +19,7 @@ class Valvat
         'GB' => /\AGB([0-9]{9}|[0-9]{12}|(HA|GD)[0-9]{3})\Z/,               # United Kingdom
         'HR' => /\AHR[0-9]{11}\Z/,                                          # Croatia
         'HU' => /\AHU[0-9]{8}\Z/,                                           # Hungary
-        'IE' => /\AIE([0-9][A-Z][0-9]{5}|[0-9]{7})[A-Z]\Z/,                 # Ireland
+        'IE' => /\AIE([0-9][A-Z][0-9]{5}|[0-9]{7}[A-Z]?)[A-Z]\Z/,           # Ireland
         'IT' => /\AIT[0-9]{11}\Z/,                                          # Italy
         'LT' => /\ALT([0-9]{9}|[0-9]{12})\Z/,                               # Lithuania
         'LU' => /\ALU[0-9]{8}\Z/,                                           # Luxembourg
