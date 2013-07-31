@@ -1,7 +1,7 @@
 de:
   errors:
     messages:
-      invalid_vat: ist kein gültige %{country_adjective} UStId-Nr.
+      invalid_vat: ist keine gültige %{country_adjective} UStId-Nr.
   valvat:
     country_adjectives:
       eu: europäische
