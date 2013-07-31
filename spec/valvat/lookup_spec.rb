@@ -33,10 +33,10 @@ describe Valvat::Lookup do
         result = Valvat::Lookup.validate("IE6388047V", :detail => true)
 
          if result
+          result.delete(:request_date).should be_kind_of(Date)
           result.should eql({
             :country_code=>"IE",
             :vat_number=>"6388047V",
-            :request_date=> Date.today,
             :name=>"GOOGLE IRELAND LIMITED",
             :address=>"1ST & 2ND FLOOR ,GORDON HOUSE ,BARROW STREET ,DUBLIN 4"
           })
@@ -47,10 +47,10 @@ describe Valvat::Lookup do
         result = Valvat::Lookup.validate("LU21416127", :detail => true)
 
         if result
+          result.delete(:request_date).should be_kind_of(Date)
           result.should eql({
             :country_code=>"LU",
             :vat_number=>"21416127",
-            :request_date=> Date.today,
             :name=>"EBAY EUROPE S.A R.L.",
             :address=>"22, BOULEVARD ROYAL\nL-2449  LUXEMBOURG"
           })
