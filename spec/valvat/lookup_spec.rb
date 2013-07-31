@@ -69,10 +69,10 @@ describe Valvat::Lookup do
         response = Valvat::Lookup.validate("DE259597697", :requester_vat => "IE6388047V")
         response[:request_identifier].size.should eql(16)
         request_identifier = response[:request_identifier]
+        response.delete(:request_date).should be_kind_of(Date)
         response.should eql({
           :country_code=>"DE",
           :vat_number=>"259597697",
-          :request_date=> Date.today,
           :name => nil,
           :company_type=>nil,
           :request_identifier=> request_identifier
