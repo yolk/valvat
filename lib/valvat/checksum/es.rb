@@ -18,8 +18,8 @@ class Valvat
         chk = 10 - figures.reverse.each_with_index.map do |fig, i|
           (fig*(i.modulo(2) == 0 ? 2 : 1)).to_s.split("").inject(0) { |sum, n| sum + n.to_i }
         end.inject(:+).modulo(10)
-        legal_foreign_person? ? 
-          LEGAL_FOREIGN_PERSON_CHARS[chk] : 
+        legal_foreign_person? ?
+          LEGAL_FOREIGN_PERSON_CHARS[chk] :
           (chk == 10 ? 0 : chk)
       end
 
