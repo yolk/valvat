@@ -125,6 +125,7 @@ describe Valvat::Syntax do
       subject.validate("IE19123450").should eql(false)
       subject.validate("IEA9123450").should eql(false)
       subject.validate("IE1B12345XX").should eql(false)
+      subject.validate("IE1X34567XX").should eql(false)
     end
 
     it "validates a IT vat number" do
