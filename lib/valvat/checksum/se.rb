@@ -3,6 +3,8 @@ require 'valvat/checksum'
 class Valvat
   module Checksum
     class SE < Base
+      include AlgorythmHelper
+
       check_digit_length 0
 
       def validate
@@ -13,9 +15,7 @@ class Valvat
       private
 
       def check_digit
-        figures.reverse.each_with_index.map do |fig, i|
-          (fig*(i.modulo(2) == 0 ? 1 : 2)).to_s.split("").inject(0) { |sum, n| sum + n.to_i }
-        end.inject(:+).modulo(10)
+        sum_of_figures.modulo(10)
       end
 
       def given_check_digit

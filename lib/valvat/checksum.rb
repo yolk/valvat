@@ -53,6 +53,18 @@ class Valvat
       end
     end
   end
+
+  module AlgorythmHelper
+
+    private
+
+    def sum_of_figures(reverse_ints=false)
+      ints = reverse_ints ? [2, 1] : [1, 2]
+      figures.reverse.each_with_index.map do |fig, i|
+        (fig*(i.modulo(2) == 0 ? ints[0] : ints[1])).to_s.split("").inject(0) { |sum, n| sum + n.to_i }
+      end.inject(:+)
+    end
+  end
 end
 
 Dir[File.dirname(__FILE__) + "/checksum/*.rb"].each do |file|
