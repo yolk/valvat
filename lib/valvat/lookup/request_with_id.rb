@@ -1,5 +1,5 @@
 class Valvat
-  module Lookup
+  class Lookup
     class RequestWithId < Request
       def initialize(vat, requester_vat)
         @vat = vat

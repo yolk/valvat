@@ -3,47 +3,79 @@ require 'net/http'
 require 'yaml'
 
 class Valvat
-  module Lookup
+  class Lookup
+    VIES_WSDL_URL = 'http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl'
+    REMOVE_KEYS = [:valid, :@xmlns]
 
-    def self.validate(vat, options={})
-      vat = Valvat(vat)
-      return false unless vat.european?
+    attr_reader :vat, :options
 
-      request = options[:requester_vat] ?
-        Valvat::Lookup::RequestWithId.new(vat, Valvat(options[:requester_vat])) :
-        Valvat::Lookup::Request.new(vat)
-
-      begin
-        response = request.perform(self.client)
-        response[:valid] && (options[:detail] || options[:requester_vat]) ?
-          filter_detail(response) : response[:valid]
-      rescue => err
-        if err.respond_to?(:to_hash) && err.to_hash[:fault] && (err.to_hash[:fault][:faultstring] || "").upcase =~ /INVALID_INPUT/
-          return false
-        end
-        raise err if options[:raise_error]
-        nil
-      end
+    def initialize(vat, options={})
+      @vat = Valvat(vat)
+      @options = options || {}
+      @options[:requester_vat] = Valvat(requester_vat) if requester_vat
     end
 
-    def self.client
-      @client ||= begin
-        # Require Savon only if really needed!
-        require 'savon' unless defined?(Savon)
+    def validate
+      return false unless vat.european?
 
-        Savon::Client.new(
-          wsdl: 'http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl',
-          # Quiet down Savon and HTTPI
-          log: false
-        )
+      valid? && show_details? ? response_details : valid?
+    rescue => error
+      return false if invalid_input?(error)
+      raise error  if options[:raise_error]
+      nil
+    end
+
+    class << self
+      def validate(vat, options={})
+        new(vat, options).validate
+      end
+
+      def client
+        @client ||= begin
+          # Require Savon only if really needed!
+          require 'savon' unless defined?(Savon)
+
+          Savon::Client.new(
+            wsdl: VIES_WSDL_URL,
+            # Quiet down Savon and HTTPI
+            log: false
+          )
+        end
       end
     end
 
     private
 
-    REMOVE_KEYS = [:valid, :@xmlns]
+    def valid?
+      response[:valid]
+    end
 
-    def self.filter_detail(response)
+    def response
+      @response ||= request.perform(self.class.client)
+    end
+
+    def request
+      if requester_vat
+        RequestWithId.new(vat, requester_vat)
+      else
+        Request.new(vat)
+      end
+    end
+
+    def requester_vat
+      options[:requester_vat]
+    end
+
+    def invalid_input?(err)
+      return if !err.respond_to?(:to_hash) || !err.to_hash[:fault]
+      (err.to_hash[:fault][:faultstring] || "").upcase =~ /INVALID_INPUT/
+    end
+
+    def show_details?
+      requester_vat || options[:detail]
+    end
+
+    def response_details
       response.inject({}) do |hash, kv|
         key, value = kv
         unless REMOVE_KEYS.include?(key)
