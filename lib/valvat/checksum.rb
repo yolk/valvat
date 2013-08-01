@@ -64,6 +64,12 @@ class Valvat
         (fig*(i.modulo(2) == 0 ? ints[0] : ints[1])).to_s.split("").inject(0) { |sum, n| sum + n.to_i }
       end.inject(:+)
     end
+
+    def sum_of_figues_for_pt_si
+      11 - figures.reverse.each_with_index.map do |fig, i|
+        fig*(i+2)
+      end.inject(:+).modulo(11)
+    end
   end
 end
 
