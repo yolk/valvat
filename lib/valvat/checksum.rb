@@ -52,27 +52,35 @@ class Valvat
         vat.to_s_wo_country
       end
     end
-  end
 
-  module AlgorythmHelper
+    module AlgorythmHelper
 
-    private
+      private
 
-    def sum_of_figures(reverse_ints=false)
-      ints = reverse_ints ? [2, 1] : [1, 2]
-      figures.reverse.each_with_index.map do |fig, i|
-        (fig*(i.modulo(2) == 0 ? ints[0] : ints[1])).to_s.split("").inject(0) { |sum, n| sum + n.to_i }
-      end.inject(:+)
-    end
+      def sum_of_figures(reverse_ints=false)
+        ints = reverse_ints ? [2, 1] : [1, 2]
+        sum_figures_by do |fig, i|
+          sum_of_squares(fig*(i.modulo(2) == 0 ? ints[0] : ints[1]))
+        end
+      end
 
-    def sum_of_figues_for_pt_si
-      11 - figures.reverse.each_with_index.map do |fig, i|
-        fig*(i+2)
-      end.inject(:+).modulo(11)
+      def sum_of_figues_for_pt_si
+        11 - sum_figures_by do |fig, i|
+          fig*(i+2)
+        end.modulo(11)
+      end
+
+      def sum_figures_by
+        figures.reverse.each_with_index.map do |fig, i|
+          yield(fig, i)
+        end.inject(:+)
+      end
+
+      def sum_of_squares(num)
+        num.to_s.split("").map(&:to_i).inject(:+)
+      end
     end
   end
 end
 
-Dir[File.dirname(__FILE__) + "/checksum/*.rb"].each do |file|
-  require file
-end
+Dir.glob(File.dirname(__FILE__) + "/checksum/*.rb", &method(:require))
