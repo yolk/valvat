@@ -1,8 +1,16 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.5.0...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.6.0...master)
+
+### 0.6.0 / 2013-08-01
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.5.0...v0.6.0)
 
 * Works now with current version of savon gem (2.3.0) (by [liggitt](https://github.com/liggitt))
+* Corrected regex for IE VAT numbers (by [brianphillips](https://github.com/brianphillips))
+* Improved PT translation
+* Some code refactorings
+* Spec improvments
 
 ### 0.5.0 / 2013-07-18
 
