@@ -5,38 +5,47 @@ require 'valvat/lookup'
 module ActiveModel
   module Validations
     class ValvatValidator < EachValidator
-
       def validate_each(record, attribute, value)
         vat = Valvat(value)
         iso_country_code = vat.iso_country_code
-        is_valid = true
 
-        if options[:match_country]
-          iso_country_code = (record.send(options[:match_country]) || "").upcase
-          is_valid = iso_country_code == vat.iso_country_code
+        if country_does_not_match?(record, iso_country_code)
+          iso_country_code = iso_country_code_of(record)
+        elsif vat.valid? && valid_checksum?(vat) && vat_exists?(vat)
+          return
         end
 
-        if is_valid
-          is_valid = vat.valid?
-
-          is_valid = vat.valid_checksum? if is_valid && options[:checksum]
-          is_valid = vat.exists? if is_valid && options[:lookup]
-
-          if is_valid.nil?
-            is_valid = options[:lookup] != :fail_if_down
-          end
-        end
-
-        unless is_valid
-          iso_country_code = "eu" if iso_country_code.blank?
-          record.errors.add(attribute, :invalid_vat,
-            :message => options[:message],
-            :country_adjective => I18n.t(
-              :"valvat.country_adjectives.#{iso_country_code.downcase}",
-              :default => [:"valvat.country_adjectives.eu", "european"]
-            )
+        iso_country_code = "eu" if iso_country_code.blank?
+        record.errors.add(attribute, :invalid_vat,
+          :message => options[:message],
+          :country_adjective => I18n.t(
+            :"valvat.country_adjectives.#{iso_country_code.downcase}",
+            :default => [:"valvat.country_adjectives.eu", "european"]
           )
-        end
+        )
+      end
+
+      private
+
+      def country_does_not_match?(record, iso_country_code)
+        return false unless options[:match_country]
+        iso_country_code_of(record) != iso_country_code
+      end
+
+      def iso_country_code_of(record)
+        (record.send(options[:match_country]) || "").upcase
+      end
+
+      def valid_checksum?(vat)
+        return true unless options[:checksum]
+        vat.valid_checksum?
+      end
+
+      def vat_exists?(vat)
+        return true unless options[:lookup]
+        is_valid = vat.exists?
+        return is_valid unless is_valid.nil?
+        options[:lookup] != :fail_if_down
       end
     end
   end
