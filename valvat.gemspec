@@ -11,15 +11,7 @@ Gem::Specification.new do |s|
   s.email       = ["sebastian@yo.lk"]
   s.homepage    = "https://github.com/yolk/valvat"
   s.summary     = %q{Validates european vat numbers. Standalone or as a ActiveModel validator.}
-  s.description = <<-END
-  Validates european vat numbers. Standalone or as a ActiveModel validator.
-
-  * Simple syntax verification
-  * Lookup via the VIES web service
-  * Supports details & requester identification
-  * (Optional) ActiveModel/Rails3 integration
-  * I18n locales for country specific error messages
-  END
+  s.description = %q{Validates european vat numbers. Standalone or as a ActiveModel validator.}
 
 
 
