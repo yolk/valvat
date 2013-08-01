@@ -91,7 +91,7 @@ To receive a requestIdentifier you need to pass your own VAT number in the optio
 
 When the valvat gem is required and ActiveModel is already loaded, everything will work fine out of the box. If your load order differs just add
 
-    require 'valvat/active_model'
+    require 'active_model/validations/valvat_validator'
 
 after ActiveModel has been loaded.
 

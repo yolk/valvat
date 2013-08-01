@@ -4,7 +4,7 @@ require 'valvat/lookup'
 
 module ActiveModel
   module Validations
-    class ValvatValidator < ::ActiveModel::EachValidator
+    class ValvatValidator < EachValidator
 
       def validate_each(record, attribute, value)
         vat = Valvat(value)
@@ -42,4 +42,4 @@ module ActiveModel
   end
 end
 
-I18n.load_path += Dir["#{File.dirname(__FILE__)}/locales/*.yml"]
+I18n.load_path += Dir["#{File.dirname(__FILE__)}/../../valvat/locales/*.yml"]

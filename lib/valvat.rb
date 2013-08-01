@@ -51,4 +51,4 @@ require 'valvat/lookup'
 require 'valvat/lookup/request'
 require 'valvat/lookup/request_with_id'
 require 'valvat/version'
-require 'valvat/active_model' if defined?(ActiveModel)
+require 'active_model/validations/valvat_validator' if defined?(ActiveModel)
