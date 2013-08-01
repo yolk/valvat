@@ -3,10 +3,8 @@ require 'valvat/checksum'
 class Valvat
   module Checksum
     class AT < Base
-      include AlgorythmHelper
-
       def check_digit
-        chk = 96 - sum_of_figures
+        chk = 96 - sum_of_figures_for_at_es_it_se
         chk.to_s[-1].to_i
       end
 

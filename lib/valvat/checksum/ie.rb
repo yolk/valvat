@@ -4,9 +4,9 @@ class Valvat
   module Checksum
     class IE < Base
       def check_digit
-        figures.reverse.each_with_index.map do |fig, i|
+        sum_figures_by do |fig, i|
           fig*(i+2)
-        end.inject(:+).modulo(23)
+        end.modulo(23)
       end
 
       CHARS = "WABCDEFGHIJKLMNOPQRSTUV".split("")

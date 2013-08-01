@@ -3,8 +3,6 @@ require 'valvat/checksum'
 class Valvat
   module Checksum
     class SI < Base
-      include AlgorythmHelper
-
       def validate
         figures_str.to_i > 999999 &&
         super

@@ -3,8 +3,6 @@ require 'valvat/checksum'
 class Valvat
   module Checksum
     class SE < Base
-      include AlgorythmHelper
-
       check_digit_length 0
 
       def validate
@@ -15,7 +13,7 @@ class Valvat
       private
 
       def check_digit
-        sum_of_figures.modulo(10)
+        sum_of_figures_for_at_es_it_se.modulo(10)
       end
 
       def given_check_digit

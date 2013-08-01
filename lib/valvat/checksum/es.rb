@@ -3,8 +3,6 @@ require 'valvat/checksum'
 class Valvat
   module Checksum
     class ES < Base
-      include AlgorythmHelper
-
       NATURAL_PERSON_CHARS       = %w(T R W A G M Y F P D X B N J Z S Q V H L C K E)
       NATURAL_PERSON_EXP         = /\A([\d]{8}[ABCDEFGHJKLMNPQRSTVWXYZ]|[KLMX][\d]{7}[ABCDEFGHJKLMNPQRSTVWXYZ])\Z/
       LEGAL_FOREIGN_PERSON_CHARS = [false] + %w(A B C D E F G H I J)
@@ -19,7 +17,7 @@ class Valvat
       end
 
       def check_digit_legal_person
-        chk = 10 - sum_of_figures(true).modulo(10)
+        chk = 10 - sum_of_figures_for_at_es_it_se(true).modulo(10)
         legal_foreign_person? ?
           LEGAL_FOREIGN_PERSON_CHARS[chk] :
           (chk == 10 ? 0 : chk)
