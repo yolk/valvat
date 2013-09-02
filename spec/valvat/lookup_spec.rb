@@ -5,17 +5,17 @@ describe Valvat::Lookup do
     context "existing vat number" do
 
       it "returns true" do
-        Valvat::Lookup.validate("DE259597697").should eql(true)
+        Valvat::Lookup.validate("LU21416127").should eql(true)
       end
 
       it "allows Valvat instance as input" do
-        Valvat::Lookup.validate(Valvat.new("DE259597697")).should eql(true)
+        Valvat::Lookup.validate(Valvat.new("LU21416127")).should eql(true)
       end
     end
 
     context "not existing vat number" do
       it "returns false" do
-        Valvat::Lookup.validate("DE259597696").should eql(false)
+        Valvat::Lookup.validate("LU21416128").should eql(false)
       end
     end
 
@@ -60,21 +60,22 @@ describe Valvat::Lookup do
       end
 
       it "still returns false on not existing vat number" do
-        Valvat::Lookup.validate("DE259597696", :detail => true).should eql(false)
+        Valvat::Lookup.validate("LU21416128", :detail => true).should eql(false)
       end
     end
 
     context "with request identifier" do
       it "returns hash of details instead of true" do
-        response = Valvat::Lookup.validate("DE259597697", :requester_vat => "IE6388047V")
+        response = Valvat::Lookup.validate("LU21416127", :requester_vat => "IE6388047V")
         response[:request_identifier].size.should eql(16)
         request_identifier = response[:request_identifier]
         response.delete(:request_date).should be_kind_of(Date)
         response.should eql({
-          :country_code=>"DE",
-          :vat_number=>"259597697",
-          :name => nil,
+          :country_code=>"LU",
+          :vat_number=>"21416127",
+          :name => "EBAY EUROPE S.A R.L.",
           :company_type=>nil,
+          :address => "22, BOULEVARD ROYAL\nL-2449  LUXEMBOURG",
           :request_identifier=> request_identifier
         })
       end
