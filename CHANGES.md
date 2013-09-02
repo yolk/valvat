@@ -2,6 +2,8 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.6.0...master)
 
+* Valvat::Lockup: require savon on load
+
 ### 0.6.0 / 2013-08-01
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.5.0...v0.6.0)

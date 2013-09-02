@@ -1,6 +1,5 @@
 require 'valvat'
-require 'net/http'
-require 'yaml'
+require 'savon'
 
 class Valvat
   class Lookup
@@ -31,16 +30,7 @@ class Valvat
       end
 
       def client
-        @client ||= begin
-          # Require Savon only if really needed!
-          require 'savon' unless defined?(Savon)
-
-          Savon::Client.new(
-            wsdl: VIES_WSDL_URL,
-            # Quiet down Savon and HTTPI
-            log: false
-          )
-        end
+        @client ||= Savon::Client.new(wsdl: VIES_WSDL_URL, log: false)
       end
     end
 
