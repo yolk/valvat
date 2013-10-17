@@ -28,6 +28,22 @@ describe Valvat do
     end
   end
 
+
+  describe "#blank?" do
+    
+    it "returns true when when initialized with nil" do
+      Valvat.new(nil).should be_blank
+    end
+
+    it "returns true when when initialized with an empty string" do
+      Valvat.new(" ").should be_blank
+    end
+
+    it "returns false when initialized with a value" do
+      Valvat.new("DE259597697").should_not be_blank
+    end
+  end
+
   context "on european vat number" do
     let(:de_vat) { Valvat.new("DE259597697") } # valid & exists
     let(:invalid_checksum) { Valvat.new("DE259597687") } # valid & invalid checksum
