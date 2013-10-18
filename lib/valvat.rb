@@ -6,6 +6,10 @@ class Valvat
 
   attr_reader :raw, :vat_country_code, :to_s_wo_country
 
+  def blank?
+    raw.nil? || raw.strip == ""
+  end
+
   def valid?
     Valvat::Syntax.validate(self)
   end
