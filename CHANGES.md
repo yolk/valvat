@@ -1,6 +1,12 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.6.1...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.6.2...master)
+
+### 0.6.2 / 2013-11-10
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.6.1...v0.6.2)
+
+* Added blank? method to Valvat object
 
 ### 0.6.1 / 2013-09-02
 
