@@ -23,9 +23,6 @@ Gem::Specification.new do |s|
   s.add_dependency             'savon',       '>=2.3.0'
 
   s.add_development_dependency 'rspec',       '>= 2.4.0'
-  s.add_development_dependency 'guard-rspec', '>=0.1.9'
-  s.add_development_dependency 'growl',       '>=1.0.3'
-  s.add_development_dependency 'rb-fsevent',  '>=0.9.1'
   s.add_development_dependency 'activemodel', '>=3.0'
   s.add_development_dependency 'fakeweb',     '>= 1.3.0'
 end
