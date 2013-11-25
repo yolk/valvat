@@ -176,6 +176,10 @@ To normalize a vat number:
 
 This basically just removes trailing spaces and ensures all chars are uppercase.
 
+## Usage with IPv6
+
+There seems to be a problem when using the VIES service over IPv6. Sadly this is nothing this gem can address. For details and proposed solutions have a look at [this question on StackOverflow](http://stackoverflow.com/questions/15616833/vies-vat-api-soap-error-ipv6). Thanks to George Palmer for bringing up this issue.
+
 ## Links
 
 * [VIES web service](http://ec.europa.eu/taxation_customs/vies)
