@@ -1,6 +1,12 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.6.2...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.6.3...master)
+
+### 0.6.3 / 2014-04-05
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.6.2...v0.6.3)
+
+* Fixed portuguese translations (by [Davidslv](https://github.com/Davidslv))
 
 ### 0.6.2 / 2013-11-10
 

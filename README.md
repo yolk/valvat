@@ -188,6 +188,7 @@ There seems to be a problem when using the VIES service over IPv6. Sadly this is
 
 ## Contributions by
 
+* [Davidslv](https://github.com/Davidslv)
 * [brianphillips](https://github.com/brianphillips)
 * [wasi](https://github.com/wasi)
 * [liggitt](https://github.com/liggitt)
@@ -203,6 +204,6 @@ There seems to be a problem when using the VIES service over IPv6. Sadly this is
 
 ## BlaBla
 
-Copyright (c) 2011-2013 Yolk Sebastian Munz & Julia Soergel GbR
+Copyright (c) 2011-2014 Yolk Sebastian Munz & Julia Soergel GbR
 
 Beyond that, the implementation is licensed under the MIT License.
