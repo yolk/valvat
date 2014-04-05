@@ -1,7 +1,7 @@
 pt:
   errors:
     messages:
-      invalid_vat: não é um NIF %{country_adjective} válido.
+      invalid_vat: O NIF %{country_adjective} não é válido.
   valvat:
     country_adjectives:
     eu: europeu
@@ -22,7 +22,7 @@ pt:
     ie: irlandês
     it: italiano
     lt: lituano
-    lu: luxemburguese
+    lu: luxemburguês
     lv: letão
     mt: maltês
     nl: holandês
