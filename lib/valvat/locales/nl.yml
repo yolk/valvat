@@ -1,0 +1,34 @@
+nl:
+  errors:
+    messages:
+      invalid_vat: is niet een valide %{country_adjective} btw nummer
+  valvat:
+    country_adjectives:
+      eu: Europees
+      at: Oostenrijks
+      be: Belgisch
+      bg: Bulgaars
+      cy: Cypriotisch
+      cz: Tsjechisch
+      de: Duits
+      dk: Deens
+      ee: Ests
+      es: Spaans
+      fi: Fins
+      fr: Frans
+      gb: Brits
+      gr: Grieks
+      hu: Hongaars
+      ie: Iers
+      it: Italiaans
+      lt: Litouws
+      lu: Luxemburgs
+      lv: Lets
+      mt: Maltees
+      nl: Nederlands
+      pl: Pools
+      pt: Portugees
+      ro: Roemeens
+      se: Zweeds
+      si: Sloveens
+      sk: Slowaaks
