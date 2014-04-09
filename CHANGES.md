@@ -1,6 +1,12 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.6.3...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.6.4...master)
+
+### 0.6.4 / 2014-04-09
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.6.3...v0.6.4)
+
+* Added dutch translations (by [0scarius](https://github.com/0scarius))
 
 ### 0.6.3 / 2014-04-05
 
