@@ -1,0 +1,33 @@
+fr:
+  errors:
+    messages:
+      invalid_vat: "ce n`est pas un nombre d`identification de TVA %{country_adjective} valide"
+  valvat:
+    country_adjectives:
+      eu: européen
+      at: autrichienne
+      be: belge
+      bg: bulgare
+      cy: chypriote 
+      cz: tchèque
+      de: allemande
+      dk: danoise
+      ee: estonien
+      es: espagnole
+      fi: finlandaise
+      fr: français
+      gb: britannique
+      gr: grec
+      ie: irlandais
+      it: italien
+      lt: lituanienne
+      lu: luxembourgeoise
+      lv: letton
+      mt: maltais
+      nl: français
+      pl: polonais
+      pt: portugais
+      ro: roumaine
+      se: suédois
+      si: suédois
+      sk: slovaque
