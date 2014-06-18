@@ -1,0 +1,34 @@
+es:
+  errors:
+    messages:
+      invalid_vat: el impuesto sobre el valor añadido %{country_adjective} no es válido 
+  valvat:
+    country_adjectives:
+      eu: europeo
+      at: austriaco
+      be: belga
+      bg: búlgaro
+      cy: chipriota
+      cz: checo
+      de: alemán
+      dk: danés
+      ee: estonio
+      es: español
+      fi: finlandés
+      fr: francés
+      gb: británico
+      gr: griego
+      hu: úngaro
+      ie: irlandés
+      it: italiano
+      lt: lituano
+      lu: luxemburgués
+      lv: letón
+      mt: maltés
+      nl: holandés
+      pl: polaco
+      pt: portugués
+      ro: romano
+      se: sueco
+      si: eslovenio
+      sk: eslovaco
