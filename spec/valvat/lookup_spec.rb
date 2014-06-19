@@ -8,7 +8,7 @@ describe Valvat::Lookup do
         result = Valvat::Lookup.validate("LU21416127")
 
         unless result.nil?
-          result.should eql(true)
+          expect(result).to eql(true)
         else
           puts "Skipping LU vies lookup spec"
         end
@@ -18,7 +18,7 @@ describe Valvat::Lookup do
         result = Valvat::Lookup.validate(Valvat.new("LU21416127"))
 
         unless result.nil?
-          result.should eql(true)
+          expect(result).to eql(true)
         else
           puts "Skipping LU vies lookup spec"
         end
@@ -30,7 +30,7 @@ describe Valvat::Lookup do
         result =  Valvat::Lookup.validate("LU21416128")
 
         unless result.nil?
-          result.should eql(false)
+          expect(result).to eql(false)
         else
           puts "Skipping LU vies lookup spec"
         end
@@ -41,8 +41,8 @@ describe Valvat::Lookup do
       without_any_web_requests!
 
       it "returns false" do
-        Valvat::Lookup.validate("AE259597697").should eql(false)
-        Valvat::Lookup.validate("").should eql(false)
+        expect(Valvat::Lookup.validate("AE259597697")).to eql(false)
+        expect(Valvat::Lookup.validate("")).to eql(false)
       end
     end
 
@@ -51,8 +51,8 @@ describe Valvat::Lookup do
         result = Valvat::Lookup.validate("IE6388047V", :detail => true)
 
          if result
-          result.delete(:request_date).should be_kind_of(Date)
-          result.should eql({
+          expect(result.delete(:request_date)).to be_kind_of(Date)
+          expect(result).to eql({
             :country_code=>"IE",
             :vat_number=>"6388047V",
             :name=>"GOOGLE IRELAND LIMITED",
@@ -65,8 +65,8 @@ describe Valvat::Lookup do
         result = Valvat::Lookup.validate("LU21416127", :detail => true)
 
         if result
-          result.delete(:request_date).should be_kind_of(Date)
-          result.should eql({
+          expect(result.delete(:request_date)).to be_kind_of(Date)
+          expect(result).to eql({
             :country_code=>"LU",
             :vat_number=>"21416127",
             :name=>"EBAY EUROPE S.A R.L.",
@@ -81,7 +81,7 @@ describe Valvat::Lookup do
         result =  Valvat::Lookup.validate("LU21416128", :detail => true)
 
         unless result.nil?
-          result.should eql(false)
+          expect(result).to eql(false)
         else
           puts "Skipping LU vies lookup spec"
         end
@@ -93,10 +93,10 @@ describe Valvat::Lookup do
         response = Valvat::Lookup.validate("LU21416127", :requester_vat => "IE6388047V")
 
         if response
-          response[:request_identifier].size.should eql(16)
+          expect(response[:request_identifier].size).to eql(16)
           request_identifier = response[:request_identifier]
-          response.delete(:request_date).should be_kind_of(Date)
-          response.should eql({
+          expect(response.delete(:request_date)).to be_kind_of(Date)
+          expect(response).to eql({
             :country_code=>"LU",
             :vat_number=>"21416127",
             :name => "EBAY EUROPE S.A R.L.",
@@ -113,16 +113,16 @@ describe Valvat::Lookup do
     context "error on request" do
       before do
         @request = double("request")
-        Valvat::Lookup::Request.stub(:new => @request)
-        @request.stub(:perform).and_raise(ArgumentError.new)
+        allow(Valvat::Lookup::Request).to receive_messages(:new => @request)
+        allow(@request).to receive(:perform).and_raise(ArgumentError.new)
       end
 
       it "should return nil" do
-        Valvat::Lookup.validate("LU21416127").should eql(nil)
+        expect(Valvat::Lookup.validate("LU21416127")).to eql(nil)
       end
 
       it "should raise error with raise_error option" do
-        lambda {Valvat::Lookup.validate("LU21416127", :raise_error => true)}.should raise_error(ArgumentError)
+        expect {Valvat::Lookup.validate("LU21416127", :raise_error => true)}.to raise_error(ArgumentError)
       end
     end
 
