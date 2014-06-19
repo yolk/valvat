@@ -1,6 +1,14 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.6.4...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.6.5...master)
+
+### 0.6.5 / 2014-06-19
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.6.4...v0.6.5)
+
+* Added french, spanish and danish translations (by [Roman Lehnert](https://github.com/romanlehnert))
+* Specs: Fixed issues with rspec 3
+* Specs: Switched to :expect syntax
 
 ### 0.6.4 / 2014-04-09
 
