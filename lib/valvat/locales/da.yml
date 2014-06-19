@@ -3,8 +3,8 @@ da:
     messages:
       invalid_vat: Er ikke et gyldigt %{country_adjective} moms-nummer
   valvat:
-    country_adjectives %{country_adjective}:
-      eu: Europæisk 
+    country_adjectives:
+      eu: Europæisk
       at: Østrigsk
       be: Belgisk
       bg: Bulgarsk
