@@ -1,4 +1,4 @@
-bg:
+cz:
   errors:
     messages:
       invalid_vat: "není platné %{country_adjective} DIČ"
