@@ -1,6 +1,13 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.6.5...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.6.6...master)
+
+### 0.6.6 / 2014-10-02
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.6.5...v0.6.6)
+
+* Added czech translations (by [Dawid Cichuta](https://github.com/cichaczem))
+* Fixed polish translations (by [Dawid Cichuta](https://github.com/cichaczem))
 
 ### 0.6.5 / 2014-06-19
 
