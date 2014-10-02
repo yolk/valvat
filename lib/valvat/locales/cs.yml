@@ -1,0 +1,34 @@
+cs:
+  errors:
+    messages:
+      invalid_vat: "není platné %{country_adjective} DIČ"
+  valvat:
+    country_adjectives:
+      eu: evropské
+      at: rakouské
+      be: belgické
+      bg: bulharské
+      cy: kyperské
+      cz: české
+      de: německé
+      dk: dánské
+      ee: estonské
+      es: španělské
+      fi: finské
+      fr: francouzské
+      gb: britské
+      gr: řecké
+      hu: maďarské
+      ie: irské
+      it: italské
+      lt: litevské
+      lu: lucemburské
+      lv: lotyšské
+      mt: maltské
+      nl: nizozemské
+      pl: polské
+      pt: portugalské
+      ro: rumunské
+      se: švédské
+      si: slovinské
+      sk: slovenské
