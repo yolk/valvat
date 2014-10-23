@@ -1,4 +1,3 @@
-require 'valvat'
 require 'savon'
 
 class Valvat
