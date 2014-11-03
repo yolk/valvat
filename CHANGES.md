@@ -1,6 +1,13 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.6.6...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.6.7...master)
+
+### 0.6.7 / 2014-11-03
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.6.6...v0.6.7)
+
+* Fixed SOAP issue with current wasabi 3.3 - fixed #33
+* Several minor travis/guard fixes
 
 ### 0.6.6 / 2014-10-02
 
