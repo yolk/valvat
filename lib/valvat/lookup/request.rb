@@ -6,13 +6,17 @@ class Valvat
       end
 
       def perform(client)
-        client.call(action, :message => body).to_hash[response_key]
+        client.call(action, :message => body, :message_tag => message_tag).to_hash[response_key]
       end
 
       private
 
       def body
         {:country_code => @vat.vat_country_code, :vat_number => @vat.to_s_wo_country}
+      end
+
+      def message_tag
+        :checkVat
       end
 
       def action

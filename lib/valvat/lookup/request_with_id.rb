@@ -15,6 +15,10 @@ class Valvat
         )
       end
 
+      def message_tag
+        :checkVatApprox
+      end
+
       def action
         :check_vat_approx
       end
