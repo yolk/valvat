@@ -2,6 +2,9 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.6.7...master)
 
+* Removed all circular require-statements - fixed #34 (by [Julik Tarkhanov](https://github.com/julik))
+* Fixed segfault with activemodel requiring files with .rb-suffix - fixed #34 (by [Julik Tarkhanov](https://github.com/julik))
+
 ### 0.6.7 / 2014-11-03
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.6.6...v0.6.7)
