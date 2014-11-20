@@ -17,7 +17,9 @@ RSpec.configure do |config|
   config.backtrace_exclusion_patterns = [/rspec\/(core|expectations)/]
 end
 
-I18n.enforce_available_locales = false
+if defined?(I18n)
+  I18n.enforce_available_locales = false
+end
 
 if defined?(ActiveModel)
   class ModelBase
