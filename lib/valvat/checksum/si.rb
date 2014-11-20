@@ -1,5 +1,3 @@
-require 'valvat/checksum'
-
 class Valvat
   module Checksum
     class SI < Base

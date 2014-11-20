@@ -1,5 +1,3 @@
-require 'valvat'
-
 class Valvat
   module Syntax
 
