@@ -76,6 +76,7 @@ class Valvat
   end
 end
 
-Dir.glob(File.dirname(__FILE__) + "/checksum/*.rb").each do | rb_full_path |
-  require(rb_full_path.gsub(/\.rb$/, '')) # On Ruby 2.1.0 ActiveSupport goes mad if you pass it paths with .rb at the end
+Dir[File.join(File.dirname(__FILE__), 'checksum', '*.rb')].each do |path|
+  # On Ruby 2.1.0 ActiveSupport goes mad if you pass it paths with .rb at the end
+  require path.gsub(/\.rb$/, '')
 end
