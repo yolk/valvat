@@ -6,8 +6,3 @@ gem "activemodel", "3.2.20"
 gem 'rspec', '~> 3.0'
 gem 'fakeweb', '>= 1.3.0'
 gem 'rake'
-
-platform :rbx do
-  gem 'racc'
-  gem 'rubysl'
-end
