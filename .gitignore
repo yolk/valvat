@@ -3,3 +3,5 @@ pkg/*
 .bundle
 Gemfile.lock
 tmp
+.rbenv-*
+.ruby-version
