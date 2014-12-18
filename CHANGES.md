@@ -1,6 +1,10 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.6.7...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.6.8...master)
+
+### 0.6.8 / 2014-12-18
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.6.7...v0.6.8)
 
 * Added cert to allow valvat to be installed with `gem install valvat -P MediumSecurity` (more info: http://guides.rubygems.org/security/)
 * Removed all circular require-statements - fixed #34 (by [Julik Tarkhanov](https://github.com/julik))
