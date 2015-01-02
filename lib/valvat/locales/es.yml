@@ -1,7 +1,7 @@
 es:
   errors:
     messages:
-      invalid_vat: el impuesto sobre el valor añadido %{country_adjective} no es válido 
+      invalid_vat: el número de IVA intracomunitario %{country_adjective} no es válido 
   valvat:
     country_adjectives:
       eu: europeo
@@ -18,7 +18,7 @@ es:
       fr: francés
       gb: británico
       gr: griego
-      hu: úngaro
+      hu: húngaro
       ie: irlandés
       it: italiano
       lt: lituano
@@ -28,7 +28,7 @@ es:
       nl: holandés
       pl: polaco
       pt: portugués
-      ro: romano
+      ro: rumano
       se: sueco
-      si: eslovenio
+      si: esloveno
       sk: eslovaco
