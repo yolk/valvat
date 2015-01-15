@@ -2,6 +2,8 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.6.8...master)
 
+* Fixed spanish translations (by [Carlos Hernández Medina](https://github.com/polimorfico))
+
 ### 0.6.8 / 2014-12-18
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.6.7...v0.6.8)
