@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 1.9.3'
 
   s.add_dependency             'savon',       '>= 2.3.0'
+  s.add_dependency             'httpclient',  '>= 2.6.0.1'
 
   s.add_development_dependency 'rspec',       '~> 3.0'
   s.add_development_dependency 'activemodel', '>= 3.0'
