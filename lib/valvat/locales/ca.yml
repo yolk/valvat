@@ -1,7 +1,7 @@
 ca:
   errors:
     messages:
-      invalid_vat: el número d'IVA intracomunitari %{country_adjective} no és vàlid
+      invalid_vat: no és un número d'IVA intracomunitari %{country_adjective} vàlid
   valvat:
     country_adjectives:
       eu: europeu
