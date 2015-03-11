@@ -1,7 +1,7 @@
 ca:
   errors:
     messages:
-      invalid_vat: el número d'IVA intracomunitari %{country_adjective} no és válid 
+      invalid_vat: el número d'IVA intracomunitari %{country_adjective} no és vàlid
   valvat:
     country_adjectives:
       eu: europeu
@@ -10,7 +10,7 @@ ca:
       bg: búlgar
       cy: xipriota
       cz: txec
-      de: alemà
+      de: alemany
       dk: danès
       ee: estoni
       es: espanyol
