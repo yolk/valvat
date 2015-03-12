@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Valvat::Checksum::ES do
-  %w(ESA13585625 ESB83871236 ESE54507058 ES25139013J ESQ1518001A ESQ5018001G ESX4942978W ESX7676464F ESB10317980).each do |valid_vat|
+  %w(ESA13585625 ESB83871236 ESE54507058 ES25139013J ESQ1518001A ESQ5018001G ESX4942978W ESX7676464F ESB10317980 ESY3860557K ESY2207765D).each do |valid_vat|
     it "returns true on valid vat #{valid_vat}" do
       expect(Valvat::Checksum.validate(valid_vat)).to eql(true)
     end
