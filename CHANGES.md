@@ -2,6 +2,8 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.6.8...master)
 
+* Added catalan translations (by [descala](https://github.com/descala))
+* Added support for spanish NIE Y and Z (by [descala](https://github.com/descala))
 * Fixed spanish translations (by [Carlos Hernández Medina](https://github.com/polimorfico))
 
 ### 0.6.8 / 2014-12-18
