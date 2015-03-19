@@ -209,6 +209,6 @@ There seems to be a problem when using the VIES service over IPv6. Sadly this is
 
 ## BlaBla
 
-Copyright (c) 2011-2014 Yolk Sebastian Munz & Julia Soergel GbR
+Copyright (c) 2011-2015 Yolk Sebastian Munz & Julia Soergel GbR
 
 Beyond that, the implementation is licensed under the MIT License.
