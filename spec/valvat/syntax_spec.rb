@@ -37,6 +37,21 @@ describe Valvat::Syntax do
       expect(subject.validate("BG46813478")).to eql(false)
     end
 
+    it "validates a CH vat number" do
+      expect(subject.validate("CHE108025033")).to eql(true)
+      expect(subject.validate("CHE-108025033")).to eql(true)
+      expect(subject.validate("CHE-108.025.033")).to eql(true)
+      expect(subject.validate("CHE-108.025.033 MWST")).to eql(true)
+      expect(subject.validate("CHE-108.025.033MWST")).to eql(true)
+      expect(subject.validate("CHE108.025.033MWST")).to eql(true)
+      expect(subject.validate("CHE108025033MWST")).to eql(true)
+      expect(subject.validate("CHE-108.025.033 TVA")).to eql(true)
+      expect(subject.validate("CHE-108.025.033 IVA")).to eql(true)
+
+      expect(subject.validate("CHE6813478")).to eql(false)
+      expect(subject.validate("CHE-108.025.033 MWSTE")).to eql(false)
+    end
+
     it "validates a CY vat number" do
       expect(subject.validate("CY36579347A")).to eql(true)
       expect(subject.validate("CY36579347C")).to eql(true)
