@@ -30,7 +30,7 @@ describe Valvat do
 
 
   describe "#blank?" do
-    
+
     it "returns true when when initialized with nil" do
       expect(Valvat.new(nil)).to be_blank
     end
