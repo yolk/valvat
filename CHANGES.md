@@ -2,6 +2,8 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.6.9...master)
 
+* Added finish translations (by [kaapa](https://github.com/kaapa))
+
 ### 0.6.9 / 2015-03-19
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.6.8...v0.6.9)
