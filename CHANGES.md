@@ -1,6 +1,10 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.6.9...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.6.10...master)
+
+### 0.6.10 / 2015-05-29
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.6.9...v0.6.10)
 
 * Added finish translations (by [kaapa](https://github.com/kaapa))
 
