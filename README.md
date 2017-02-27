@@ -53,7 +53,7 @@ valvat allows to check vat numbers from AT, BE, BG, DE, DK, ES, FI, GR, IE, IT, 
     Valvat.new("DE345789003").valid_checksum?
     => true or false
 
-These results are more valuabel than a simple syntax check, but keep in mind: they can not replace a lookup via VIES.
+These results are more valuable than a simple syntax check, but keep in mind: they can not replace a lookup via VIES.
 
 *IMPORTANT* This feature was tested against all vat numbers I could get my hand on, but it is still marked as *experimental* because these calculations are not documented and may return wrong results.
 
