@@ -48,7 +48,7 @@ Or to lookup a vat number string directly via VIES web service:
 
 ## Experimental checksum verification
 
-valvat allows to check vat numbers from AT, BE, BG, DE, DK, ES, FI, GR, IE, IT, LU, NL, PL, PT, SE and SI against a checksum calculation. All other countries will fall back to a simple syntax check:
+valvat allows to check vat numbers from AT, BE, BG, DE, DK, ES, FR, FI, GR, IE, IT, LU, NL, PL, PT, SE and SI against a checksum calculation. All other countries will fall back to a simple syntax check:
 
     Valvat.new("DE345789003").valid_checksum?
     => true or false
@@ -188,6 +188,7 @@ There seems to be a problem when using the VIES service over IPv6. Sadly this is
 
 ## Contributions by
 
+* [0ctobat](https://github.com/0ctobat)
 * [kaapa](https://github.com/kaapa)
 * [descala](https://github.com/descala)
 * [Carlos Hernández Medina](https://github.com/polimorfico)
