@@ -9,7 +9,7 @@ end
 describe Valvat::Checksum do
   describe "#validate" do
     it "returns true on vat number with unknown checksum algorithm" do
-      expect(Valvat::Checksum.validate("FR99123543267")).to eql(true)
+      expect(Valvat::Checksum.validate("HR12345678901")).to eql(true)
     end
 
     it "returns false on corrupt number (e.g checks syntax)" do
