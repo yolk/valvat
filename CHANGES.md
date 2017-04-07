@@ -2,6 +2,8 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.6.10...master)
 
+* Test against current ruby (2.4) and activemodel (5.0) versions
+
 ### 0.6.10 / 2015-05-29
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.6.9...v0.6.10)

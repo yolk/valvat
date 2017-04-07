@@ -9,12 +9,12 @@ Validates european vat numbers. Standalone or as a ActiveModel validator.
 
 * Simple syntax verification
 * Lookup via the VIES web service
-* (Optional) ActiveModel/Rails3 integration
+* ActiveModel/Rails integration
 * Works standalone without ActiveModel
-* I18n locales for country specific error messages in English, German, French, Spanish, Italian, Portuguese, Polish, Swedish, Dutch, Danish, Bulgarian, Romanian, Latvian, Catalan, and Finnish.
+* I18n locales for country specific error messages in English, German, French, Spanish, Italian, Portuguese, Polish, Swedish, Dutch, Danish, Czech, Bulgarian, Romanian, Latvian, Catalan, and Finnish.
 * *Experimental* checksum verification
 
-valvat is tested and works with ruby MRI 1.9.3/2.0/2.1/2.2, jruby (in 1.9 mode) and ActiveModel 3.2/4.2
+valvat is tested and works with ruby MRI 1.9.3/2.0/2.1/2.2/2.3/2.4, jruby (in 1.9 mode) and ActiveModel 3/4/5
 
 ## Installation
 
@@ -210,6 +210,6 @@ There seems to be a problem when using the VIES service over IPv6. Sadly this is
 
 ## BlaBla
 
-Copyright (c) 2011-2015 Yolk Sebastian Munz & Julia Soergel GbR
+Copyright (c) 2011-2017 Yolk Sebastian Munz & Julia Soergel GbR
 
 Beyond that, the implementation is licensed under the MIT License.
