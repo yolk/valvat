@@ -1,6 +1,10 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.6.10...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.6.11...master)
+
+### 0.6.11 / 2017-04-07
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.6.10...v0.6.11)
 
 * Removed fakeweb tests and dependency
 * Add French checksum validation (by [0ctobat](https://github.com/0ctobat))
