@@ -38,8 +38,6 @@ describe Valvat::Lookup do
     end
 
     context "invalid country code / input" do
-      without_any_web_requests!
-
       it "returns false" do
         expect(Valvat::Lookup.validate("AE259597697")).to eql(false)
         expect(Valvat::Lookup.validate("")).to eql(false)
@@ -131,7 +129,7 @@ describe Valvat::Lookup do
     #   before do
     #     json = "{\"error_message\": \"Member State service unavailable.\", \"error_code\": 1, \"error\": true}"
     #     FakeWeb.register_uri(:get, "http://isvat.appspot.com/DE/259597697/", :body => json)
-    #   end if $fakeweb
+    #   end
 
     #   it "returns nil" do
     #     Valvat::Lookup.validate("DE259597697").should eql(nil)

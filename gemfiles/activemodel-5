@@ -5,5 +5,4 @@ gem "activemodel", "~> 5.0.2"
 
 gem 'rspec', '~> 3.0'
 gem 'rack'
-gem 'fakeweb'
 gem 'rake'

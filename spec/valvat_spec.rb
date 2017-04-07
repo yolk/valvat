@@ -173,8 +173,6 @@ describe Valvat do
     end
 
     describe "#exist?" do
-      without_any_web_requests!
-
       it "returns false" do
         expect(us_vat).not_to be_exist
         expect(ch_vat).not_to be_exist
@@ -234,8 +232,6 @@ describe Valvat do
     end
 
     describe "#exist?" do
-      without_any_web_requests!
-
       it "returns false" do
         expect(only_iso_vat).not_to be_exist
         expect(num_vat).not_to be_exist

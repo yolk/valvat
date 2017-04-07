@@ -2,6 +2,7 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.6.10...master)
 
+* Removed fakeweb tests and dependency
 * Add French checksum validation (by [0ctobat](https://github.com/0ctobat))
 * Test against current ruby (2.4) and activemodel (5.0) versions
 
