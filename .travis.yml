@@ -1,11 +1,31 @@
 language: ruby
 rvm:
-  - 2.1.5
-  - 2.0.0
-  - 1.9.3
+  - 2.4.0
+  - 2.3
+  - 2.2
+  - 2.1
   - jruby-19mode
-  - 2.2.0-preview2
 gemfile:
+  - gemfiles/activemodel-5
   - gemfiles/activemodel-4
   - gemfiles/activemodel-3-2
   - gemfiles/standalone
+matrix:
+  exclude:
+  - rvm: 2.1
+    gemfile: gemfiles/activemodel-5
+  - rvm: jruby-19mode
+    gemfile: gemfiles/activemodel-5
+  include:
+  - rvm: 2.0
+    gemfile: gemfiles/before-ruby21/activemodel-4
+  - rvm: 2.0
+    gemfile: gemfiles/before-ruby21/activemodel-3-2
+  - rvm: 2.0
+    gemfile: gemfiles/before-ruby21/standalone
+  - rvm: 1.9.3
+    gemfile: gemfiles/before-ruby21/activemodel-4
+  - rvm: 1.9.3
+    gemfile: gemfiles/before-ruby21/activemodel-3-2
+  - rvm: 1.9.3
+    gemfile: gemfiles/before-ruby21/standalone

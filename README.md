@@ -9,12 +9,12 @@ Validates european vat numbers. Standalone or as a ActiveModel validator.
 
 * Simple syntax verification
 * Lookup via the VIES web service
-* (Optional) ActiveModel/Rails3 integration
+* ActiveModel/Rails integration
 * Works standalone without ActiveModel
-* I18n locales for country specific error messages in English, German, French, Spanish, Italian, Portuguese, Polish, Swedish, Dutch, Danish, Bulgarian, Romanian and Latvian.
+* I18n locales for country specific error messages in English, German, French, Spanish, Italian, Portuguese, Polish, Swedish, Dutch, Danish, Czech, Bulgarian, Romanian, Latvian, Catalan, and Finnish.
 * *Experimental* checksum verification
 
-valvat is tested and works with ruby MRI 1.9.3/2.0/2.1, jruby (in 1.9 mode) and ActiveModel 3.2/4.1
+valvat is tested and works with ruby MRI 1.9.3/2.0/2.1/2.2/2.3/2.4, jruby (in 1.9 mode) and ActiveModel 3/4/5
 
 ## Installation
 
@@ -48,12 +48,12 @@ Or to lookup a vat number string directly via VIES web service:
 
 ## Experimental checksum verification
 
-valvat allows to check vat numbers from AT, BE, BG, DE, DK, ES, FI, GR, IE, IT, LU, NL, PL, PT, SE and SI against a checksum calculation. All other countries will fall back to a simple syntax check:
+valvat allows to check vat numbers from AT, BE, BG, DE, DK, ES, FR, FI, GR, IE, IT, LU, NL, PL, PT, SE and SI against a checksum calculation. All other countries will fall back to a simple syntax check:
 
     Valvat.new("DE345789003").valid_checksum?
     => true or false
 
-These results are more valuabel than a simple syntax check, but keep in mind: they can not replace a lookup via VIES.
+These results are more valuable than a simple syntax check, but keep in mind: they can not replace a lookup via VIES.
 
 *IMPORTANT* This feature was tested against all vat numbers I could get my hand on, but it is still marked as *experimental* because these calculations are not documented and may return wrong results.
 
@@ -188,6 +188,9 @@ There seems to be a problem when using the VIES service over IPv6. Sadly this is
 
 ## Contributions by
 
+* [0ctobat](https://github.com/0ctobat)
+* [kaapa](https://github.com/kaapa)
+* [descala](https://github.com/descala)
 * [Carlos Hernández Medina](https://github.com/polimorfico)
 * [Julik Tarkhanov](https://github.com/julik)
 * [Roman Lehnert](https://github.com/romanlehnert)
@@ -208,6 +211,6 @@ There seems to be a problem when using the VIES service over IPv6. Sadly this is
 
 ## BlaBla
 
-Copyright (c) 2011-2014 Yolk Sebastian Munz & Julia Soergel GbR
+Copyright (c) 2011-2017 Yolk Sebastian Munz & Julia Soergel GbR
 
 Beyond that, the implementation is licensed under the MIT License.

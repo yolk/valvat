@@ -1,7 +1,27 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.6.8...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.6.11...master)
 
+### 0.6.11 / 2017-04-07
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.6.10...v0.6.11)
+
+* Removed fakeweb tests and dependency
+* Add French checksum validation (by [0ctobat](https://github.com/0ctobat))
+* Test against current ruby (2.4) and activemodel (5.0) versions
+
+### 0.6.10 / 2015-05-29
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.6.9...v0.6.10)
+
+* Added finish translations (by [kaapa](https://github.com/kaapa))
+
+### 0.6.9 / 2015-03-19
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.6.8...v0.6.9)
+
+* Added catalan translations (by [descala](https://github.com/descala))
+* Added support for spanish NIE Y and Z (by [descala](https://github.com/descala))
 * Fixed spanish translations (by [Carlos Hernández Medina](https://github.com/polimorfico))
 
 ### 0.6.8 / 2014-12-18

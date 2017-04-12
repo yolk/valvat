@@ -4,11 +4,8 @@ begin
 rescue LoadError => err
   puts "Running specs without active_model extension"
 end
-require 'fakeweb'
 
 require File.dirname(__FILE__) + '/../lib/valvat.rb'
-
-$fakeweb = true
 
 RSpec.configure do |config|
   config.mock_with :rspec
@@ -35,15 +32,5 @@ if defined?(ActiveModel)
     def read_attribute_for_validation(key)
       @attributes[key]
     end
-  end
-end
-
-def without_any_web_requests!
-  before(:all) do
-    FakeWeb.clean_registry
-    FakeWeb.allow_net_connect = false
-  end
-  after(:all) do
-    FakeWeb.allow_net_connect = true
   end
 end

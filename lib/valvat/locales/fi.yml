@@ -1,0 +1,34 @@
+fi:
+  errors:
+    messages:
+      invalid_vat: ei ole kelvollinen %{country_adjective} alv-numero
+  valvat:
+    country_adjectives:
+      eu: eurooppalainen
+      at: itävaltalainen
+      be: belgialainen
+      bg: bulgarialainen
+      cy: kyproslainen
+      cz: tsekkiläinen
+      de: saksalainen
+      dk: tanskalainen
+      ee: virolainen
+      es: espanjalainen
+      fi: suomalainen
+      fr: ranskalainen
+      gb: brittiläinen
+      gr: kreikkalainen
+      hu: unkarilainen
+      ie: irlantilainen
+      it: italialainen
+      lt: liettualainen
+      lu: luxemburgilainen
+      lv: latvialainen
+      mt: maltalainen
+      nl: hollantilainen
+      pl: puolalainen
+      pt: portugalilainen
+      ro: romanialainen
+      se: ruotsalainen
+      si: slovenialainen
+      sk: slovakialainen

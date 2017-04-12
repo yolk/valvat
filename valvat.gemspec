@@ -24,5 +24,4 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'rspec',       '~> 3.0'
   s.add_development_dependency 'activemodel', '>= 3.0'
-  s.add_development_dependency 'fakeweb',     '>= 1.3.0'
 end
