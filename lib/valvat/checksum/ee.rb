@@ -8,7 +8,7 @@ class Valvat
           digit * multipliers[index]
         end
 
-        sum.ceil(-1) - sum
+        ((sum / 10.0).ceil * 10).to_i - sum
       end
     end
   end
