@@ -9,7 +9,7 @@ class Valvat
         'CZ' => /\ACZ[0-9]{8,10}\Z/,                                        # Czech Republic
         'DE' => /\ADE[0-9]{9}\Z/,                                           # Germany
         'DK' => /\ADK[0-9]{8}\Z/,                                           # Denmark
-        'EE' => /\AEE[0-9]{9}\Z/,                                           # Estonia
+        'EE' => /\AEE10[0-9]{7}\Z/,                                         # Estonia
         'GR' => /\AEL[0-9]{9}\Z/,                                           # Greece
         'ES' => /\AES([A-Z][0-9]{8}|[0-9]{8}[A-Z]|[A-Z][0-9]{7}[A-Z])\Z/,   # Spain
         'FI' => /\AFI[0-9]{8}\Z/,                                           # Finland

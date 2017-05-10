@@ -66,10 +66,10 @@ describe Valvat::Syntax do
     end
 
     it "validates a EE vat number" do
-      expect(subject.validate("EE678678456")).to eql(true)
-      expect(subject.validate("EE6786784560")).to eql(false)
-      expect(subject.validate("EE67867845")).to eql(false)
-      expect(subject.validate("EE67867845K")).to eql(false)
+      expect(subject.validate("EE100207415")).to eql(true)
+      expect(subject.validate("EE1002074150")).to eql(false)
+      expect(subject.validate("EE10020741")).to eql(false)
+      expect(subject.validate("EE100207415K")).to eql(false)
     end
 
     it "validates a FI vat number" do
