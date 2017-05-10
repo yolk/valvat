@@ -145,15 +145,17 @@ describe Valvat::Syntax do
     end
 
     it "validates a LT vat number" do
-      expect(subject.validate("LT678678987")).to eql(true)
-      expect(subject.validate("LT678678987956")).to eql(true)
+      expect(subject.validate("LT213179412")).to eql(true)
+      expect(subject.validate("LT290061371314")).to eql(true)
 
-      expect(subject.validate("LT67867898")).to eql(false)
-      expect(subject.validate("LT6786789870")).to eql(false)
-      expect(subject.validate("LT678678987K")).to eql(false)
-      expect(subject.validate("LT67867898709")).to eql(false)
-      expect(subject.validate("LT6786789870C")).to eql(false)
-      expect(subject.validate("LT67867898795H")).to eql(false)
+      expect(subject.validate("LT21317942")).to eql(false)
+      expect(subject.validate("LT213179422")).to eql(false)
+      expect(subject.validate("LT2131794120")).to eql(false)
+      expect(subject.validate("LT213179412K")).to eql(false)
+      expect(subject.validate("LT29006137132")).to eql(false)
+      expect(subject.validate("LT290061371324")).to eql(false)
+      expect(subject.validate("LT29006137131C")).to eql(false)
+      expect(subject.validate("LT290061371314H")).to eql(false)
     end
 
     it "validates a LU vat number" do
