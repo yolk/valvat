@@ -188,6 +188,7 @@ There seems to be a problem when using the VIES service over IPv6. Sadly this is
 
 ## Contributions by
 
+* [ndnenkov](https://github.com/ndnenkov)
 * [0ctobat](https://github.com/0ctobat)
 * [kaapa](https://github.com/kaapa)
 * [descala](https://github.com/descala)

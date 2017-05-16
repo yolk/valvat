@@ -2,6 +2,9 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.6.11...master)
 
+* Improved regex for Cyprus, Estonia, and Lithuania (by [ndnenkov](https://github.com/ndnenkov))
+* Added checksum validations for Cyprus, Estonia, Lithuania, Romania, Malta, Hungary, and Croatia (by [ndnenkov](https://github.com/ndnenkov))
+
 ### 0.6.11 / 2017-04-07
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.6.10...v0.6.11)
