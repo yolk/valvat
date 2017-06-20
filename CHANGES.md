@@ -2,6 +2,8 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.7.0...master)
 
+* Allow to require all functionality except lookup with 'valvat/local'
+
 ### 0.7.0 / 2017-05-16
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.6.11...v0.7.0)

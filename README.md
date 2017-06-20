@@ -20,6 +20,14 @@ valvat is tested and works with ruby MRI 1.9.3/2.0/2.1/2.2/2.3/2.4, jruby (in 1.
 
     gem install valvat
 
+Add it to your Gemfile:
+
+    gem 'valvat'
+
+To save most of the used memory load only the local verification functionality – and not the remote lookup with VIES – add it like this instead:
+
+    gem 'valvat', :require => 'valvat/local'
+
 ## Basic Usage
 
 To verify the syntax of a vat number:
