@@ -18,15 +18,21 @@ valvat is tested and works with ruby MRI 1.9.3/2.0/2.1/2.2/2.3/2.4, jruby (in 1.
 
 ## Installation
 
-    gem install valvat
-
 Add it to your Gemfile:
 
     gem 'valvat'
 
-To save most of the used memory load only the local verification functionality – and not the remote lookup with VIES – add it like this instead:
+To save most of the used memory and load only the local verification functionality – and not the remote lookup with VIES – add it like this instead:
 
     gem 'valvat', :require => 'valvat/local'
+
+In any case run:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install valvat
 
 ## Basic Usage
 
