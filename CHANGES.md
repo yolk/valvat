@@ -1,6 +1,10 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.7.0...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.7.1...master)
+
+### 0.7.1 / 2017-06-21
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.7.0...v0.7.1)
 
 * Allow to require all functionality except lookup with 'valvat/local'
 
