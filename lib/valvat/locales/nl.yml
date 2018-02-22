@@ -1,7 +1,7 @@
 nl:
   errors:
     messages:
-      invalid_vat: is niet een valide %{country_adjective} btw nummer
+      invalid_vat: is geen geldig %{country_adjective} btw nummer
   valvat:
     country_adjectives:
       eu: Europees
