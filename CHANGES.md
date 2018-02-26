@@ -1,6 +1,13 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.7.1...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.7.2...master)
+
+### 0.7.2 / 2018-02-26
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.7.1...v0.7.2)
+
+* Added support for GB vats checksum validation (by [ivopashov](https://github.com/ivopashov))
+* Corrected dutch language support (by [ploomans](https://github.com/ploomans))
 
 ### 0.7.1 / 2017-06-21
 
