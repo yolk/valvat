@@ -1,7 +1,7 @@
 valvat
 ===========
 
-[![Gem Version](https://badge.fury.io/rb/valvat.png)](http://badge.fury.io/rb/valvat) [![Build Status](https://travis-ci.org/yolk/valvat.png)](https://travis-ci.org/yolk/valvat) [![Code Climate](https://codeclimate.com/github/yolk/valvat.png)](https://codeclimate.com/github/yolk/valvat)
+[![Gem Version](https://badge.fury.io/rb/valvat.svg)](http://badge.fury.io/rb/valvat) [![Build Status](https://travis-ci.org/yolk/valvat.svg)](https://travis-ci.org/yolk/valvat) [![Code Climate](https://codeclimate.com/github/yolk/valvat.svg)](https://codeclimate.com/github/yolk/valvat)
 
 Validates european vat numbers. Standalone or as a ActiveModel validator.
 
@@ -18,7 +18,21 @@ valvat is tested and works with ruby MRI 1.9.3/2.0/2.1/2.2/2.3/2.4, jruby (in 1.
 
 ## Installation
 
-    gem install valvat
+Add it to your Gemfile:
+
+    gem 'valvat'
+
+To save most of the used memory and load only the local verification functionality – and not the remote lookup with VIES – add it like this instead:
+
+    gem 'valvat', :require => 'valvat/local'
+
+In any case run:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install valvat
 
 ## Basic Usage
 
@@ -188,6 +202,7 @@ There seems to be a problem when using the VIES service over IPv6. Sadly this is
 
 ## Contributions by
 
+* [ndnenkov](https://github.com/ndnenkov)
 * [0ctobat](https://github.com/0ctobat)
 * [kaapa](https://github.com/kaapa)
 * [descala](https://github.com/descala)

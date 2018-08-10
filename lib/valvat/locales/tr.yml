@@ -1,0 +1,34 @@
+tr:
+  errors:
+    messages:
+      invalid_vat: geçerli %{country_adjective} vergi numarası değil
+  valvat:
+    country_adjectives:
+      eu: Avrupa
+      at: Avusturya
+      be: Belçika
+      bg: Bulgaristan
+      cy: Kıbrıs
+      cz: Çek Cumhuriyeti
+      de: Almanya
+      dk: Danimarka
+      ee: Estonya
+      es: İspanya
+      fi: Finlandiya
+      fr: Fransa
+      gb: İngiltere
+      gr: Yunanistan
+      hu: Macaristan
+      ie: İrlanda
+      it: İtalya
+      lt: Litvanya
+      lu: Lüksenburg
+      lv: Letonya
+      mt: Malta
+      nl: Hollanda
+      pl: Polonya
+      pt: Portekiz
+      ro: Romanya
+      se: İsveç
+      si: Slovenya
+      sk: Slovakya

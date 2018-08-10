@@ -1,6 +1,26 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.6.11...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.7.2...master)
+
+### 0.7.2 / 2018-02-26
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.7.1...v0.7.2)
+
+* Added support for GB vats checksum validation (by [ivopashov](https://github.com/ivopashov))
+* Corrected dutch language support (by [ploomans](https://github.com/ploomans))
+
+### 0.7.1 / 2017-06-21
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.7.0...v0.7.1)
+
+* Allow to require all functionality except lookup with 'valvat/local'
+
+### 0.7.0 / 2017-05-16
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.6.11...v0.7.0)
+
+* Improved regex for Cyprus, Estonia, and Lithuania (by [ndnenkov](https://github.com/ndnenkov))
+* Added checksum validations for Cyprus, Estonia, Lithuania, Romania, Malta, Hungary, and Croatia (by [ndnenkov](https://github.com/ndnenkov))
 
 ### 0.6.11 / 2017-04-07
 
