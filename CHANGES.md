@@ -1,6 +1,12 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.7.3...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.7.4...master)
+
+### 0.7.4 / 2018-11-21
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.7.3...v0.7.4)
+
+* Fixed HU and SK translations
 
 ### 0.7.3 / 2018-11-21
 
