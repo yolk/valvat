@@ -1,4 +1,4 @@
-﻿en:
+hu:
   errors:
     messages:
       invalid_vat: a közösségi adószám %{country_adjective} helytelen

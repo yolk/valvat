@@ -1,4 +1,4 @@
-en:
+sk:
   errors:
     messages:
       invalid_vat: nie je platné %{country_adjective} IČ DPH
