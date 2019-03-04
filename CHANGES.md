@@ -1,6 +1,18 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.7.2...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.7.4...master)
+
+### 0.7.4 / 2018-11-21
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.7.3...v0.7.4)
+
+* Fixed HU and SK translations
+
+### 0.7.3 / 2018-11-21
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.7.2...v0.7.3)
+
+* Added Hungarian & Slovakian translations (by [tomas-radic](https://github.com/tomas-radic))
 
 ### 0.7.2 / 2018-02-26
 

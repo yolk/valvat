@@ -1,0 +1,34 @@
+hu:
+  errors:
+    messages:
+      invalid_vat: a közösségi adószám %{country_adjective} helytelen
+  valvat:
+    country_adjectives:
+      eu: európai
+      at: osztrák
+      be: belga
+      bg: belga
+      cy: ciprus
+      cz: cseh
+      de: német
+      dk: dán
+      ee: észt
+      es: spanyol
+      fi: finn
+      fr: francia
+      gb: britt
+      gr: görög
+      hu: magyar
+      ie: ír
+      it: olasz
+      lt: litván
+      lu: luxemburgi
+      lv: lett
+      mt: máltai
+      nl: holland
+      pl: lengyel
+      pt: portugál
+      ro: román
+      se: svéd
+      si: szlovén
+      sk: szlovák

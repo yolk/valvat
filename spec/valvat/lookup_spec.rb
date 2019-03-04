@@ -5,34 +5,34 @@ describe Valvat::Lookup do
     context "existing vat number" do
 
       it "returns true" do
-        result = Valvat::Lookup.validate("LU21416127")
+        result = Valvat::Lookup.validate("IE6388047V")
 
         unless result.nil?
           expect(result).to eql(true)
         else
-          puts "Skipping LU vies lookup spec"
+          puts "Skipping IE vies lookup spec"
         end
       end
 
       it "allows Valvat instance as input" do
-        result = Valvat::Lookup.validate(Valvat.new("LU21416127"))
+        result = Valvat::Lookup.validate(Valvat.new("IE6388047V"))
 
         unless result.nil?
           expect(result).to eql(true)
         else
-          puts "Skipping LU vies lookup spec"
+          puts "Skipping IE vies lookup spec"
         end
       end
     end
 
     context "not existing vat number" do
       it "returns false" do
-        result =  Valvat::Lookup.validate("LU21416128")
+        result =  Valvat::Lookup.validate("IE6388048V")
 
         unless result.nil?
           expect(result).to eql(false)
         else
-          puts "Skipping LU vies lookup spec"
+          puts "Skipping IE vies lookup spec"
         end
       end
     end
@@ -59,20 +59,6 @@ describe Valvat::Lookup do
         else
           puts "Skipping IE vies lookup spec; result = #{result.inspect}"
         end
-
-        result = Valvat::Lookup.validate("LU21416127", :detail => true)
-
-        if result
-          expect(result.delete(:request_date)).to be_kind_of(Date)
-          expect(result).to eql({
-            :country_code=>"LU",
-            :vat_number=>"21416127",
-            :name=>"EBAY EUROPE S.A R.L.",
-            :address=>"22, BOULEVARD ROYAL\nL-2449  LUXEMBOURG"
-          })
-        else
-          puts "Skipping LU vies lookup spec; result = #{result.inspect}"
-        end
       end
 
       it "still returns false on not existing vat number" do
@@ -88,22 +74,22 @@ describe Valvat::Lookup do
 
     context "with request identifier" do
       it "returns hash of details instead of true" do
-        response = Valvat::Lookup.validate("LU21416127", :requester_vat => "IE6388047V")
+        response = Valvat::Lookup.validate("IE6388047V", :requester_vat => "IE6388047V")
 
         if response
           expect(response[:request_identifier].size).to eql(16)
           request_identifier = response[:request_identifier]
           expect(response.delete(:request_date)).to be_kind_of(Date)
           expect(response).to eql({
-            :country_code=>"LU",
-            :vat_number=>"21416127",
-            :name => "EBAY EUROPE S.A R.L.",
+            :country_code=>"IE",
+            :vat_number=>"6388047V",
+            :name => "GOOGLE IRELAND LIMITED",
             :company_type=>nil,
-            :address => "22, BOULEVARD ROYAL\nL-2449  LUXEMBOURG",
+            :address => "3RD FLOOR, GORDON HOUSE, BARROW STREET, DUBLIN 4",
             :request_identifier=> request_identifier
           })
         else
-          puts "Skipping LU vies lookup spec"
+          puts "Skipping IE vies lookup spec"
         end
       end
     end

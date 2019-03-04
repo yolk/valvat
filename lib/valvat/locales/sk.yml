@@ -1,0 +1,34 @@
+sk:
+  errors:
+    messages:
+      invalid_vat: nie je platné %{country_adjective} IČ DPH
+  valvat:
+    country_adjectives:
+      eu: európske
+      at: rakúske
+      be: belgické
+      bg: bulharské
+      cy: cyperské
+      cz: české
+      de: nemecké
+      dk: dánske
+      ee: estónske
+      es: španielské
+      fi: fínske
+      fr: francúzske
+      gb: britské
+      gr: grécke
+      hu: maďarské
+      ie: írske
+      it: talianske
+      lt: litovské
+      lu: luxemburské
+      lv: lotyšské
+      mt: maltské
+      nl: holandské
+      pl: polské
+      pt: portugalské
+      ro: rumunské
+      se: švédske
+      si: slovinské
+      sk: slovenské
