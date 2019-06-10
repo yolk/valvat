@@ -49,6 +49,7 @@ describe Valvat::Utils do
 
     it "removes special chars" do
       expect(Valvat::Utils.normalize("DE.345-889_00:3,;")).to eql("DE345889003")
+      expect(Valvat::Utils.normalize("→ DE·34588 9003 ☺")).to eql("DE345889003")
     end
   end
 
