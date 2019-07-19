@@ -2,15 +2,23 @@ class Valvat
   module Checksum
     class IE < Base
       def check_digit
-        sum_figures_by do |fig, i|
+        total = sum_figures_by do |fig, i|
           fig*(i+2)
-        end.modulo(23)
+        end
+        if str_wo_country.size == 9
+          total += (CHARS.index(str_wo_country[8]) * 9)
+        end
+        total.modulo(23)
       end
 
       CHARS = "WABCDEFGHIJKLMNOPQRSTUV".split("")
 
       def given_check_digit
-        CHARS.index(given_check_digit_str)
+        if str_wo_country.size == 9
+          CHARS.index(str_wo_country[7])
+        else
+          CHARS.index(given_check_digit_str)
+        end
       end
 
       def str_wo_country
@@ -22,6 +30,15 @@ class Valvat
           str
         end
       end
+
+      def figures_str
+        if super.size == 8
+          super[0...-1]
+        else
+          super
+        end
+      end
+
     end
   end
 end
