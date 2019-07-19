@@ -1,6 +1,15 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.7.4...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.8.0...master)
+
+### 0.8.0 / 2019-07-19
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.7.4...v0.8.0)
+
+* Added support for new IE vat number format, with 2 letters (by [lluis](https://github.com/lluis))
+* Added support for spanish NIE Y and Z in checksums (by [descala](https://github.com/descala))
+* Added catalan translation (by [descala](https://github.com/descala))
+* Fixed spanish invalid vat message (by [descala](https://github.com/descala))
 
 ### 0.7.4 / 2018-11-21
 
