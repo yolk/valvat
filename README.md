@@ -226,6 +226,8 @@ There seems to be a problem when using the VIES service over IPv6. Sadly this is
 
 ## BlaBla
 
-Copyright (c) 2011-2017 Yolk Sebastian Munz & Julia Soergel GbR
+Copyright (c) 2011-2019 Yolk Sebastian Munz & Julia Soergel GbR
 
 Beyond that, the implementation is licensed under the MIT License.
+
+Code was originally extracted from our time tracking webapp [mite](https://mite.yo.lk/en/).
