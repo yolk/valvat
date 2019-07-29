@@ -1,0 +1,34 @@
+nb:
+  errors:
+    messages:
+      invalid_vat: Er ikke et gyldig %{country_adjective} momsnummer
+  valvat:
+    country_adjectives:
+      eu: Europeisk
+      at: Østerisk
+      be: Belgisk
+      bg: Bulgarsk
+      cy: Kypriotisk
+      cz: Tjekkisk
+      de: Tysk
+      dk: Dansk
+      ee: Estisk
+      es: Spansk
+      fi: Finsk
+      fr: Fransk
+      gb: Engelsk
+      gr: Gresk
+      hu: Ungarsk
+      ie: Irsk
+      it: Italiensk
+      lt: Litauisk
+      lu: Luxembourgsk
+      lv: Latvisk
+      mt: Maltesisk
+      nl: Nederlandsk
+      pl: Polsk
+      pt: Portugisisk
+      ro: Rumensk
+      se: Svensk
+      si: Slovensk
+      sk: Slovakisk
