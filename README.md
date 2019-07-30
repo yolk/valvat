@@ -202,29 +202,7 @@ There seems to be a problem when using the VIES service over IPv6. Sadly this is
 
 ## Contributions by
 
-* [erikaxel](https://github.com/erikaxel)
-* [lluis](https://github.com/lluis)
-* [ndnenkov](https://github.com/ndnenkov)
-* [0ctobat](https://github.com/0ctobat)
-* [kaapa](https://github.com/kaapa)
-* [descala](https://github.com/descala)
-* [Carlos Hernández Medina](https://github.com/polimorfico)
-* [Julik Tarkhanov](https://github.com/julik)
-* [Roman Lehnert](https://github.com/romanlehnert)
-* [0scarius](https://github.com/0scarius)
-* [Davidslv](https://github.com/Davidslv)
-* [brianphillips](https://github.com/brianphillips)
-* [wasi](https://github.com/wasi)
-* [liggitt](https://github.com/liggitt)
-* [nevesenin](https://github.com/nevesenin)
-* [shaundaley39](https://github.com/shaundaley39)
-* [lcx](https://github.com/lcx)
-* [kirichkov](https://github.com/kirichkov)
-* [borodiychuk](https://github.com/borodiychuk)
-* [opsidao](https://github.com/opsidao)
-* [henrik](https://github.com/henrik)
-* [SpoBo](https://github.com/SpoBo)
-* [Deb Bassett](https://github.com/urbanwide)
+https://github.com/yolk/valvat/graphs/contributors
 
 ## BlaBla
 
