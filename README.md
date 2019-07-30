@@ -14,7 +14,7 @@ Validates european vat numbers. Standalone or as a ActiveModel validator.
 * I18n locales for language specific error messages in English, German, French, Spanish, Italian, Portuguese, Polish, Swedish, Dutch, Danish, Czech, Slovakian, Hungarian, Bulgarian, Romanian, Latvian, Catalan, Norwegian, and Finnish.
 * *Experimental* checksum verification
 
-valvat is tested and works with ruby MRI 1.9.3/2.0/2.1/2.2/2.3/2.4/2.5/2.6, jruby (in 1.9 mode) and ActiveModel 3/4/5
+valvat is tested and works with ruby MRI 2.3/2.4/2.5/2.6, jruby (in 1.9 mode) and ActiveModel 3/4/5
 
 ## Installation
 
