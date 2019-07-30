@@ -1,6 +1,10 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.8.0...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.8.1...master)
+
+### 0.8.1 / 2019-07-30
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.8.0...v0.8.1)
 
 * Added Norwegian translation (by [erikaxel](https://github.com/erikaxel))
 
