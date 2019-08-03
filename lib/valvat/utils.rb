@@ -3,7 +3,7 @@ class Valvat
 
     EU_COUNTRIES = %w(AT BE BG CY CZ DE DK EE ES FI FR GB GR HR HU IE IT LT LU LV MT NL PL PT RO SE SI SK)
     COUNTRY_PATTERN = /\A([A-Z]{2})(.+)\Z/
-    NORMALIZE_PATTERN = /[-\.:_\s,;]+/
+    NORMALIZE_PATTERN = /[[:space:][:punct:][:cntrl:]]+/
 
     def self.split(vat)
       COUNTRY_PATTERN =~ vat
