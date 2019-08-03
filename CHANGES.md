@@ -2,6 +2,8 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.8.1...master)
 
+*  Update normalize regexp to clean spaces, punctuation and control chars (by [jarthod](https://github.com/jarthod))
+
 ### 0.8.1 / 2019-07-30
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.8.0...v0.8.1)
