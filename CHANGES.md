@@ -1,8 +1,13 @@
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.8.1...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.8.2...master)
 
-*  Update normalize regexp to clean spaces, punctuation and control chars (by [jarthod](https://github.com/jarthod))
+### 0.8.2 / 2019-11-15
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.8.1...v0.8.2)
+
+* Fixed checksum computation for Slovenian VAT ID.
+* Updated normalize regexp to clean spaces, punctuation and control chars (by [jarthod](https://github.com/jarthod))
 
 ### 0.8.1 / 2019-07-30
 
