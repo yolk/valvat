@@ -22,7 +22,7 @@ Add it to your Gemfile:
 
     gem 'valvat'
 
-To save most of the used memory and load only the local verification functionality – and not the remote lookup with VIES – add it like this instead:
+To use less memory (~3.5 mb vs. ~0.5 mb) and load only the local verification functionality – and not the remote lookup with VIES – add it like this instead:
 
     gem 'valvat', :require => 'valvat/local'
 
