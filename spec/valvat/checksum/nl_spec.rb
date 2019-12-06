@@ -7,7 +7,7 @@ describe Valvat::Checksum::NL do
     end
 
     invalid_vat = "#{valid_vat[0..-5]}#{valid_vat[-2]}#{valid_vat[-3]}#{valid_vat[-4]}#{valid_vat[-1]}#{valid_vat[-2]}#{valid_vat[-3]}"
-    
+
     it "returns false on invalid vat #{invalid_vat}" do
       expect(Valvat::Checksum.validate(invalid_vat)).to eql(false)
     end
