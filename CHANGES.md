@@ -1,7 +1,13 @@
 
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.9.0...master)
+[full changelog](http://github.com/yolk/valvat/compare/v0.9.1...master)
+
+### 0.9.1 / 2020-03-19
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.9.0...v0.9.1)
+
+* Follow redirects to fix alteration of VIES-API (by [xxswingxx](https://github.com/xxswingxx))
 
 ### 0.9.0 / 2020-02-28
 
@@ -10,7 +16,6 @@
 * Validate new dutch 2020 vat identification number (by [yvonnenieuwerth](https://github.com/yvonnenieuwerth))
 * Set the country adjectives to masculine in FR locales (by [bobmaerten](https://github.com/bobmaerten))
 * Fix greek country adjectif in french (by [bobmaerten](https://github.com/bobmaerten))
-*
 
 ### 0.8.2 / 2019-11-15
 
