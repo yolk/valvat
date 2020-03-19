@@ -29,7 +29,7 @@ class Valvat
       end
 
       def client
-        @client ||= Savon::Client.new(wsdl: VIES_WSDL_URL, log: false)
+        @client ||= Savon::Client.new(wsdl: VIES_WSDL_URL, log: false, follow_redirects: true)
       end
     end
 
