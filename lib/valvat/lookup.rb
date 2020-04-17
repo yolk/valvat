@@ -2,7 +2,7 @@ require 'savon'
 
 class Valvat
   class Lookup
-    VIES_WSDL_URL = 'http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl'
+    VIES_WSDL_URL = 'https://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl'
     REMOVE_KEYS = [:valid, :@xmlns]
 
     attr_reader :vat, :options
