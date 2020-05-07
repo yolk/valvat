@@ -15,7 +15,7 @@ class Valvat
       def perform
         client = Savon::Client.new(wsdl: @options[:wsdl], log: false, follow_redirects: true)
         begin
-          Response.new(client.call(action, :message => body, :message_tag => message_tag))
+          Response.new(client.call(action, message: body, message_tag: message_tag))
         rescue Savon::SOAPFault => fault
           Fault.new(fault)
         end
@@ -24,10 +24,10 @@ class Valvat
       private
 
       def body
-        body = {:country_code => @vat.vat_country_code, :vat_number => @vat.to_s_wo_country}
+        body = {country_code: @vat.vat_country_code, vat_number: @vat.to_s_wo_country}
         body.merge!(
-          :requester_country_code => @options[:requester_vat].vat_country_code,
-          :requester_vat_number => @options[:requester_vat].to_s_wo_country
+          requester_country_code: @options[:requester_vat].vat_country_code,
+          requester_vat_number: @options[:requester_vat].to_s_wo_country
         ) if @options[:requester_vat]
         body
       end

@@ -46,16 +46,16 @@ describe Valvat::Lookup do
 
     context "with details" do
       it "returns hash of details instead of true" do
-        result = Valvat::Lookup.validate("IE6388047V", :detail => true)
+        result = Valvat::Lookup.validate("IE6388047V", detail: true)
 
          if result
           expect(result.delete(:request_date)).to be_kind_of(Date)
           expect(result).to eql({
-            :country_code=>"IE",
-            :vat_number=>"6388047V",
-            :name=>"GOOGLE IRELAND LIMITED",
-            :address=>"3RD FLOOR, GORDON HOUSE, BARROW STREET, DUBLIN 4",
-            :valid=>true
+            country_code: "IE",
+            vat_number: "6388047V",
+            name: "GOOGLE IRELAND LIMITED",
+            address: "3RD FLOOR, GORDON HOUSE, BARROW STREET, DUBLIN 4",
+            valid: true
           })
         else
           puts "Skipping IE vies lookup spec; result = #{result.inspect}"
@@ -63,7 +63,7 @@ describe Valvat::Lookup do
       end
 
       it "still returns false on not existing vat number" do
-        result =  Valvat::Lookup.validate("LU21416128", :detail => true)
+        result =  Valvat::Lookup.validate("LU21416128", detail: true)
 
         unless result.nil?
           expect(result).to eql(false)
@@ -75,20 +75,20 @@ describe Valvat::Lookup do
 
     context "with request identifier" do
       it "returns hash of details instead of true" do
-        response = Valvat::Lookup.validate("IE6388047V", :requester_vat => "IE6388047V")
+        response = Valvat::Lookup.validate("IE6388047V", requester_vat: "IE6388047V")
 
         if response
           expect(response[:request_identifier].size).to eql(16)
           request_identifier = response[:request_identifier]
           expect(response.delete(:request_date)).to be_kind_of(Date)
           expect(response).to eql({
-            :country_code=>"IE",
-            :vat_number=>"6388047V",
-            :name => "GOOGLE IRELAND LIMITED",
-            :company_type=>nil,
-            :address => "3RD FLOOR, GORDON HOUSE, BARROW STREET, DUBLIN 4",
-            :request_identifier=> request_identifier,
-            :valid=>true
+            country_code: "IE",
+            vat_number: "6388047V",
+            name: "GOOGLE IRELAND LIMITED",
+            company_type:nil,
+            address: "3RD FLOOR, GORDON HOUSE, BARROW STREET, DUBLIN 4",
+            request_identifier: request_identifier,
+            valid: true
           })
         else
           puts "Skipping IE vies lookup spec"

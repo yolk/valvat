@@ -24,7 +24,7 @@ Add it to your Gemfile:
 
 To use less memory (~3.5 mb vs. ~0.5 mb) and load only the local verification functionality – and not the remote lookup with VIES – add it like this instead:
 
-    gem 'valvat', :require => 'valvat/local'
+    gem 'valvat', require: 'valvat/local'
 
 In any case run:
 
@@ -134,30 +134,30 @@ after ActiveModel has been loaded.
 To validate the attribute `vat_number` add this to your model:
 
     class MyModel < ActiveRecord::Base
-      validates :vat_number, :valvat => true
+      validates :vat_number, valvat: true
     end
 
 ### Additional lookup validation
 
 To additionally perform a lookup via VIES:
 
-    validates :vat_number, :valvat => {:lookup => true}
+    validates :vat_number, valvat: {lookup: true}
 
 By default this will validate to true if the VIES web service is down. To fail in this case simply add the `:fail_if_down` option:
 
-    validates :vat_number, :valvat => {:lookup => :fail_if_down}
+    validates :vat_number, valvat: {lookup: :fail_if_down}
 
 ### Additional (and experimental) checksum validation
 
 To additionally perform a checksum validation:
 
-    validates :vat_number, :valvat => {:checksum => true}
+    validates :vat_number, valvat: {checksum: true}
 
 ### Additional ISO country code validation
 
 If you want the vat number’s (ISO) country to match another country attribute, use the _match_country_ option:
 
-    validates :vat_number, :valvat => {:match_country => :country}
+    validates :vat_number, valvat: {match_country: :country}
 
 where it is supposed that your model has a method named _country_ which returns the country ISO code you want to match.
 
@@ -165,14 +165,14 @@ where it is supposed that your model has a method named _country_ which returns 
 
 By default blank vat numbers validate to false. To change this add the `:allow_blank` option:
 
-    validates :vat_number, :valvat => {:allow_blank => true}
+    validates :vat_number, valvat: {allow_blank: true}
 
 ### Allow vat numbers outside of europe
 
 To allow vat numbers from outside of europe, add something like this to your model (country_code should return a upcase ISO country code):
 
     class MyModel < ActiveRecord::Base
-      validates :vat_number, :valvat => true, :if => :eu?
+      validates :vat_number, valvat: true, if: :eu?
 
       def eu?
         Valvat::Utils::EU_COUNTRIES.include?(country_code)

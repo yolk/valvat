@@ -76,7 +76,7 @@ describe Valvat do
     describe "#exist(s)?" do
       context "on existing vat numbers" do
         before do
-          allow(Valvat::Lookup).to receive_messages(:validate => true)
+          allow(Valvat::Lookup).to receive_messages(validate: true)
         end
 
         it "returns true" do
@@ -89,7 +89,7 @@ describe Valvat do
 
       context "on not existing vat numbers" do
         before do
-          allow(Valvat::Lookup).to receive_messages(:validate => false)
+          allow(Valvat::Lookup).to receive_messages(validate: false)
         end
 
         it "returns false" do
@@ -100,8 +100,8 @@ describe Valvat do
 
       context "with options" do
         it "calls Valvat::Lookup.validate with options" do
-          expect(Valvat::Lookup).to receive(:validate).once.with(de_vat, :detail => true, :bla => 'blupp').and_return(true)
-          expect(de_vat.exists?(:detail => true, :bla => 'blupp')).to eql(true)
+          expect(Valvat::Lookup).to receive(:validate).once.with(de_vat, detail: true, bla: 'blupp').and_return(true)
+          expect(de_vat.exists?(detail: true, bla: 'blupp')).to eql(true)
         end
       end
     end

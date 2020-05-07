@@ -17,10 +17,10 @@ module ActiveModel
 
         iso_country_code = "eu" if iso_country_code.blank?
         record.errors.add(attribute, :invalid_vat,
-          :message => options[:message],
-          :country_adjective => I18n.t(
+          message: options[:message],
+          country_adjective: I18n.t(
             :"valvat.country_adjectives.#{iso_country_code.downcase}",
-            :default => [:"valvat.country_adjectives.eu", "european"]
+            default: [:"valvat.country_adjectives.eu", "european"]
           )
         )
       end
