@@ -54,7 +54,8 @@ describe Valvat::Lookup do
             :country_code=>"IE",
             :vat_number=>"6388047V",
             :name=>"GOOGLE IRELAND LIMITED",
-            :address=>"3RD FLOOR, GORDON HOUSE, BARROW STREET, DUBLIN 4"
+            :address=>"3RD FLOOR, GORDON HOUSE, BARROW STREET, DUBLIN 4",
+            :valid=>true
           })
         else
           puts "Skipping IE vies lookup spec; result = #{result.inspect}"
@@ -86,7 +87,8 @@ describe Valvat::Lookup do
             :name => "GOOGLE IRELAND LIMITED",
             :company_type=>nil,
             :address => "3RD FLOOR, GORDON HOUSE, BARROW STREET, DUBLIN 4",
-            :request_identifier=> request_identifier
+            :request_identifier=> request_identifier,
+            :valid=>true
           })
         else
           puts "Skipping IE vies lookup spec"

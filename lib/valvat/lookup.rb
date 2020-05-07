@@ -45,13 +45,7 @@ class Valvat
     end
 
     def response_details
-      response.inject({}) do |hash, kv|
-        key, value = kv
-        unless REMOVE_KEYS.include?(key)
-          hash[key.to_s.sub(/^trader_/, "").to_sym] = (value == "---" ? nil : value)
-        end
-        hash
-      end
+      response.to_hash
     end
   end
 end

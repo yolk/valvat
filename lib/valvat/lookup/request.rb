@@ -14,8 +14,7 @@ class Valvat
 
       def perform
         client = Savon::Client.new(wsdl: @options[:wsdl], log: false, follow_redirects: true)
-        response = client.call(action, :message => body, :message_tag => message_tag).to_hash
-        response[response_key]
+        Response.new(client.call(action, :message => body, :message_tag => message_tag))
       end
 
       private
