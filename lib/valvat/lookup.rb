@@ -1,8 +1,5 @@
-require 'savon'
-
 class Valvat
   class Lookup
-    VIES_WSDL_URL = 'https://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl'
     REMOVE_KEYS = [:valid, :@xmlns]
 
     attr_reader :vat, :options
@@ -10,7 +7,6 @@ class Valvat
     def initialize(vat, options={})
       @vat = Valvat(vat)
       @options = options || {}
-      @options[:requester_vat] = Valvat(requester_vat) if requester_vat
     end
 
     def validate
@@ -27,10 +23,6 @@ class Valvat
       def validate(vat, options={})
         new(vat, options).validate
       end
-
-      def client
-        @client ||= Savon::Client.new(wsdl: VIES_WSDL_URL, log: false, follow_redirects: true)
-      end
     end
 
     private
@@ -40,19 +32,7 @@ class Valvat
     end
 
     def response
-      @response ||= request.perform(self.class.client)
-    end
-
-    def request
-      if requester_vat
-        RequestWithId.new(vat, requester_vat)
-      else
-        Request.new(vat)
-      end
-    end
-
-    def requester_vat
-      options[:requester_vat]
+      @response ||= Request.new(vat, options).perform
     end
 
     def invalid_input?(err)
@@ -61,7 +41,7 @@ class Valvat
     end
 
     def show_details?
-      requester_vat || options[:detail]
+      options[:requester_vat] || options[:detail]
     end
 
     def response_details
