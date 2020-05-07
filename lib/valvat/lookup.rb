@@ -48,7 +48,7 @@ class Valvat
       when "MS_UNAVAILABLE"
         raise MemberStateUnavailable.new(fault) if @options[:raise_error]
       when "TIMEOUT"
-        raise Timeout.new(fault) if @options[:raise_error]
+        raise Timeout.new(fault)
       when "VAT_BLOCKED", "IP_BLOCKED"
         raise BlockedError.new(fault)
       when "GLOBAL_MAX_CONCURRENT_REQ", "GLOBAL_MAX_CONCURRENT_REQ_TIME",

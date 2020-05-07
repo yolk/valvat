@@ -13,8 +13,8 @@ class Valvat
 
   ServiceUnavailable = Class.new(ViesError)
   MemberStateUnavailable = Class.new(ViesError)
-  Timeout = Class.new(ViesError)
 
+  Timeout = Class.new(ViesError)
   InvalidRequester = Class.new(ViesError)
   BlockedError = Class.new(ViesError)
   RateLimitError = Class.new(ViesError)

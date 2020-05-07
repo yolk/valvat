@@ -179,21 +179,15 @@ describe Valvat::Lookup do
     context "Error : TIMEOUT" do
       subject{ Valvat::Lookup.validate("DE302", options) }
 
-      it "returns nil" do
-        expect(subject).to eql(nil)
-      end
-
-      it "raises error with raise_error: true" do
-        expect{
-          Valvat::Lookup.validate("DE302", options.merge(raise_error: true)
-        ) }.to raise_error(Valvat::Timeout)
+      it "raises error" do
+        expect{ subject }.to raise_error(Valvat::Timeout)
       end
     end
 
     context "Error : VAT_BLOCKED" do
       subject{ Valvat::Lookup.validate("DE400", options) }
 
-      it "returns nil" do
+      it "raises error" do
         expect{ subject}.to raise_error(Valvat::BlockedError, /VAT_BLOCKED/)
       end
     end
@@ -201,7 +195,7 @@ describe Valvat::Lookup do
     context "Error : IP_BLOCKED" do
       subject{ Valvat::Lookup.validate("DE401", options) }
 
-      it "returns nil" do
+      it "raises error" do
         expect{ subject}.to raise_error(Valvat::BlockedError, /IP_BLOCKED/)
       end
     end
@@ -209,7 +203,7 @@ describe Valvat::Lookup do
     context "Error : GLOBAL_MAX_CONCURRENT_REQ" do
       subject{ Valvat::Lookup.validate("DE500", options) }
 
-      it "returns nil" do
+      it "raises error" do
         expect{ subject}.to raise_error(Valvat::RateLimitError, /GLOBAL_MAX_CONCURRENT_REQ/)
       end
     end
@@ -217,7 +211,7 @@ describe Valvat::Lookup do
     context "Error : GLOBAL_MAX_CONCURRENT_REQ_TIME" do
       subject{ Valvat::Lookup.validate("DE501", options) }
 
-      it "returns nil" do
+      it "raises error" do
         expect{ subject}.to raise_error(Valvat::RateLimitError, /GLOBAL_MAX_CONCURRENT_REQ_TIME/)
       end
     end
@@ -225,7 +219,7 @@ describe Valvat::Lookup do
     context "Error : MS_MAX_CONCURRENT_REQ" do
       subject{ Valvat::Lookup.validate("DE600", options) }
 
-      it "returns nil" do
+      it "raises error" do
         expect{ subject}.to raise_error(Valvat::RateLimitError, /MS_MAX_CONCURRENT_REQ/)
       end
     end
@@ -233,7 +227,7 @@ describe Valvat::Lookup do
     context "Error : MS_MAX_CONCURRENT_REQ_TIME" do
       subject{ Valvat::Lookup.validate("DE601", options) }
 
-      it "returns nil" do
+      it "raises error" do
         expect{ subject}.to raise_error(Valvat::RateLimitError, /MS_MAX_CONCURRENT_REQ_TIME/)
       end
     end
