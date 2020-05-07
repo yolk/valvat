@@ -14,7 +14,7 @@ Validates european vat numbers. Standalone or as a ActiveModel validator.
 * I18n locales for language specific error messages in English, German, French, Spanish, Italian, Portuguese, Polish, Swedish, Dutch, Danish, Czech, Slovakian, Hungarian, Bulgarian, Romanian, Latvian, Catalan, Norwegian, and Finnish.
 * *Experimental* checksum verification
 
-valvat is tested and works with ruby MRI 1.9.3/2.0/2.1/2.2/2.3/2.4/2.5/2.6, jruby (in 1.9 mode) and ActiveModel 3/4/5
+valvat is tested and works with ruby MRI 1.9.3/2.0/2.1/2.2/2.3/2.4/2.5/2.6/2.7, jruby (in 1.9 mode) and ActiveModel 3/4/5
 
 ## Installation
 
@@ -82,7 +82,7 @@ If you need all details and not only if the VAT is valid, pass {:detail => true}
 
     Valvat.new("IE6388047V").exists?(:detail => true)
     => {
-      :country_code=>"IE", :vat_number => "6388047V",
+      :country_code=>"IE", :vat_number => "6388047V", :valid => true,
       :request_date => Date.today, :name=>"GOOGLE IRELAND LIMITED",
       :address=>"1ST & 2ND FLOOR ,GORDON HOUSE ,BARROW STREET ,DUBLIN 4"
     } or false or nil
@@ -93,13 +93,13 @@ To receive a requestIdentifier you need to pass your own VAT number in the optio
 
     Valvat.new("LU21416127").exists?(:requester_vat => "IE6388047V")
     => {
-      :country_code=>"LU", :vat_number => "21416127",
+      :country_code=>"LU", :vat_number => "21416127", :valid => true,
       :request_date => Date.today, :name=>"EBAY EUROPE S.A R.L.",
       :address => "22, BOULEVARD ROYAL\nL-2449  LUXEMBOURG",
       :company_type => nil, :request_identifier => "some_uniq_string"
     } or false or nil
 
-## Usage with ActiveModel / Rails 3
+## Usage with ActiveModel / Rails
 
 ### Loading
 
@@ -206,7 +206,7 @@ https://github.com/yolk/valvat/graphs/contributors
 
 ## BlaBla
 
-Copyright (c) 2011-2019 Yolk Sebastian Munz & Julia Soergel GbR
+Copyright (c) 2011-2020 Yolk Sebastian Munz & Julia Soergel GbR
 
 Beyond that, the implementation is licensed under the MIT License.
 
