@@ -1,7 +1,7 @@
 source "http://rubygems.org"
 
 gem "savon",       ">=2.3.0"
-gem "activemodel", "~> 5.0.2"
+gem "activemodel", "~> 5.2.0"
 
 gem 'rspec', '~> 3.0'
 gem 'rack'
