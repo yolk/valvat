@@ -143,8 +143,8 @@ describe Valvat::Lookup do
     context "Error : INVALID_REQUESTER_INFO" do
       subject{ Valvat::Lookup.validate("DE202", options) }
 
-      it "returns nil" do
-        expect(subject).to eql(nil)
+      it "raises Valvat::InvalidRequester" do
+        expect{ subject}.to raise_error(Valvat::InvalidRequester)
       end
     end
 
@@ -154,6 +154,12 @@ describe Valvat::Lookup do
       it "returns nil" do
         expect(subject).to eql(nil)
       end
+
+      it "raises error with raise_error: true" do
+        expect{
+          Valvat::Lookup.validate("DE300", options.merge(raise_error: true)
+        ) }.to raise_error(Valvat::ServiceUnavailable)
+      end
     end
 
     context "Error : MS_UNAVAILABLE" do
@@ -161,6 +167,12 @@ describe Valvat::Lookup do
 
       it "returns nil" do
         expect(subject).to eql(nil)
+      end
+
+      it "raises error with raise_error: true" do
+        expect{
+          Valvat::Lookup.validate("DE301", options.merge(raise_error: true)
+        ) }.to raise_error(Valvat::MemberStateUnavailable)
       end
     end
 
@@ -170,13 +182,19 @@ describe Valvat::Lookup do
       it "returns nil" do
         expect(subject).to eql(nil)
       end
+
+      it "raises error with raise_error: true" do
+        expect{
+          Valvat::Lookup.validate("DE302", options.merge(raise_error: true)
+        ) }.to raise_error(Valvat::Timeout)
+      end
     end
 
     context "Error : VAT_BLOCKED" do
       subject{ Valvat::Lookup.validate("DE400", options) }
 
       it "returns nil" do
-        expect(subject).to eql(nil)
+        expect{ subject}.to raise_error(Valvat::BlockedError, /VAT_BLOCKED/)
       end
     end
 
@@ -184,7 +202,7 @@ describe Valvat::Lookup do
       subject{ Valvat::Lookup.validate("DE401", options) }
 
       it "returns nil" do
-        expect(subject).to eql(nil)
+        expect{ subject}.to raise_error(Valvat::BlockedError, /IP_BLOCKED/)
       end
     end
 
@@ -192,7 +210,7 @@ describe Valvat::Lookup do
       subject{ Valvat::Lookup.validate("DE500", options) }
 
       it "returns nil" do
-        expect(subject).to eql(nil)
+        expect{ subject}.to raise_error(Valvat::RateLimitError, /GLOBAL_MAX_CONCURRENT_REQ/)
       end
     end
 
@@ -200,7 +218,7 @@ describe Valvat::Lookup do
       subject{ Valvat::Lookup.validate("DE501", options) }
 
       it "returns nil" do
-        expect(subject).to eql(nil)
+        expect{ subject}.to raise_error(Valvat::RateLimitError, /GLOBAL_MAX_CONCURRENT_REQ_TIME/)
       end
     end
 
@@ -208,7 +226,7 @@ describe Valvat::Lookup do
       subject{ Valvat::Lookup.validate("DE600", options) }
 
       it "returns nil" do
-        expect(subject).to eql(nil)
+        expect{ subject}.to raise_error(Valvat::RateLimitError, /MS_MAX_CONCURRENT_REQ/)
       end
     end
 
@@ -216,7 +234,7 @@ describe Valvat::Lookup do
       subject{ Valvat::Lookup.validate("DE601", options) }
 
       it "returns nil" do
-        expect(subject).to eql(nil)
+        expect{ subject}.to raise_error(Valvat::RateLimitError, /MS_MAX_CONCURRENT_REQ_TIME/)
       end
     end
   end

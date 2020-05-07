@@ -4,6 +4,7 @@
 [full changelog](http://github.com/yolk/valvat/compare/v0.9.1...master)
 
 * Refactored lookup to use specific rescue for savons soapfaults
+* Raises vies specific error classes to help debugging temporary and permanent VIES errors
 * Use https instead of http for accessing vies (by [Crazy Chris](https://github.com/lubekpl))
 
 ### 0.9.1 / 2020-03-19

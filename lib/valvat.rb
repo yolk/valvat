@@ -1,3 +1,4 @@
+require 'valvat/error'
 require 'valvat/local'
 require 'valvat/lookup'
 require 'valvat/lookup/request'

@@ -14,7 +14,7 @@ class Valvat
         return false
       end
 
-      valid? && show_details? ? response.to_hash : valid?
+      handle_faults(valid? && show_details? ? response.to_hash : valid?)
     end
 
     class << self
@@ -35,6 +35,29 @@ class Valvat
 
     def show_details?
       options[:requester_vat] || options[:detail]
+    end
+
+    def handle_faults(value)
+      return value unless value.nil?
+      case fault = response.to_hash[:fault]
+      when "INVALID_INPUT"
+      when "INVALID_REQUESTER_INFO"
+        raise InvalidRequester.new(fault)
+      when "SERVICE_UNAVAILABLE"
+        raise ServiceUnavailable.new(fault) if @options[:raise_error]
+      when "MS_UNAVAILABLE"
+        raise MemberStateUnavailable.new(fault) if @options[:raise_error]
+      when "TIMEOUT"
+        raise Timeout.new(fault) if @options[:raise_error]
+      when "VAT_BLOCKED", "IP_BLOCKED"
+        raise BlockedError.new(fault)
+      when "GLOBAL_MAX_CONCURRENT_REQ", "GLOBAL_MAX_CONCURRENT_REQ_TIME",
+           "MS_MAX_CONCURRENT_REQ", "MS_MAX_CONCURRENT_REQ_TIME"
+        raise RateLimitError.new(fault)
+      else
+        raise UnknownViesError.new(fault)
+      end
+      value
     end
   end
 end
