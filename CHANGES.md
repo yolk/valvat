@@ -3,6 +3,7 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.9.1...master)
 
+* Refactored lookup to use specific rescue for savons soapfaults
 * Use https instead of http for accessing vies (by [Crazy Chris](https://github.com/lubekpl))
 
 ### 0.9.1 / 2020-03-19
