@@ -114,7 +114,7 @@ describe Valvat::Lookup do
     # 600 = Error : MS_MAX_CONCURRENT_REQ
     # 601 = Error : MS_MAX_CONCURRENT_REQ_TIME
 
-    let(:options) { {wsdl: "https://ec.europa.eu/taxation_customs/vies/checkVatTestService.wsdl", skip_local_validation: true} }
+    let(:options) { {savon: {wsdl: "https://ec.europa.eu/taxation_customs/vies/checkVatTestService.wsdl"}, skip_local_validation: true} }
 
     context "Valid request with Valid VAT Number" do
       subject{ Valvat::Lookup.validate("DE100", options) }

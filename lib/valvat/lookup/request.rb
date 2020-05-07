@@ -9,11 +9,11 @@ class Valvat
         @vat = vat
         @options = options || {}
         @options[:requester_vat] &&= Valvat(@options[:requester_vat])
-        @options[:wsdl] ||= VIES_WSDL_URL
       end
 
       def perform
-        client = Savon::Client.new(wsdl: @options[:wsdl], log: false, follow_redirects: true)
+        client_options = {wsdl: VIES_WSDL_URL, log: false, follow_redirects: true}.merge(@options[:savon] || {})
+        client = Savon::Client.new(client_options)
         begin
           Response.new(client.call(action, message: body, message_tag: message_tag))
         rescue Savon::SOAPFault => fault
