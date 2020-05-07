@@ -10,7 +10,9 @@ class Valvat
     end
 
     def validate
-      return false if !@options[:skip_local_validation] && !vat.european?
+      if !@options[:skip_local_validation] && !vat.valid?
+        return false
+      end
 
       valid? && show_details? ? response.to_hash : valid?
     end
