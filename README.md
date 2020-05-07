@@ -46,9 +46,9 @@ To check if the given vat number exists via the VIES web service:
     Valvat.new("DE345789003").exists?
     => true or false or nil
 
-*IMPORTANT* Keep in mind that the VIES web service might be offline at some time for some countries. If this happens `exists?` or `Valvat::Lookup.validate` will return `nil`.
+*IMPORTANT* Keep in mind that the VIES web service might be offline at some time for all or some member states. If this happens `exists?` or `Valvat::Lookup.validate` will return `nil`.
 
-Visit [http://ec.europa.eu/taxation_customs/vies/viesspec.do](http://ec.europa.eu/taxation_customs/vies/viesspec.do) for more accurate information at what time the service for a specific country will be down.
+Visit [http://ec.europa.eu/taxation_customs/vies/viesspec.do](http://ec.europa.eu/taxation_customs/vies/viesspec.do) for more accurate information at what time the service for a specific member state will be down.
 
 It is also possible to bypass initializing a Valvat instance and check the syntax of a var number string directly with:
 
@@ -62,7 +62,7 @@ Or to lookup a vat number string directly via VIES web service:
 
 ## Experimental checksum verification
 
-valvat allows to check vat numbers from AT, BE, BG, DE, DK, ES, FR, FI, GR, IE, IT, LU, NL, PL, PT, SE and SI against a checksum calculation. All other countries will fall back to a simple syntax check:
+valvat allows to check vat numbers from AT, BE, BG, DE, DK, ES, FR, FI, GR, IE, IT, LU, NL, PL, PT, SE and SI against a checksum calculation. All other member states will fall back to a basic syntax check:
 
     Valvat.new("DE345789003").valid_checksum?
     => true or false
