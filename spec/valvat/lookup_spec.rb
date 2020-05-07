@@ -124,4 +124,128 @@ describe Valvat::Lookup do
     #   end
     # end
   end
+
+  describe "#validate with VIES test enviroment", :focus do
+    # Here is the list of VAT Number to use to receive each kind of answer :
+    #
+    # 100 = Valid request with Valid VAT Number
+    # 200 = Valid request with an Invalid VAT Number
+    # 201 = Error : INVALID_INPUT
+    # 202 = Error : INVALID_REQUESTER_INFO
+    # 300 = Error : SERVICE_UNAVAILABLE
+    # 301 = Error : MS_UNAVAILABLE
+    # 302 = Error : TIMEOUT
+    # 400 = Error : VAT_BLOCKED
+    # 401 = Error : IP_BLOCKED
+    # 500 = Error : GLOBAL_MAX_CONCURRENT_REQ
+    # 501 = Error : GLOBAL_MAX_CONCURRENT_REQ_TIME
+    # 600 = Error : MS_MAX_CONCURRENT_REQ
+    # 601 = Error : MS_MAX_CONCURRENT_REQ_TIME
+
+    let(:options) { {wsdl: "https://ec.europa.eu/taxation_customs/vies/checkVatTestService.wsdl", skip_local_validation: true} }
+
+    context "Valid request with Valid VAT Number" do
+      subject{ Valvat::Lookup.validate("DE100", options) }
+
+      it "returns true" do
+        expect(subject).to eql(true)
+      end
+    end
+
+    context "Valid request with an Invalid VAT Number" do
+      subject{ Valvat::Lookup.validate("DE200", options) }
+
+      it "returns false" do
+        expect(subject).to eql(false)
+      end
+    end
+
+    context "Error : INVALID_INPUT" do
+      subject{ Valvat::Lookup.validate("DE201", options) }
+
+      it "returns false" do
+        expect(subject).to eql(false)
+      end
+    end
+
+    context "Error : INVALID_REQUESTER_INFO" do
+      subject{ Valvat::Lookup.validate("DE202", options) }
+
+      it "returns nil" do
+        expect(subject).to eql(nil)
+      end
+    end
+
+    context "Error : SERVICE_UNAVAILABLE" do
+      subject{ Valvat::Lookup.validate("DE300", options) }
+
+      it "returns nil" do
+        expect(subject).to eql(nil)
+      end
+    end
+
+    context "Error : MS_UNAVAILABLE" do
+      subject{ Valvat::Lookup.validate("DE301", options) }
+
+      it "returns nil" do
+        expect(subject).to eql(nil)
+      end
+    end
+
+    context "Error : TIMEOUT" do
+      subject{ Valvat::Lookup.validate("DE302", options) }
+
+      it "returns nil" do
+        expect(subject).to eql(nil)
+      end
+    end
+
+    context "Error : VAT_BLOCKED" do
+      subject{ Valvat::Lookup.validate("DE400", options) }
+
+      it "returns nil" do
+        expect(subject).to eql(nil)
+      end
+    end
+
+    context "Error : IP_BLOCKED" do
+      subject{ Valvat::Lookup.validate("DE401", options) }
+
+      it "returns nil" do
+        expect(subject).to eql(nil)
+      end
+    end
+
+    context "Error : GLOBAL_MAX_CONCURRENT_REQ" do
+      subject{ Valvat::Lookup.validate("DE500", options) }
+
+      it "returns nil" do
+        expect(subject).to eql(nil)
+      end
+    end
+
+    context "Error : GLOBAL_MAX_CONCURRENT_REQ_TIME" do
+      subject{ Valvat::Lookup.validate("DE501", options) }
+
+      it "returns nil" do
+        expect(subject).to eql(nil)
+      end
+    end
+
+    context "Error : MS_MAX_CONCURRENT_REQ" do
+      subject{ Valvat::Lookup.validate("DE600", options) }
+
+      it "returns nil" do
+        expect(subject).to eql(nil)
+      end
+    end
+
+    context "Error : MS_MAX_CONCURRENT_REQ_TIME" do
+      subject{ Valvat::Lookup.validate("DE601", options) }
+
+      it "returns nil" do
+        expect(subject).to eql(nil)
+      end
+    end
+  end
 end

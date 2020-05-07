@@ -10,7 +10,7 @@ class Valvat
     end
 
     def validate
-      return false unless vat.european?
+      return false if !@options[:skip_local_validation] && !vat.european?
 
       valid? && show_details? ? response_details : valid?
     rescue => error
