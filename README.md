@@ -46,9 +46,7 @@ To check if the given vat number exists via the VIES web service:
     Valvat.new("DE345789003").exists?
     => true or false or nil
 
-*IMPORTANT* Keep in mind that the VIES web service might be offline at some time for all or some member states. If this happens `exists?` or `Valvat::Lookup.validate` will return `nil`.
-
-Visit [http://ec.europa.eu/taxation_customs/vies/viesspec.do](http://ec.europa.eu/taxation_customs/vies/viesspec.do) for more accurate information at what time the service for a specific member state will be down.
+*IMPORTANT* Keep in mind that the VIES web service might be offline at some time for all or some member states. If this happens `exists?` or `Valvat::Lookup.validate` will return `nil`. See *Handling of VIES maintenance errors* for further details.
 
 It is also possible to bypass initializing a Valvat instance and check the syntax of a var number string directly with:
 
@@ -98,6 +96,28 @@ To receive a requestIdentifier you need to pass your own VAT number in the optio
       :address => "22, BOULEVARD ROYAL\nL-2449  LUXEMBOURG",
       :company_type => nil, :request_identifier => "some_uniq_string"
     } or false or nil
+
+If the given `requester_vat` is invalid, a `Valvat::InvalidRequester` error is thrown.
+
+## Handling of VIES maintenance errors
+
+From time to time the VIES web service for one or all member states is down for maintenance. To handle this kind of temporary errors, `Valvat::Lookup#validate` returns `nil` by default to indicate that there is no way at the moment to say if the given VAT is valid or not. You should revalidate the VAT later. If you prefer an error, use the `raise_error` option:
+
+    Valvat.new("IE6388047V").exists?(raise_error: true)
+
+This raises `Valvat::ServiceUnavailable` or `Valvat::MemberStateUnavailable` instead of returning `nil`.
+
+Visit [http://ec.europa.eu/taxation_customs/vies/viesspec.do](http://ec.europa.eu/taxation_customs/vies/viesspec.do) for more accurate information at what time the service for a specific member state will be down.
+
+## Handling of other VIES errors
+
+All other errors accuring while validating against the VIES web service are raised and must be handled by you. These include:
+
+ * `Valvat::InvalidRequester`
+ * `Valvat::BlockedError`
+ * `Valvat::RateLimitError`
+ * `Valvat::Timeout`
+ * all IO errors
 
 ## Usage with ActiveModel / Rails
 
