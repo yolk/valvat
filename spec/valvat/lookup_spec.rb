@@ -95,37 +95,9 @@ describe Valvat::Lookup do
         end
       end
     end
-
-    context "error on request" do
-      before do
-        @request = double("request")
-        allow(Valvat::Lookup::Request).to receive_messages(:new => @request)
-        allow(@request).to receive(:perform).and_raise(ArgumentError.new)
-      end
-
-      it "should return nil" do
-        expect(Valvat::Lookup.validate("LU21416127")).to eql(nil)
-      end
-
-      it "should raise error with raise_error option" do
-        expect {Valvat::Lookup.validate("LU21416127", :raise_error => true)}.to raise_error(ArgumentError)
-      end
-    end
-
-    # TODO : Reactivate with coorect "down" response
-    # context "country web service down" do
-    #   before do
-    #     json = "{\"error_message\": \"Member State service unavailable.\", \"error_code\": 1, \"error\": true}"
-    #     FakeWeb.register_uri(:get, "http://isvat.appspot.com/DE/259597697/", :body => json)
-    #   end
-
-    #   it "returns nil" do
-    #     Valvat::Lookup.validate("DE259597697").should eql(nil)
-    #   end
-    # end
   end
 
-  describe "#validate with VIES test enviroment", :focus do
+  describe "#validate with VIES test enviroment" do
     # Here is the list of VAT Number to use to receive each kind of answer :
     #
     # 100 = Valid request with Valid VAT Number

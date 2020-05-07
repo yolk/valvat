@@ -14,7 +14,11 @@ class Valvat
 
       def perform
         client = Savon::Client.new(wsdl: @options[:wsdl], log: false, follow_redirects: true)
-        Response.new(client.call(action, :message => body, :message_tag => message_tag))
+        begin
+          Response.new(client.call(action, :message => body, :message_tag => message_tag))
+        rescue Savon::SOAPFault => fault
+          Fault.new(fault)
+        end
       end
 
       private
