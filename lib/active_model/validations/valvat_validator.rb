@@ -5,6 +5,20 @@ require 'valvat/lookup'
 module ActiveModel
   module Validations
     class ValvatValidator < EachValidator
+      def initialize(options)
+        if options[:lookup]
+          options[:lookup] = if options[:lookup] == :fail_if_down
+            {fail_if_down: true}
+          elsif options[:lookup].is_a?(Hash)
+            options[:lookup]
+          else
+            {}
+          end
+        end
+
+        super
+      end
+
       def validate_each(record, attribute, value)
         vat = Valvat(value)
         iso_country_code = vat.iso_country_code
@@ -43,9 +57,10 @@ module ActiveModel
 
       def vat_exists?(vat)
         return true unless options[:lookup]
-        is_valid = vat.exists?
+
+        is_valid = vat.exists?(options[:lookup])
         return is_valid unless is_valid.nil?
-        options[:lookup] != :fail_if_down
+        !options[:lookup][:fail_if_down]
       end
     end
   end

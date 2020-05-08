@@ -161,7 +161,11 @@ To additionally perform a lookup via VIES:
 
 By default this will validate to true if the VIES web service is down. To fail in this case simply add the `:fail_if_down` option:
 
-    validates :vat_number, valvat: {lookup: :fail_if_down}
+    validates :vat_number, valvat: {lookup: {fail_if_down: true}}
+
+You can pass in any options accepted by `Valvat::Lookup#validate`:
+
+    validates :vat_number, valvat: {lookup: {raise_error: true, savon: {log: true}}}
 
 ### Additional (and experimental) checksum validation
 
