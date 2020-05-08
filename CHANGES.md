@@ -6,6 +6,7 @@
 * Refactored lookup to use specific rescue for savons soapfaults
 * Raises vies specific error classes to help debugging temporary and permanent VIES errors
 * Lookup#validate supports :savon option to allow altering the behaviour of the used savon client
+* ActiveModel validator now supports all lookup options.
 * Use https instead of http for accessing vies (by [Crazy Chris](https://github.com/lubekpl))
 
 ### 0.9.1 / 2020-03-19
