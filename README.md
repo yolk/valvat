@@ -105,7 +105,7 @@ All other errors accuring while validating against the VIES web service are rais
  * `Valvat::Timeout`
  * all IO errors
 
-### Set optiosn for the savon client
+### Set options for the savon client
 
 Use the `:savon` key to set options for the used savon SOAP client. For example to log all requests:
 
