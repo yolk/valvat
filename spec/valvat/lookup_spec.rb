@@ -75,7 +75,7 @@ describe Valvat::Lookup do
 
     context "with request identifier" do
       it "returns hash of details instead of true" do
-        response = Valvat::Lookup.validate("IE6388047V", requester_vat: "IE6388047V")
+        response = Valvat::Lookup.validate("IE6388047V", requester: "IE6388047V")
 
         if response
           expect(response[:request_identifier].size).to eql(16)
@@ -93,6 +93,16 @@ describe Valvat::Lookup do
         else
           puts "Skipping IE vies lookup spec"
         end
+      end
+
+      it "supports old :requester_vat option for backwards stability" do
+        expect(
+          Valvat::Lookup.new("IE6388047V", requester_vat: "LU21416127").options[:requester]
+        ).to eql("LU21416127")
+
+        expect(
+          Valvat::Lookup.new("IE6388047V", requester: "LU21416128").options[:requester]
+        ).to eql("LU21416128")
       end
     end
   end

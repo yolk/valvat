@@ -75,7 +75,7 @@ According to EU law, or at least as Austria sees it, it's mandatory to verify th
 
 To receive a `request_identifier` you need to pass your own VAT number in the options hash. In this example, Google (VAT IE6388047V) is checking the validity of eBays VAT number (LU21416127)
 
-    Valvat.new("LU21416127").exists?(requester_vat: "IE6388047V")
+    Valvat.new("LU21416127").exists?(requester: "IE6388047V")
     => {
       :country_code=>"LU", :vat_number => "21416127", :valid => true,
       :request_date => Date.today, :name=>"EBAY EUROPE S.A R.L.",
@@ -83,7 +83,7 @@ To receive a `request_identifier` you need to pass your own VAT number in the op
       :company_type => nil, :request_identifier => "some_uniq_string"
     } or false or nil
 
-If the given `requester_vat` is invalid, a `Valvat::InvalidRequester` error is thrown.
+If the given `requester` is invalid, a `Valvat::InvalidRequester` error is thrown.
 
 ### Handling of VIES maintenance errors
 

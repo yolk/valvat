@@ -8,7 +8,7 @@ class Valvat
       def initialize(vat, options)
         @vat = vat
         @options = options || {}
-        @options[:requester_vat] &&= Valvat(@options[:requester_vat])
+        @requester = @options[:requester] && Valvat(@options[:requester])
       end
 
       def perform
@@ -26,22 +26,22 @@ class Valvat
       def body
         body = {country_code: @vat.vat_country_code, vat_number: @vat.to_s_wo_country}
         body.merge!(
-          requester_country_code: @options[:requester_vat].vat_country_code,
-          requester_vat_number: @options[:requester_vat].to_s_wo_country
-        ) if @options[:requester_vat]
+          requester_country_code: @requester.vat_country_code,
+          requester_vat_number: @requester.to_s_wo_country
+        ) if @requester
         body
       end
 
       def message_tag
-        @options[:requester_vat] ? :checkVatApprox : :checkVat
+        @requester ? :checkVatApprox : :checkVat
       end
 
       def action
-        @options[:requester_vat] ? :check_vat_approx : :check_vat
+        @requester ? :check_vat_approx : :check_vat
       end
 
       def response_key
-        @options[:requester_vat] ? :check_vat_approx_response : :check_vat_response
+        @requester ? :check_vat_approx_response : :check_vat_response
       end
     end
   end

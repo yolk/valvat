@@ -7,6 +7,7 @@ class Valvat
     def initialize(vat, options={})
       @vat = Valvat(vat)
       @options = options || {}
+      @options[:requester] ||= @options[:requester_vat]
     end
 
     def validate
@@ -34,7 +35,7 @@ class Valvat
     end
 
     def show_details?
-      options[:requester_vat] || options[:detail]
+      options[:requester] || options[:detail]
     end
 
     def handle_faults(value)
