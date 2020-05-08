@@ -34,29 +34,90 @@ Or install it yourself as:
 
     $ gem install valvat
 
-## Basic Usage
+## Validate the syntax of a VAT number
 
 To verify the syntax of a vat number:
 
     Valvat.new("DE345789003").valid?
     => true or false
 
+It is also possible to bypass initializing a Valvat instance and check the syntax of a vat number string directly with:
+
+    Valvat::Syntax.validate("DE345789003")
+    => true or false
+
+## Validate agains the VIES web service
+
 To check if the given vat number exists via the VIES web service:
 
     Valvat.new("DE345789003").exists?
     => true or false or nil
 
-*IMPORTANT* Keep in mind that the VIES web service might be offline at some time for all or some member states. If this happens `exists?` or `Valvat::Lookup.validate` will return `nil`. See *Handling of VIES maintenance errors* for further details.
-
-It is also possible to bypass initializing a Valvat instance and check the syntax of a var number string directly with:
-
-    Valvat::Syntax.validate("DE345789003")
-    => true or false
-
 Or to lookup a vat number string directly via VIES web service:
 
     Valvat::Lookup.validate("DE345789003")
     => true or false or nil
+
+*IMPORTANT* Keep in mind that the VIES web service might be offline at some time for all or some member states. If this happens `exists?` or `Valvat::Lookup.validate` will return `nil`. See *Handling of VIES maintenance errors* for further details.
+
+### Details & request identifier
+
+If you need all details and not only if the VAT is valid, pass {detail: true} as second parameter to the lookup call.
+
+    Valvat.new("IE6388047V").exists?(detail: true)
+    => {
+      :country_code=>"IE", :vat_number => "6388047V", :valid => true,
+      :request_date => Date.today, :name=>"GOOGLE IRELAND LIMITED",
+      :address=>"1ST & 2ND FLOOR ,GORDON HOUSE ,BARROW STREET ,DUBLIN 4"
+    } or false or nil
+
+According to EU law, or at least as Austria sees it, it's mandatory to verify the VAT number of every new customer, but also to check the VAT number periodicaly. To prove that you have checked the VAT number, the VIES Web service can return a `request_identifier`.
+
+To receive a `request_identifier` you need to pass your own VAT number in the options hash. In this example, Google (VAT IE6388047V) is checking the validity of eBays VAT number (LU21416127)
+
+    Valvat.new("LU21416127").exists?(requester_vat: "IE6388047V")
+    => {
+      :country_code=>"LU", :vat_number => "21416127", :valid => true,
+      :request_date => Date.today, :name=>"EBAY EUROPE S.A R.L.",
+      :address => "22, BOULEVARD ROYAL\nL-2449  LUXEMBOURG",
+      :company_type => nil, :request_identifier => "some_uniq_string"
+    } or false or nil
+
+If the given `requester_vat` is invalid, a `Valvat::InvalidRequester` error is thrown.
+
+### Handling of VIES maintenance errors
+
+From time to time the VIES web service for one or all member states is down for maintenance. To handle this kind of temporary errors, `Valvat::Lookup#validate` returns `nil` by default to indicate that there is no way at the moment to say if the given VAT is valid or not. You should revalidate the VAT later. If you prefer an error, use the `raise_error` option:
+
+    Valvat.new("IE6388047V").exists?(raise_error: true)
+
+This raises `Valvat::ServiceUnavailable` or `Valvat::MemberStateUnavailable` instead of returning `nil`.
+
+Visit [http://ec.europa.eu/taxation_customs/vies/viesspec.do](http://ec.europa.eu/taxation_customs/vies/viesspec.do) for more accurate information at what time the service for a specific member state will be down.
+
+### Handling of other VIES errors
+
+All other errors accuring while validating against the VIES web service are raised and must be handled by you. These include:
+
+ * `Valvat::InvalidRequester`
+ * `Valvat::BlockedError`
+ * `Valvat::RateLimitError`
+ * `Valvat::Timeout`
+ * all IO errors
+
+### Set optiosn for the savon client
+
+Use the `:savon` key to set options for the used savon SOAP client. For example to log all requests:
+
+    Valvat.new("IE6388047V").exists?(savon: {log: true})
+
+Or to use higher timeouts for the requests:
+
+   Valvat.new("IE6388047V").exists?(savon: {open_timeout: 10, read_timeout: 10})
+
+### Skip local validation before lookup
+
+To prevent unnecessary requests, valvat performs a local syntax check before making the request to the VIES web service. If you want to skip this step (for any reason), set the `:skip_local_validation` option to `true`.
 
 ## Experimental checksum verification
 
@@ -73,51 +134,6 @@ To bypass initializing a Valvat instance:
 
     Valvat::Checksum.validate("DE345789003")
     => true or false
-
-## Details & request identifier
-
-If you need all details and not only if the VAT is valid, pass {:detail => true} as second parameter to the lookup call.
-
-    Valvat.new("IE6388047V").exists?(:detail => true)
-    => {
-      :country_code=>"IE", :vat_number => "6388047V", :valid => true,
-      :request_date => Date.today, :name=>"GOOGLE IRELAND LIMITED",
-      :address=>"1ST & 2ND FLOOR ,GORDON HOUSE ,BARROW STREET ,DUBLIN 4"
-    } or false or nil
-
-According to EU law, or at least as Austria sees it, it's mandatory to verify the UID number of every new customer, but also to check the UID Number periodicaly. To prove that you have checked the UID number, the VIES Web service can return a requestIdentifier.
-
-To receive a requestIdentifier you need to pass your own VAT number in the options hash. In this Example, Google (VAT IE6388047V) is checking the validity of eBays VAT number (LU21416127)
-
-    Valvat.new("LU21416127").exists?(:requester_vat => "IE6388047V")
-    => {
-      :country_code=>"LU", :vat_number => "21416127", :valid => true,
-      :request_date => Date.today, :name=>"EBAY EUROPE S.A R.L.",
-      :address => "22, BOULEVARD ROYAL\nL-2449  LUXEMBOURG",
-      :company_type => nil, :request_identifier => "some_uniq_string"
-    } or false or nil
-
-If the given `requester_vat` is invalid, a `Valvat::InvalidRequester` error is thrown.
-
-## Handling of VIES maintenance errors
-
-From time to time the VIES web service for one or all member states is down for maintenance. To handle this kind of temporary errors, `Valvat::Lookup#validate` returns `nil` by default to indicate that there is no way at the moment to say if the given VAT is valid or not. You should revalidate the VAT later. If you prefer an error, use the `raise_error` option:
-
-    Valvat.new("IE6388047V").exists?(raise_error: true)
-
-This raises `Valvat::ServiceUnavailable` or `Valvat::MemberStateUnavailable` instead of returning `nil`.
-
-Visit [http://ec.europa.eu/taxation_customs/vies/viesspec.do](http://ec.europa.eu/taxation_customs/vies/viesspec.do) for more accurate information at what time the service for a specific member state will be down.
-
-## Handling of other VIES errors
-
-All other errors accuring while validating against the VIES web service are raised and must be handled by you. These include:
-
- * `Valvat::InvalidRequester`
- * `Valvat::BlockedError`
- * `Valvat::RateLimitError`
- * `Valvat::Timeout`
- * all IO errors
 
 ## Usage with ActiveModel / Rails
 
