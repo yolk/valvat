@@ -10,12 +10,23 @@ rvm:
   - 2.1
   - jruby-19mode
 gemfile:
+  - gemfiles/activemodel-6
   - gemfiles/activemodel-5
   - gemfiles/activemodel-4
   - gemfiles/activemodel-3-2
   - gemfiles/standalone
 matrix:
   exclude:
+  - rvm: 2.4
+    gemfile: gemfiles/activemodel-6
+  - rvm: 2.3
+    gemfile: gemfiles/activemodel-6
+  - rvm: 2.2
+    gemfile: gemfiles/activemodel-6
+  - rvm: 2.1
+    gemfile: gemfiles/activemodel-6
+  - rvm: jruby-19mode
+    gemfile: gemfiles/activemodel-6
   - rvm: 2.1
     gemfile: gemfiles/activemodel-5
   - rvm: jruby-19mode
