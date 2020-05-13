@@ -34,25 +34,11 @@ class Valvat
       @options[:requester] || @options[:detail]
     end
 
-    def handle_vies_error(fault)
-      case fault
-      when "INVALID_INPUT"
-        false
-      when "INVALID_REQUESTER_INFO"
-        raise InvalidRequester.new(fault) unless @options[:raise_error] == false
-      when "SERVICE_UNAVAILABLE"
-        raise ServiceUnavailable.new(fault) if @options[:raise_error]
-      when "MS_UNAVAILABLE"
-        raise MemberStateUnavailable.new(fault) if @options[:raise_error]
-      when "TIMEOUT"
-        raise Timeout.new(fault) unless @options[:raise_error] == false
-      when "VAT_BLOCKED", "IP_BLOCKED"
-        raise BlockedError.new(fault) unless @options[:raise_error] == false
-      when "GLOBAL_MAX_CONCURRENT_REQ", "GLOBAL_MAX_CONCURRENT_REQ_TIME",
-           "MS_MAX_CONCURRENT_REQ", "MS_MAX_CONCURRENT_REQ_TIME"
-        raise RateLimitError.new(fault) unless @options[:raise_error] == false
+    def handle_vies_error(error)
+      if ViesMaintenanceError === error
+        raise error if @options[:raise_error]
       else
-        raise UnknownViesError.new(fault) unless @options[:raise_error] == false
+        raise error unless @options[:raise_error] == false
       end
     end
   end

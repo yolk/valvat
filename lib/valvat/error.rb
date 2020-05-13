@@ -10,9 +10,10 @@ class Valvat
       "The VIES web service returned the error '#{@faultstring}'."
     end
   end
+  ViesMaintenanceError = Class.new(ViesError)
 
-  ServiceUnavailable = Class.new(ViesError)
-  MemberStateUnavailable = Class.new(ViesError)
+  ServiceUnavailable = Class.new(ViesMaintenanceError)
+  MemberStateUnavailable = Class.new(ViesMaintenanceError)
 
   Timeout = Class.new(ViesError)
   InvalidRequester = Class.new(ViesError)
