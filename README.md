@@ -105,6 +105,12 @@ All other errors accuring while validating against the VIES web service are rais
  * `Valvat::Timeout`
  * all IO errors
 
+If you want to suppress all known error cases. Pass in the `raise_error` option set to `false`:
+
+    Valvat.new("IE6388047V").exists?(raise_error: false)
+
+This will return `nil` instead of raising a known error.
+
 ### Set options for the savon client
 
 Use the `:savon` key to set options for the used savon SOAP client. For example to log all requests:

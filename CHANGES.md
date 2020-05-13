@@ -8,6 +8,7 @@
 * Lookup#validate supports :savon option to allow altering the behaviour of the used savon client
 * ActiveModel validator now supports all lookup options.
 * Use https instead of http for accessing vies (by [Crazy Chris](https://github.com/lubekpl))
+* Lookup#validate supports :raise_error option to return nil instead of raising (known) error when connecting to the VIES web service.
 
 ### 0.9.1 / 2020-03-19
 
