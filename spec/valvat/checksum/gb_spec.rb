@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe Valvat::Checksum::GB do
   %w(GBGD100 GBHA600).each do |gov_agency_vat|
     it "returns true on valid vat for government agency #{gov_agency_vat}" do
