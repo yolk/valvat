@@ -108,21 +108,6 @@ describe Valvat::Lookup do
   end
 
   describe "#validate with VIES test enviroment" do
-    # Here is the list of VAT Number to use to receive each kind of answer :
-    #
-    # 100 = Valid request with Valid VAT Number
-    # 200 = Valid request with an Invalid VAT Number
-    # 201 = Error : INVALID_INPUT
-    # 202 = Error : INVALID_REQUESTER_INFO
-    # 300 = Error : SERVICE_UNAVAILABLE
-    # 301 = Error : MS_UNAVAILABLE
-    # 302 = Error : TIMEOUT
-    # 400 = Error : VAT_BLOCKED
-    # 401 = Error : IP_BLOCKED
-    # 500 = Error : GLOBAL_MAX_CONCURRENT_REQ
-    # 501 = Error : GLOBAL_MAX_CONCURRENT_REQ_TIME
-    # 600 = Error : MS_MAX_CONCURRENT_REQ
-    # 601 = Error : MS_MAX_CONCURRENT_REQ_TIME
 
     let(:options) { {savon: {wsdl: "https://ec.europa.eu/taxation_customs/vies/checkVatTestService.wsdl"}, skip_local_validation: true} }
 
