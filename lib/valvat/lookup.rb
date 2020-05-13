@@ -1,8 +1,5 @@
 class Valvat
   class Lookup
-    REMOVE_KEYS = [:valid, :@xmlns]
-
-    attr_reader :vat, :options
 
     def initialize(vat, options={})
       @vat = Valvat(vat)
@@ -11,11 +8,18 @@ class Valvat
     end
 
     def validate
-      if !@options[:skip_local_validation] && !vat.valid?
+      if !@options[:skip_local_validation] && !@vat.valid?
         return false
       end
 
-      handle_faults(valid? && show_details? ? response.to_hash : valid?)
+      case response[:valid]
+      when nil
+        handle_fault(response[:fault])
+      when false
+        false
+      when true
+        show_details? ? response.to_hash : response[:valid]
+      end
     end
 
     class << self
@@ -31,16 +35,15 @@ class Valvat
     end
 
     def response
-      @response ||= Request.new(vat, options).perform
+      @response ||= Request.new(@vat, @options).perform
     end
 
     def show_details?
-      options[:requester] || options[:detail]
+      @options[:requester] || @options[:detail]
     end
 
-    def handle_faults(value)
-      return value unless value.nil?
-      case fault = response.to_hash[:fault]
+    def handle_fault(fault)
+      case fault
       when "INVALID_INPUT"
       when "INVALID_REQUESTER_INFO"
         raise InvalidRequester.new(fault)
@@ -58,7 +61,6 @@ class Valvat
       else
         raise UnknownViesError.new(fault)
       end
-      value
     end
   end
 end

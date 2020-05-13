@@ -97,11 +97,11 @@ describe Valvat::Lookup do
 
       it "supports old :requester_vat option for backwards stability" do
         expect(
-          Valvat::Lookup.new("IE6388047V", requester_vat: "LU21416127").options[:requester]
+          Valvat::Lookup.new("IE6388047V", requester_vat: "LU21416127").instance_variable_get(:@options)[:requester]
         ).to eql("LU21416127")
 
         expect(
-          Valvat::Lookup.new("IE6388047V", requester: "LU21416128").options[:requester]
+          Valvat::Lookup.new("IE6388047V", requester: "LU21416128").instance_variable_get(:@options)[:requester]
         ).to eql("LU21416128")
       end
     end
