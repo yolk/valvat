@@ -8,18 +8,10 @@ class Valvat
     end
 
     def validate
-      if !@options[:skip_local_validation] && !@vat.valid?
-        return false
-      end
+      return false if !@options[:skip_local_validation] && !@vat.valid?
+      return handle_vies_error(response[:error]) if response[:error]
 
-      case response[:valid]
-      when nil
-        handle_fault(response[:fault])
-      when false
-        false
-      when true
-        show_details? ? response.to_hash : response[:valid]
-      end
+      response[:valid] && show_details? ? response.to_hash : response[:valid]
     end
 
     class << self
@@ -42,9 +34,10 @@ class Valvat
       @options[:requester] || @options[:detail]
     end
 
-    def handle_fault(fault)
+    def handle_vies_error(fault)
       case fault
       when "INVALID_INPUT"
+        false
       when "INVALID_REQUESTER_INFO"
         raise InvalidRequester.new(fault)
       when "SERVICE_UNAVAILABLE"

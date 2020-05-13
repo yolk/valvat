@@ -4,8 +4,7 @@ class Valvat
       private
 
       def self.cleanup_hash(hash)
-        fault = hash[:fault][:faultstring]
-        {fault: fault, valid: fault == "INVALID_INPUT" ? false : nil}
+        {error: hash[:fault][:faultstring]}
       end
     end
   end
