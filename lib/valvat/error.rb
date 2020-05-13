@@ -7,7 +7,7 @@ class Valvat
     end
 
     def to_s
-      "The VIES web service returned '#{@faultstring}'."
+      "The VIES web service returned the error '#{@faultstring}'."
     end
   end
 
