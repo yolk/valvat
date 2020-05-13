@@ -15,21 +15,17 @@ class Valvat
 
         checksum  = vat_number[7..8].to_i
         vat_base = vat_number[0..6]
-
-        vat_base_sum = vat_base.split('').
-          map(&:to_i).
-          zip([8, 7, 6, 5, 4, 3, 2]).
-          map { |vat_number_digit, multiplier| vat_number_digit * multiplier }.
-          inject(:+)
+        vat_base_int = vat_base.to_i
+        vat_base_sum = generate_vat_base_sum(vat_base)
 
         old_format_remainder = (vat_base_sum + checksum).modulo(97)
         new_format_remainder = (vat_base_sum + 55 + checksum).modulo(97)
 
         return false if old_format_remainder == 0 &&
-          OLD_FORMAT_FORBIDDEN_RANGES.any? { |range| range.include? vat_base.to_i }
+          OLD_FORMAT_FORBIDDEN_RANGES.any? { |range| range.include? vat_base_int }
 
         return false if new_format_remainder == 0 &&
-          NEW_FORMAT_FORBIDDEN_RANGES.any? { |range| range.include? vat_base.to_i }
+          NEW_FORMAT_FORBIDDEN_RANGES.any? { |range| range.include? vat_base_int }
 
         old_format_remainder == 0 || new_format_remainder == 0
       end
@@ -42,6 +38,14 @@ class Valvat
 
       def all_zero?(vat_number)
         vat_number =~ /\A0{9}\Z/ || vat_number =~ /\A0{12}\Z/
+      end
+
+      def generate_vat_base_sum(vat_base)
+        vat_base.split('').
+          map(&:to_i).
+          zip([8, 7, 6, 5, 4, 3, 2]).
+          map { |vat_number_digit, multiplier| vat_number_digit * multiplier }.
+          inject(:+)
       end
     end
   end
