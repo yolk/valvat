@@ -2,7 +2,7 @@ class Valvat
   Error = Class.new(RuntimeError)
 
   class ViesError < Error
-    def initialize(faultstring)
+    def initialize(faultstring='UNKOWN')
       @faultstring = faultstring
     end
 
