@@ -6,7 +6,7 @@ class Valvat
       VIES_WSDL_URL = 'https://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl'
 
       def initialize(vat, options)
-        @vat = vat
+        @vat = Valvat(vat)
         @options = options || {}
         @requester = @options[:requester] && Valvat(@options[:requester])
       end
