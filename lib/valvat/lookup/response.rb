@@ -3,20 +3,19 @@ class Valvat
     class Response
       def initialize(raw)
         @raw = raw
-        @hash = self.class.cleanup_hash(raw.to_hash)
       end
 
       def [](key)
-        @hash[key]
+        to_hash[key]
       end
 
       def to_hash
-        @hash
+        @hash ||= self.class.cleanup(@raw.to_hash)
       end
 
       private
 
-      def self.cleanup_hash(hash)
+      def self.cleanup(hash)
         (hash[:check_vat_approx_response] || hash[:check_vat_response] || {}).inject({}) do |hash, (key, value)|
           hash[cleanup_key(key)] = cleanup_value(value) unless key == :"@xmlns"
           hash

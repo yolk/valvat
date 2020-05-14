@@ -3,7 +3,7 @@ class Valvat
     class Fault < Response
       private
 
-      def self.cleanup_hash(hash)
+      def self.cleanup(hash)
         fault = hash[:fault][:faultstring]
         return {valid: false} if fault == "INVALID_INPUT"
         {error: fault_to_error(fault)}
