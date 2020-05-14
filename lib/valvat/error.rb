@@ -9,6 +9,10 @@ class Valvat
     def to_s
       "The VIES web service returned the error '#{@faultstring}'."
     end
+
+    def eql?(other)
+      to_s.eql?(other.to_s)
+    end
   end
   ViesMaintenanceError = Class.new(ViesError)
 
