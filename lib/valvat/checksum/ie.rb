@@ -6,7 +6,7 @@ class Valvat
           fig*(i+2)
         end
         if str_wo_country.size == 9
-          total += (CHARS.index(str_wo_country[8]) * 9)
+          total += ((CHARS.index(str_wo_country[8]) || 0)  * 9)
         end
         total.modulo(23)
       end

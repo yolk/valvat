@@ -13,4 +13,10 @@ describe Valvat::Checksum::IE do
       expect(Valvat::Checksum.validate(invalid_vat)).to eql(false)
     end
   end
+
+  %w(IE0000000XX IE0000000AZ).each do |invalid_vat|
+    it "returns false on invalid vat #{invalid_vat}" do
+      expect(Valvat::Checksum.validate(invalid_vat)).to eql(false)
+    end
+  end
 end
