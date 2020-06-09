@@ -9,6 +9,7 @@
 * ActiveModel validator now supports all lookup options.
 * Use https instead of http for accessing vies (by [Crazy Chris](https://github.com/lubekpl))
 * Lookup#validate supports :raise_error option to return nil instead of raising (known) error when connecting to the VIES web service.
+* [BUGFIX] Checksum: Prevent error on some invalid IE vat numbers
 
 ### 0.9.1 / 2020-03-19
 
