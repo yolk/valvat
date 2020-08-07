@@ -1,7 +1,7 @@
 en:
   errors:
     messages:
-      invalid_vat: is not a valid %{country_adjective} vat number
+      invalid_vat: is not a valid %{country_adjective} VAT number
   valvat:
     country_adjectives:
       eu: European
