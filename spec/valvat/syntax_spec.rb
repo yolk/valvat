@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Valvat::Syntax do
   describe "#validate" do
-    it "validates a DE vat number" do
+    it "validates a DE VAT number" do
       expect(subject.validate("DE345889003")).to eql(true)
 
       expect(subject.validate("DE34588900")).to eql(false)
@@ -10,7 +10,7 @@ describe Valvat::Syntax do
       expect(subject.validate("DE34588900C")).to eql(false)
     end
 
-    it "validates a AT vat number" do
+    it "validates a AT VAT number" do
       expect(subject.validate("ATU03458890")).to eql(true)
 
       expect(subject.validate("ATU034588908")).to eql(false)
@@ -18,7 +18,7 @@ describe Valvat::Syntax do
       expect(subject.validate("ATU0345889Y")).to eql(false)
     end
 
-    it "should validate BE vat number" do
+    it "should validate BE VAT number" do
       expect(subject.validate("BE0817331995")).to eql(true)
 
       expect(subject.validate("BE081733199")).to eql(false)
@@ -27,7 +27,7 @@ describe Valvat::Syntax do
       expect(subject.validate("BE1817331999")).to eql(false)
     end
 
-    it "validates a BG vat number" do
+    it "validates a BG VAT number" do
       expect(subject.validate("BG468134789")).to eql(true)
       expect(subject.validate("BG4681347897")).to eql(true)
 
@@ -37,7 +37,7 @@ describe Valvat::Syntax do
       expect(subject.validate("BG46813478")).to eql(false)
     end
 
-    it "validates a CY vat number" do
+    it "validates a CY VAT number" do
       expect(subject.validate("CY36579347A")).to eql(true)
       expect(subject.validate("CY36579347C")).to eql(true)
 
@@ -47,7 +47,7 @@ describe Valvat::Syntax do
       expect(subject.validate("CY365793G")).to eql(false)
     end
 
-    it "validates a DK vat number" do
+    it "validates a DK VAT number" do
       expect(subject.validate("DK67893463")).to eql(true)
 
       expect(subject.validate("DK678934637")).to eql(false)
@@ -55,7 +55,7 @@ describe Valvat::Syntax do
       expect(subject.validate("DK6789346H")).to eql(false)
     end
 
-    it "validates a ES vat number" do
+    it "validates a ES VAT number" do
       expect(subject.validate("ESX67345987")).to eql(true)
       expect(subject.validate("ESA6734598B")).to eql(true)
       expect(subject.validate("ES56734598C")).to eql(true)
@@ -65,14 +65,14 @@ describe Valvat::Syntax do
       expect(subject.validate("ESX673459890")).to eql(false)
     end
 
-    it "validates a EE vat number" do
+    it "validates a EE VAT number" do
       expect(subject.validate("EE100207415")).to eql(true)
       expect(subject.validate("EE1002074150")).to eql(false)
       expect(subject.validate("EE10020741")).to eql(false)
       expect(subject.validate("EE100207415K")).to eql(false)
     end
 
-    it "validates a FI vat number" do
+    it "validates a FI VAT number" do
       expect(subject.validate("FI67845638")).to eql(true)
 
       expect(subject.validate("FI678456389")).to eql(false)
@@ -80,7 +80,7 @@ describe Valvat::Syntax do
       expect(subject.validate("FI6784563K")).to eql(false)
     end
 
-    it "validates a FR vat number" do
+    it "validates a FR VAT number" do
       expect(subject.validate("FR99123543267")).to eql(true)
       expect(subject.validate("FRBB123543267")).to eql(true)
       expect(subject.validate("FR9B123543267")).to eql(true)
@@ -92,7 +92,7 @@ describe Valvat::Syntax do
       expect(subject.validate("FRB9123543")).to eql(false)
     end
 
-    it "validates a EL vat number" do
+    it "validates a EL VAT number" do
       expect(subject.validate("EL678456345")).to eql(true)
 
       expect(subject.validate("EL67845634")).to eql(false)
@@ -100,7 +100,7 @@ describe Valvat::Syntax do
       expect(subject.validate("EL67845634P")).to eql(false)
     end
 
-    it "validates a HU vat number" do
+    it "validates a HU VAT number" do
       expect(subject.validate("HU67894595")).to eql(true)
 
       expect(subject.validate("HU6789459")).to eql(false)
@@ -108,7 +108,7 @@ describe Valvat::Syntax do
       expect(subject.validate("HU6789459J")).to eql(false)
     end
 
-    it "validates a HR vat number" do
+    it "validates a HR VAT number" do
       expect(subject.validate("HR12345678912")).to eql(true)
 
       expect(subject.validate("HR6789459")).to eql(false)
@@ -116,7 +116,7 @@ describe Valvat::Syntax do
       expect(subject.validate("HR6789459J")).to eql(false)
     end
 
-    it "validates a IE vat number" do
+    it "validates a IE VAT number" do
       expect(subject.validate("IE1B12345J")).to eql(true)
       expect(subject.validate("IE1234567B")).to eql(true)
       expect(subject.validate("IE1234567XX")).to eql(true)
@@ -128,7 +128,7 @@ describe Valvat::Syntax do
       expect(subject.validate("IE1X34567XX")).to eql(false)
     end
 
-    it "validates a IT vat number" do
+    it "validates a IT VAT number" do
       expect(subject.validate("IT45875359285")).to eql(true)
 
       expect(subject.validate("IT458753592859")).to eql(false)
@@ -136,7 +136,7 @@ describe Valvat::Syntax do
       expect(subject.validate("IT4587535928")).to eql(false)
     end
 
-    it "validates a LV vat number" do
+    it "validates a LV VAT number" do
       expect(subject.validate("LV85678368906")).to eql(true)
 
       expect(subject.validate("LV8567836890")).to eql(false)
@@ -144,7 +144,7 @@ describe Valvat::Syntax do
       expect(subject.validate("LV8567836890S")).to eql(false)
     end
 
-    it "validates a LT vat number" do
+    it "validates a LT VAT number" do
       expect(subject.validate("LT213179412")).to eql(true)
       expect(subject.validate("LT290061371314")).to eql(true)
 
@@ -158,7 +158,7 @@ describe Valvat::Syntax do
       expect(subject.validate("LT290061371314H")).to eql(false)
     end
 
-    it "validates a LU vat number" do
+    it "validates a LU VAT number" do
       expect(subject.validate("LU45679456")).to eql(true)
 
       expect(subject.validate("LU4567945")).to eql(false)
@@ -166,7 +166,7 @@ describe Valvat::Syntax do
       expect(subject.validate("LU4567945J")).to eql(false)
     end
 
-    it "validates a MT vat number" do
+    it "validates a MT VAT number" do
       expect(subject.validate("MT64569367")).to eql(true)
 
       expect(subject.validate("MT6456936")).to eql(false)
@@ -174,7 +174,7 @@ describe Valvat::Syntax do
       expect(subject.validate("MT6456936L")).to eql(false)
     end
 
-    it "validates a NL vat number" do
+    it "validates a NL VAT number" do
       expect(subject.validate("NL673739491B77")).to eql(true)
 
       expect(subject.validate("NL673739491977")).to eql(false)
@@ -184,7 +184,7 @@ describe Valvat::Syntax do
       expect(subject.validate("NL6737394917B7")).to eql(false)
     end
 
-    it "validates a PL vat number" do
+    it "validates a PL VAT number" do
       expect(subject.validate("PL6784567284")).to eql(true)
 
       expect(subject.validate("PL678456728")).to eql(false)
@@ -192,14 +192,14 @@ describe Valvat::Syntax do
       expect(subject.validate("PL678456728K")).to eql(false)
     end
 
-    it "validates a PT vat number" do
+    it "validates a PT VAT number" do
       expect(subject.validate("PT346296476")).to eql(true)
 
       expect(subject.validate("PT34629647")).to eql(false)
       expect(subject.validate("PT3462964769")).to eql(false)
     end
 
-    it "validates a GB vat number" do
+    it "validates a GB VAT number" do
       expect(subject.validate("GB123456789")).to eql(true)
       expect(subject.validate("GB123456789012")).to eql(true)
       expect(subject.validate("GBGD123")).to eql(true)
@@ -216,7 +216,7 @@ describe Valvat::Syntax do
       expect(subject.validate("GBGD12")).to eql(false)
     end
 
-    it "validates a RO vat number" do
+    it "validates a RO VAT number" do
       expect(subject.validate("RO1234567890")).to eql(true)
       expect(subject.validate("RO123456789")).to eql(true)
       expect(subject.validate("RO12345678")).to eql(true)
@@ -240,21 +240,21 @@ describe Valvat::Syntax do
       expect(subject.validate("RO12345678901")).to eql(false)
     end
 
-    it "validates a SK vat number" do
+    it "validates a SK VAT number" do
       expect(subject.validate("SK5683075682")).to eql(true)
 
       expect(subject.validate("SK56830756821")).to eql(false)
       expect(subject.validate("SK568307568")).to eql(false)
     end
 
-    it "validates a SI vat number" do
+    it "validates a SI VAT number" do
       expect(subject.validate("SI74357893")).to eql(true)
 
       expect(subject.validate("SI743578931")).to eql(false)
       expect(subject.validate("SI7435789")).to eql(false)
     end
 
-    it "validates a SE vat number" do
+    it "validates a SE VAT number" do
       expect(subject.validate("SE567396352701")).to eql(true)
 
       expect(subject.validate("SE56739635201")).to eql(false)
@@ -263,7 +263,7 @@ describe Valvat::Syntax do
       expect(subject.validate("SE567396352711")).to eql(false)
     end
 
-    it "validates a CZ vat number" do
+    it "validates a CZ VAT number" do
       expect(subject.validate("CZ56389267")).to eql(true)
       expect(subject.validate("CZ563892670")).to eql(true)
       expect(subject.validate("CZ5638926790")).to eql(true)
@@ -272,7 +272,7 @@ describe Valvat::Syntax do
       expect(subject.validate("CZ56389268901")).to eql(false)
     end
 
-    it "returns false on blank/non-sense vat number" do
+    it "returns false on blank/non-sense VAT number" do
       expect(subject.validate("")).to eql(false)
       expect(subject.validate(" ")).to eql(false)
       expect(subject.validate("DE")).to eql(false)

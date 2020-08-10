@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Valvat::Lookup do
   describe "#validate" do
-    context "existing vat number" do
+    context "existing VAT number" do
 
       it "returns true" do
         result = Valvat::Lookup.validate("IE6388047V")
@@ -25,7 +25,7 @@ describe Valvat::Lookup do
       end
     end
 
-    context "not existing vat number" do
+    context "not existing VAT number" do
       it "returns false" do
         result =  Valvat::Lookup.validate("IE6388048V")
 
@@ -62,7 +62,7 @@ describe Valvat::Lookup do
         end
       end
 
-      it "still returns false on not existing vat number" do
+      it "still returns false on not existing VAT number" do
         result =  Valvat::Lookup.validate("LU21416128", detail: true)
 
         unless result.nil?

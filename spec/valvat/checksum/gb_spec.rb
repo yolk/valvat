@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Valvat::Checksum::GB do
   %w(GBGD100 GBHA600).each do |gov_agency_vat|
-    it "returns true on valid vat for government agency #{gov_agency_vat}" do
+    it "returns true on valid VAT for government agency #{gov_agency_vat}" do
       expect(Valvat::Checksum.validate(gov_agency_vat)).to be true
     end
   end
@@ -21,11 +21,11 @@ describe Valvat::Checksum::GB do
     expect(Valvat::Checksum.validate('GB434031439')).to be true
   end
 
-  it 'is false for an old format vat in forbidden group' do
+  it 'is false for an old format VAT in forbidden group' do
     expect(Valvat::Checksum.validate('GB999999973')).to be false
   end
 
-  it 'is false for a new format vat in forbidden group' do
+  it 'is false for a new format VAT in forbidden group' do
     expect(Valvat::Checksum.validate('GB100000034')).to be false
   end
 end

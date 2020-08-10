@@ -44,7 +44,7 @@ describe Valvat do
     end
   end
 
-  context "on european vat number" do
+  context "on european VAT number" do
     let(:de_vat) { Valvat.new("DE259597697") } # valid & exists
     let(:invalid_checksum) { Valvat.new("DE259597687") } # valid & invalid checksum
     let(:at_vat) { Valvat.new("ATU458890031") } # invalid
@@ -74,7 +74,7 @@ describe Valvat do
     end
 
     describe "#exist(s)?" do
-      context "on existing vat numbers" do
+      context "on existing VAT numbers" do
         before do
           allow(Valvat::Lookup).to receive_messages(validate: true)
         end
@@ -87,7 +87,7 @@ describe Valvat do
         end
       end
 
-      context "on not existing vat numbers" do
+      context "on not existing VAT numbers" do
         before do
           allow(Valvat::Lookup).to receive_messages(validate: false)
         end
@@ -112,7 +112,7 @@ describe Valvat do
         expect(at_vat.iso_country_code).to eql("AT")
       end
 
-      it "returns GR iso country code on greek vat number" do
+      it "returns GR iso country code on greek VAT number" do
         expect(gr_vat.iso_country_code).to eql("GR")
       end
     end
@@ -123,7 +123,7 @@ describe Valvat do
         expect(at_vat.vat_country_code).to eql("AT")
       end
 
-      it "returns EL iso language code on greek vat number" do
+      it "returns EL iso language code on greek VAT number" do
         expect(gr_vat.vat_country_code).to eql("EL")
       end
     end
@@ -137,7 +137,7 @@ describe Valvat do
     end
 
     describe "#to_s" do
-      it "returns full vat number" do
+      it "returns full VAT number" do
         expect(de_vat.to_s).to eql("DE259597697")
         expect(at_vat.to_s).to eql("ATU458890031")
         expect(gr_vat.to_s).to eql("EL999943280")
@@ -145,7 +145,7 @@ describe Valvat do
     end
 
     describe "#inspect" do
-      it "returns vat number with iso country code" do
+      it "returns VAT number with iso country code" do
         expect(de_vat.inspect).to eql("#<Valvat DE259597697 DE>")
         expect(at_vat.inspect).to eql("#<Valvat ATU458890031 AT>")
         expect(gr_vat.inspect).to eql("#<Valvat EL999943280 GR>")
@@ -153,7 +153,7 @@ describe Valvat do
     end
 
     describe "#to_a" do
-      it "calls Valvat::Utils.split with raw vat number and returns result" do
+      it "calls Valvat::Utils.split with raw VAT number and returns result" do
         de_vat # initialize
         expect(Valvat::Utils).to receive(:split).once.with("DE259597697").and_return(["a", "b"])
         expect(de_vat.to_a).to eql(["a", "b"])
@@ -161,7 +161,7 @@ describe Valvat do
     end
   end
 
-  context "on vat number from outside of europe" do
+  context "on VAT number from outside of europe" do
     let(:us_vat) { Valvat.new("US345889003") }
     let(:ch_vat) { Valvat.new("CH445889003") }
 
@@ -201,14 +201,14 @@ describe Valvat do
     end
 
     describe "#to_s" do
-      it "returns full given vat number" do
+      it "returns full given VAT number" do
         expect(us_vat.to_s).to eql("US345889003")
         expect(ch_vat.to_s).to eql("CH445889003")
       end
     end
 
     describe "#inspect" do
-      it "returns vat number without iso country code" do
+      it "returns VAT number without iso country code" do
         expect(us_vat.inspect).to eql("#<Valvat US345889003>")
         expect(ch_vat.inspect).to eql("#<Valvat CH445889003>")
       end
@@ -216,7 +216,7 @@ describe Valvat do
 
   end
 
-  context "on non-sense/empty vat number" do
+  context "on non-sense/empty VAT number" do
     let(:only_iso_vat) { Valvat.new("DE") }
     let(:num_vat) { Valvat.new("12445889003") }
     let(:empty_vat) { Valvat.new("") }
@@ -268,7 +268,7 @@ describe Valvat do
     end
 
     describe "#to_s" do
-      it "returns full given vat number" do
+      it "returns full given VAT number" do
         expect(only_iso_vat.to_s).to eql("DE")
         expect(num_vat.to_s).to eql("12445889003")
         expect(empty_vat.to_s).to eql("")
@@ -277,7 +277,7 @@ describe Valvat do
     end
 
     describe "#inspect" do
-      it "returns vat number without iso country code" do
+      it "returns VAT number without iso country code" do
         expect(only_iso_vat.inspect).to eql("#<Valvat DE>")
         expect(num_vat.inspect).to eql("#<Valvat 12445889003>")
         expect(empty_vat.inspect).to eql("#<Valvat >")

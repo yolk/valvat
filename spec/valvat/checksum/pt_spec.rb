@@ -5,13 +5,13 @@ describe Valvat::Checksum::PT do
   subject { Valvat::Checksum }
 
   %w(PT136695973 PT501413197 PT503037753 PT500243590 PT500100144 PT502921838).each do |valid_vat|
-    it "returns true on valid vat #{valid_vat}" do
+    it "returns true on valid VAT #{valid_vat}" do
       expect(subject.validate(valid_vat)).to eql(true)
     end
 
     invalid_vat = "#{valid_vat[0..-5]}#{valid_vat[-1]}#{valid_vat[-4]}#{valid_vat[-2]}#{valid_vat[-3]}"
 
-    it "returns false on invalid vat #{invalid_vat}" do
+    it "returns false on invalid VAT #{invalid_vat}" do
       expect(subject.validate(invalid_vat)).to eql(false)
     end
   end

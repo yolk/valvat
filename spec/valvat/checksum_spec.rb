@@ -8,7 +8,7 @@ end
 
 describe Valvat::Checksum do
   describe "#validate" do
-    it "returns true on vat number with unknown checksum algorithm" do
+    it "returns true on VAT number with unknown checksum algorithm" do
       expect(Valvat::Checksum.validate("CZ699001237")).to eql(true)
     end
 
@@ -17,7 +17,7 @@ describe Valvat::Checksum do
     end
 
     VALID_VAT_NUMBERS.each do |valid_vat|
-      it "returns true on valid vat number #{valid_vat}" do
+      it "returns true on valid VAT number #{valid_vat}" do
         expect(Valvat::Checksum.validate(valid_vat)).to eql(true)
       end
     end

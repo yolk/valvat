@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe Valvat::Utils do
   describe "#split" do
-    it "returns country and rest on vat number as array" do
+    it "returns country and rest on VAT number as array" do
       expect(Valvat::Utils.split("DE345889003")).to eql(["DE", "345889003"])
       expect(Valvat::Utils.split("ESX4588900X")).to eql(["ES", "X4588900X"])
     end
@@ -27,18 +27,18 @@ describe Valvat::Utils do
   end
 
   describe "#normalize" do
-    it "returns vat number with upcase chars" do
+    it "returns VAT number with upcase chars" do
       expect(Valvat::Utils.normalize("de345889003")).to eql("DE345889003")
       expect(Valvat::Utils.normalize("EsX4588900y")).to eql("ESX4588900Y")
     end
 
-    it "returns trimmed vat number" do
+    it "returns trimmed VAT number" do
       expect(Valvat::Utils.normalize(" DE345889003")).to eql("DE345889003")
       expect(Valvat::Utils.normalize("  DE345889003  ")).to eql("DE345889003")
       expect(Valvat::Utils.normalize("DE345889003 ")).to eql("DE345889003")
     end
 
-    it "does not change already normalized vat numbers" do
+    it "does not change already normalized VAT numbers" do
       expect(Valvat::Utils.normalize("DE345889003")).to eql("DE345889003")
       expect(Valvat::Utils.normalize("ESX4588900X")).to eql("ESX4588900X")
     end
@@ -67,12 +67,12 @@ describe Valvat::Utils do
   end
 
   describe "#iso_country_to_vat_country" do
-    it "returns vat country on greek iso country code 'GR'" do
+    it "returns VAT country on greek iso country code 'GR'" do
       expect(Valvat::Utils.iso_country_to_vat_country("GR")).to eql("EL")
     end
 
     Valvat::Utils::EU_COUNTRIES.reject{|c| c == "GR"}.each do |c|
-      it "returns unchanged vat country code '#{c}'" do
+      it "returns unchanged VAT country code '#{c}'" do
         expect(Valvat::Utils.iso_country_to_vat_country(c)).to eql(c)
       end
     end
