@@ -10,6 +10,7 @@
 * Use https instead of http for accessing vies (by [Crazy Chris](https://github.com/lubekpl))
 * Lookup#validate supports :raise_error option to return nil instead of raising (known) error when connecting to the VIES web service.
 * [BUGFIX] Checksum: Prevent error on some invalid IE vat numbers
+* EN: Capitalized VAT in error messages (and specs) (by [Vitalii Kashoid](https://github.com/Kashoid23))
 
 ### 0.9.1 / 2020-03-19
 
