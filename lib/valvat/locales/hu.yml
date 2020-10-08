@@ -2,6 +2,7 @@ hu:
   errors:
     messages:
       invalid_vat: a közösségi adószám %{country_adjective} helytelen
+      vies_down: "Az adószám ellenőrzése sikertelen: a VIES szolgáltatás nem elérhető. Kérjük próbálja újra később."
   valvat:
     country_adjectives:
       eu: európai

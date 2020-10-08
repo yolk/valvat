@@ -149,7 +149,10 @@ if defined?(ActiveModel)
       end
 
       it "should not be valid" do
-        expect(InvoiceWithLookupAndFailIfDown.new(vat_number: "DE123")).not_to be_valid
+        expect(subject).not_to be_valid
+        expect(subject.errors[:vat_number]).to eql([
+          "Unable to validate your VAT number: the VIES service is down. Please try again later."
+        ])
       end
     end
   end

@@ -1,7 +1,8 @@
 en:
   errors:
     messages:
-      invalid_vat: is not a valid %{country_adjective} VAT number
+      invalid_vat: "is not a valid %{country_adjective} VAT number"
+      vies_down: "Unable to validate your VAT number: the VIES service is down. Please try again later."
   valvat:
     country_adjectives:
       eu: European
