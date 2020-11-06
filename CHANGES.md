@@ -3,6 +3,10 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.9.1...master)
 
+### 1.0.0 / 2020-11-06
+
+[full changelog](http://github.com/yolk/valvat/compare/v0.9.1...v1.0.0)
+
 * Refactored lookup to use specific rescue for savons soapfaults
 * Raises vies specific error classes to help debugging temporary and permanent VIES errors
 * Lookup#validate supports :savon option to allow altering the behaviour of the used savon client
