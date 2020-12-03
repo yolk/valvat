@@ -199,23 +199,6 @@ describe Valvat::Syntax do
       expect(subject.validate("PT3462964769")).to eql(false)
     end
 
-    it "validates a GB VAT number" do
-      expect(subject.validate("GB123456789")).to eql(true)
-      expect(subject.validate("GB123456789012")).to eql(true)
-      expect(subject.validate("GBGD123")).to eql(true)
-      expect(subject.validate("GBHA123")).to eql(true)
-
-      expect(subject.validate("GB12345678")).to eql(false)
-      expect(subject.validate("GB1234567890")).to eql(false)
-      expect(subject.validate("GB12345678901")).to eql(false)
-      expect(subject.validate("GB1234567890123")).to eql(false)
-      expect(subject.validate("GBAB123")).to eql(false)
-      expect(subject.validate("GBAA123")).to eql(false)
-      expect(subject.validate("GBHH123")).to eql(false)
-      expect(subject.validate("GBGD1234")).to eql(false)
-      expect(subject.validate("GBGD12")).to eql(false)
-    end
-
     it "validates a RO VAT number" do
       expect(subject.validate("RO1234567890")).to eql(true)
       expect(subject.validate("RO123456789")).to eql(true)
