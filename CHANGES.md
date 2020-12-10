@@ -1,7 +1,7 @@
 
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v0.9.1...master)
+[full changelog](http://github.com/yolk/valvat/compare/v1.0.0...master)
 
 ### 1.0.0 / 2020-11-06
 
