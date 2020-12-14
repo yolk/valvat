@@ -3,6 +3,9 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v1.0.0...master)
 
+* Removed GB from EU_COUNTRIES / EU_MEMBER_STATES but kept support
+* Fixed typo in error message: UNK(N)OWN (by [Igor Gonchar](https://github.com/gigorok))
+
 ### 1.0.0 / 2020-11-06
 
 [full changelog](http://github.com/yolk/valvat/compare/v0.9.1...v1.0.0)
