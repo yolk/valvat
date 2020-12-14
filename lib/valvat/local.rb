@@ -22,8 +22,9 @@ class Valvat
     Valvat::Utils.vat_country_to_iso_country(vat_country_code)
   end
 
+  # TODO: Remove method / not in use
   def european?
-    Valvat::Utils::EU_COUNTRIES.include?(iso_country_code)
+    Valvat::Utils::EU_MEMBER_STATES.include?(iso_country_code)
   end
 
   def to_a

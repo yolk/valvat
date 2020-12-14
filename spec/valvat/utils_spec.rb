@@ -59,7 +59,7 @@ describe Valvat::Utils do
       expect(Valvat::Utils.vat_country_to_iso_country("EL")).to eql("GR")
     end
 
-    Valvat::Utils::EU_COUNTRIES.each do |iso|
+    Valvat::Utils::EU_MEMBER_STATES.each do |iso|
       it "returns unchanged iso country code '#{iso}'" do
         expect(Valvat::Utils.vat_country_to_iso_country(iso)).to eql(iso)
       end
@@ -71,9 +71,27 @@ describe Valvat::Utils do
       expect(Valvat::Utils.iso_country_to_vat_country("GR")).to eql("EL")
     end
 
-    Valvat::Utils::EU_COUNTRIES.reject{|c| c == "GR"}.each do |c|
+    Valvat::Utils::EU_MEMBER_STATES.each do |c|
       it "returns unchanged VAT country code '#{c}'" do
         expect(Valvat::Utils.iso_country_to_vat_country(c)).to eql(c)
+      end unless c == "GR"
+    end
+  end
+
+  describe "#country_is_supported?" do
+    Valvat::Utils::EU_MEMBER_STATES.each do |code|
+      it "returns true on #{code}" do
+        expect(Valvat::Utils.country_is_supported?(code)).to eql(true)
+      end
+    end
+
+    it "returns true on GB" do
+      expect(Valvat::Utils.country_is_supported?("GB")).to eql(true)
+    end
+
+    ["US", "AE", "CA", "CN", "BR", "AU", "NO", "ML"].each do |code|
+      it "returns false on #{code}" do
+        expect(Valvat::Utils.country_is_supported?(code)).to eql(false)
       end
     end
   end
