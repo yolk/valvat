@@ -5,6 +5,10 @@ valvat
 
 Validates european vat numbers. Standalone or as a ActiveModel validator.
 
+## A note on Brexit
+
+Valvat supports validating VAT-IDs from the UK by syntax & checksum for now. Validation against the VIES web service will propably stop working (and return `false`) in 2021.
+
 ## Features
 
 * Simple syntax verification
