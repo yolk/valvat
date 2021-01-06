@@ -3,6 +3,8 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v1.0.1...master)
 
+* Removed support for EOL rubies (all before 2.5) and ActiveModel before 5.0
+
 ### 1.0.1 / 2020-12-06
 
 [full changelog](http://github.com/yolk/valvat/compare/v1.0.0...v1.0.1)
