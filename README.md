@@ -1,7 +1,7 @@
 valvat
 ===========
 
-[![rubygems](https://badgen.net/rubygems/v/valvat)](https://rubygems.org/gems/valvat) ![Specs](https://github.com/yolk/valvat/workflows/Specs/badge.svg)
+[![rubygems](https://badgen.net/rubygems/v/valvat)](https://rubygems.org/gems/valvat) [![Specs](https://github.com/yolk/valvat/workflows/Specs/badge.svg)](https://github.com/yolk/valvat/actions?query=workflow%3ASpecs)
 
 Validates european vat numbers. Standalone or as a ActiveModel validator.
 
