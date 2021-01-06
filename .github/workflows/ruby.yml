@@ -18,7 +18,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
-      BUNDLE_GEMFILE: gemfiles/${{ matrix.gemfile }}.gemfile
+      BUNDLE_GEMFILE: gemfiles/${{ matrix.gemfile }}
     strategy:
       matrix:
         ruby-version: ['2.5', '2.7']
