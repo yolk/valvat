@@ -6,11 +6,9 @@ describe Valvat::Lookup::Request do
   it 'returns Response on success' do
     response = described_class.new('IE6388047V', {}).perform
     expect(response).to be_a(Valvat::Lookup::Response)
-    if response.is_a?(Valvat::Lookup::Fault)
-      puts "Skipping IE vies request spec; response = #{response.inspect}"
-    else
-      expect(response.to_hash[:name]).to eql('GOOGLE IRELAND LIMITED')
-    end
+
+    # Skip if VIES is down
+    expect(response.to_hash[:name]).to eql('GOOGLE IRELAND LIMITED') unless response.is_a?(Valvat::Lookup::Fault)
   end
 
   it 'returns Fault on failure' do

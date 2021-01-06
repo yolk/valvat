@@ -7,34 +7,22 @@ describe Valvat::Lookup do
     context 'with existing VAT number' do
       it 'returns true' do
         result = described_class.validate('IE6388047V')
-
-        if result.nil?
-          puts 'Skipping IE vies lookup spec'
-        else
-          expect(result).to be(true)
-        end
+        # Skip if VIES is down
+        expect(result).to be(true) unless result.nil?
       end
 
       it 'allows Valvat instance as input' do
         result = described_class.validate(Valvat.new('IE6388047V'))
-
-        if result.nil?
-          puts 'Skipping IE vies lookup spec'
-        else
-          expect(result).to be(true)
-        end
+        # Skip if VIES is down
+        expect(result).to be(true) unless result.nil?
       end
     end
 
     context 'with not existing VAT number' do
       it 'returns false' do
         result =  described_class.validate('IE6388048V')
-
-        if result.nil?
-          puts 'Skipping IE vies lookup spec'
-        else
-          expect(result).to be(false)
-        end
+        # Skip if VIES is down
+        expect(result).to be(false) unless result.nil?
       end
     end
 
@@ -46,53 +34,51 @@ describe Valvat::Lookup do
     end
 
     context 'with details' do
+      let(:details) do
+        {
+          country_code: 'IE',
+          vat_number: '6388047V',
+          name: 'GOOGLE IRELAND LIMITED',
+          address: '3RD FLOOR, GORDON HOUSE, BARROW STREET, DUBLIN 4',
+          valid: true
+        }
+      end
+
       it 'returns hash of details instead of true' do
         result = described_class.validate('IE6388047V', detail: true)
-
+        # Skip if VIES is down
         if result
           expect(result.delete(:request_date)).to be_kind_of(Date)
-          expect(result).to eql({
-                                  country_code: 'IE',
-                                  vat_number: '6388047V',
-                                  name: 'GOOGLE IRELAND LIMITED',
-                                  address: '3RD FLOOR, GORDON HOUSE, BARROW STREET, DUBLIN 4',
-                                  valid: true
-                                })
-        else
-          puts "Skipping IE vies lookup spec; result = #{result.inspect}"
+          expect(result).to eql(details)
         end
       end
 
       it 'still returns false on not existing VAT number' do
         result = described_class.validate('LU21416128', detail: true)
-
-        if result.nil?
-          puts 'Skipping LU vies lookup spec'
-        else
-          expect(result).to be(false)
-        end
+        # Skip if VIES is down
+        expect(result).to be(false) unless result.nil?
       end
     end
 
     context 'with request identifier' do
-      it 'returns hash of details instead of true' do
-        response = described_class.validate('IE6388047V', requester: 'IE6388047V')
+      let(:response) { described_class.validate('IE6388047V', requester: 'IE6388047V') }
+      let(:details) do
+        {
+          country_code: 'IE',
+          vat_number: '6388047V',
+          name: 'GOOGLE IRELAND LIMITED',
+          company_type: nil,
+          address: '3RD FLOOR, GORDON HOUSE, BARROW STREET, DUBLIN 4',
+          valid: true
+        }
+      end
 
+      it 'returns hash of details instead of true' do
+        # Skip if VIES is down
         if response
-          expect(response[:request_identifier].size).to be(16)
-          request_identifier = response[:request_identifier]
+          expect(response.delete(:request_identifier).size).to be(16)
           expect(response.delete(:request_date)).to be_kind_of(Date)
-          expect(response).to eql({
-                                    country_code: 'IE',
-                                    vat_number: '6388047V',
-                                    name: 'GOOGLE IRELAND LIMITED',
-                                    company_type: nil,
-                                    address: '3RD FLOOR, GORDON HOUSE, BARROW STREET, DUBLIN 4',
-                                    request_identifier: request_identifier,
-                                    valid: true
-                                  })
-        else
-          puts 'Skipping IE vies lookup spec'
+          expect(response).to eql(details)
         end
       end
 
@@ -100,10 +86,6 @@ describe Valvat::Lookup do
         expect(
           described_class.new('IE6388047V', requester_vat: 'LU21416127').instance_variable_get(:@options)[:requester]
         ).to eql('LU21416127')
-
-        expect(
-          described_class.new('IE6388047V', requester: 'LU21416128').instance_variable_get(:@options)[:requester]
-        ).to eql('LU21416128')
       end
     end
   end
