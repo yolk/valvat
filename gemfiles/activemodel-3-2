@@ -1,7 +1,0 @@
-source "https://rubygems.org"
-
-gem "activemodel", "~> 3.2"
-
-gem 'rack', '< 2'
-
-gemspec path: "../"

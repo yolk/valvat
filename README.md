@@ -1,7 +1,7 @@
 valvat
 ===========
 
-[![Gem Version](https://badge.fury.io/rb/valvat.svg)](http://badge.fury.io/rb/valvat) [![Build Status](https://travis-ci.org/yolk/valvat.svg)](https://travis-ci.org/yolk/valvat) [![Code Climate](https://codeclimate.com/github/yolk/valvat.svg)](https://codeclimate.com/github/yolk/valvat)
+[![rubygems](https://badgen.net/rubygems/v/valvat)](https://rubygems.org/gems/valvat) ![Specs](https://github.com/yolk/valvat/workflows/Specs/badge.svg)
 
 Validates european vat numbers. Standalone or as a ActiveModel validator.
 
@@ -18,7 +18,7 @@ Valvat supports validating VAT-IDs from the UK by syntax & checksum for now. Val
 * I18n locales for language specific error messages in English, German, French, Spanish, Italian, Portuguese, Polish, Swedish, Dutch, Danish, Czech, Slovakian, Hungarian, Bulgarian, Romanian, Latvian, Catalan, Norwegian, and Finnish.
 * *Experimental* checksum verification
 
-valvat is tested and works with ruby MRI 1.9.3/2.0/2.1/2.2/2.3/2.4/2.5/2.6/2.7, jruby (including 1.9 mode) and ActiveModel 3/4/5/6
+valvat is tested and works with ruby MRI 2.5/2.6/2.7/3.0, jruby-head and ActiveModel 5/6. If you need support for ruby down to 1.9.3 and ActiveModel 3 and 4 use [v1.0.1](https://github.com/yolk/valvat/tree/v1.0.1).
 
 ## Installation
 
@@ -26,7 +26,7 @@ Add it to your Gemfile:
 
     gem 'valvat'
 
-To use less memory (~3.5 mb vs. ~0.5 mb) and load only the local verification functionality – and not the remote lookup with VIES – add it like this instead:
+To use less memory (~0.5 mb vs. ~3.5 mb) and load only the local verification functionality – and not the remote lookup with VIES – add it like this instead:
 
     gem 'valvat', require: 'valvat/local'
 

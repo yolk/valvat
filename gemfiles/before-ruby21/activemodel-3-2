@@ -1,8 +1,0 @@
-source "https://rubygems.org"
-
-gem "nokogiri",    "< 1.7"
-gem "activemodel", "~> 3.2"
-
-gem 'rack', '< 2'
-
-gemspec path: "../../"

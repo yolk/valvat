@@ -1,4 +1,4 @@
-name: Ruby
+name: Specs
 
 on:
   push:
@@ -13,7 +13,7 @@ jobs:
       BUNDLE_GEMFILE: gemfiles/${{ matrix.gemfile }}
     strategy:
       matrix:
-        ruby-version: ['2.5', '2.7', '3.0', 'jruby-head']
+        ruby-version: ['2.5', '2.6', '2.7', '3.0', 'jruby-head']
         gemfile: [ 'standalone', 'activemodel-5', 'activemodel-6' ]
         exclude:
           - ruby-version: '3.0'
@@ -26,6 +26,6 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-    - name: Run tests
+    - name: Run specs
       run: |
         bundle exec rspec
