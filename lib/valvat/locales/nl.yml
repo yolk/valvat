@@ -2,6 +2,7 @@ nl:
   errors:
     messages:
       invalid_vat: is geen geldig %{country_adjective} btw nummer
+      vies_down: "We kunnen uw btw-nummer niet bevestigen: de VIES-service is momenteel niet beschikbaar. Probeer het later opnieuw."
   valvat:
     country_adjectives:
       eu: Europees
