@@ -3,11 +3,15 @@ name: Specs
 on:
   push:
     branches: [ master ]
+    paths-ignore:
+      - 'README.md'
+      - 'CHANGES.md'
   pull_request:
     branches: [ master ]
 
 jobs:
   test:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
     env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
       BUNDLE_GEMFILE: gemfiles/${{ matrix.gemfile }}
