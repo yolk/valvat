@@ -2,6 +2,7 @@ pl:
   errors:
     messages:
       invalid_vat: nie jest prawidłowym %{country_adjective} numerem VAT
+      vies_down: "Nie można zweryfikować numeru VAT: serwis VIES nie działa. Spróbuj ponownie później."
   valvat:
     country_adjectives:
       eu: europejskim
