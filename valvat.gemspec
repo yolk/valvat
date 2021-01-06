@@ -18,11 +18,11 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.cert_chain    = ['certs/yolk.pem']
   s.signing_key   = File.expand_path("~/.ssh/gem-private_key.pem") if $0 =~ /gem\z/
-  s.required_ruby_version = '>= 1.9.3'
+  s.required_ruby_version = '>= 2.5.0'
 
   s.add_dependency             'savon',       '>= 2.3.0'
 
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec',       '~> 3.0'
-  s.add_development_dependency 'activemodel', '>= 3.0'
+  s.add_development_dependency 'activemodel', '>= 5.0'
 end
