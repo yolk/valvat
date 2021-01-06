@@ -1,7 +1,11 @@
 
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v1.0.0...master)
+[full changelog](http://github.com/yolk/valvat/compare/v1.0.1...master)
+
+### 1.0.1 / 2020-12-06
+
+[full changelog](http://github.com/yolk/valvat/compare/v1.0.0...v1.0.1)
 
 * Added missing spaces to malformatted portuegese locale file
 * Removed GB from EU_COUNTRIES / EU_MEMBER_STATES but kept support
