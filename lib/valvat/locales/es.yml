@@ -2,6 +2,7 @@ es:
   errors:
     messages:
       invalid_vat: no es un número de IVA intracomunitario %{country_adjective} válido
+      vies_down: "No se ha podido validar su número de IVA: El servicio VIES no está disponible, por favor inténtelo más tarde."
   valvat:
     country_adjectives:
       eu: europeo
