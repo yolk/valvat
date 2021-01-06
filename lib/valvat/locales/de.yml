@@ -1,7 +1,8 @@
 de:
   errors:
     messages:
-      invalid_vat: ist keine gültige %{country_adjective} USt-IdNr.
+      invalid_vat: "ist keine gültige %{country_adjective} USt-IdNr."
+      vies_down: "Die USt-IdNr. kann nicht überprüft werden: der VIES-Webservice ist nicht verfügbar. Bitte später noch einmal versuchen."
   valvat:
     country_adjectives:
       eu: europäische
