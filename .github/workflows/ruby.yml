@@ -15,6 +15,9 @@ jobs:
       matrix:
         ruby-version: ['2.5', '2.7', '3.0', 'jruby-head']
         gemfile: [ 'standalone', 'activemodel-5', 'activemodel-6' ]
+        exclude:
+          - ruby-version: '3.0'
+            gemfile: 'activemodel-5'
 
     steps:
     - uses: actions/checkout@v2
