@@ -42,6 +42,10 @@ if defined?(ActiveModel)
   end
 
   describe Invoice do
+    before do
+      I18n.locale = :en
+    end
+
     context "with valid VAT number" do
       it "should be valid" do
         expect(Invoice.new(vat_number: "DE259597697")).to be_valid
@@ -58,6 +62,28 @@ if defined?(ActiveModel)
       it "should add default (country specific) error message" do
         invoice.valid?
         expect(invoice.errors[:vat_number]).to eql(["is not a valid German VAT number"])
+      end
+
+      context "on DE locale" do
+        before do
+          I18n.locale = :de
+        end
+
+        it "should add translated error message" do
+          invoice.valid?
+          expect(invoice.errors[:vat_number]).to eql(["ist keine gültige deutsche USt-IdNr."])
+        end
+      end
+
+      context "on PT locale" do
+        before do
+          I18n.locale = :pt
+        end
+
+        it "should add translated error message" do
+          invoice.valid?
+          expect(invoice.errors[:vat_number]).to eql(["O NIF alemão não é válido."])
+        end
       end
 
       context "with i18n translation in place" do

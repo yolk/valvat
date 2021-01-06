@@ -3,6 +3,7 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v1.0.0...master)
 
+* Added missing spaces to malformatted portuegese locale file
 * Removed GB from EU_COUNTRIES / EU_MEMBER_STATES but kept support
 * Fixed typo in error message: UNK(N)OWN (by [Igor Gonchar](https://github.com/gigorok))
 
