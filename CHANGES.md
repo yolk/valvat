@@ -3,6 +3,7 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v1.0.1...master)
 
+* ActiveModel: Return specific error message if VIES is down and fail_if_down is set to true (by [Arkadiy Zabazhanov](https://github.com/pyromaniac))
 * Removed support for EOL rubies (all before 2.5) and ActiveModel before 5.0
 
 ### 1.0.1 / 2020-12-06
