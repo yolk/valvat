@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class Valvat
   module Checksum
     class SI < Base
       def validate
-        figures_str.to_i > 999999 &&
-        super
+        figures_str.to_i > 999_999 &&
+          super
       end
 
       def check_digit

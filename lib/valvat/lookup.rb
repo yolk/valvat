@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 class Valvat
   class Lookup
-
-    def initialize(vat, options={})
+    def initialize(vat, options = {})
       @vat = Valvat(vat)
       @options = options || {}
       @options[:requester] ||= @options[:requester_vat]
@@ -15,7 +16,7 @@ class Valvat
     end
 
     class << self
-      def validate(vat, options={})
+      def validate(vat, options = {})
         new(vat, options).validate
       end
     end
@@ -35,7 +36,7 @@ class Valvat
     end
 
     def handle_vies_error(error)
-      if ViesMaintenanceError === error
+      if error.is_a?(ViesMaintenanceError)
         raise error if @options[:raise_error]
       else
         raise error unless @options[:raise_error] == false

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Valvat
   module Checksum
     class DE < Base
@@ -8,8 +10,8 @@ class Valvat
         prod = M
         figures.each do |fig|
           sum = (prod + fig).modulo(M)
-          sum = M if sum == 0
-          prod = (2*sum).modulo(N)
+          sum = M if sum.zero?
+          prod = (2 * sum).modulo(N)
         end
         chk = N - prod
         chk == 10 ? 0 : chk

@@ -1,257 +1,260 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Valvat::Lookup do
-  describe "#validate" do
-    context "existing VAT number" do
+  describe '#validate' do
+    context 'with existing VAT number' do
+      it 'returns true' do
+        result = described_class.validate('IE6388047V')
 
-      it "returns true" do
-        result = Valvat::Lookup.validate("IE6388047V")
-
-        unless result.nil?
-          expect(result).to eql(true)
+        if result.nil?
+          puts 'Skipping IE vies lookup spec'
         else
-          puts "Skipping IE vies lookup spec"
+          expect(result).to be(true)
         end
       end
 
-      it "allows Valvat instance as input" do
-        result = Valvat::Lookup.validate(Valvat.new("IE6388047V"))
+      it 'allows Valvat instance as input' do
+        result = described_class.validate(Valvat.new('IE6388047V'))
 
-        unless result.nil?
-          expect(result).to eql(true)
+        if result.nil?
+          puts 'Skipping IE vies lookup spec'
         else
-          puts "Skipping IE vies lookup spec"
-        end
-      end
-    end
-
-    context "not existing VAT number" do
-      it "returns false" do
-        result =  Valvat::Lookup.validate("IE6388048V")
-
-        unless result.nil?
-          expect(result).to eql(false)
-        else
-          puts "Skipping IE vies lookup spec"
+          expect(result).to be(true)
         end
       end
     end
 
-    context "invalid country code / input" do
-      it "returns false" do
-        expect(Valvat::Lookup.validate("AE259597697")).to eql(false)
-        expect(Valvat::Lookup.validate("")).to eql(false)
+    context 'with not existing VAT number' do
+      it 'returns false' do
+        result =  described_class.validate('IE6388048V')
+
+        if result.nil?
+          puts 'Skipping IE vies lookup spec'
+        else
+          expect(result).to be(false)
+        end
       end
     end
 
-    context "with details" do
-      it "returns hash of details instead of true" do
-        result = Valvat::Lookup.validate("IE6388047V", detail: true)
+    context 'with invalid country code / input' do
+      it 'returns false' do
+        expect(described_class.validate('AE259597697')).to be(false)
+        expect(described_class.validate('')).to be(false)
+      end
+    end
 
-         if result
+    context 'with details' do
+      it 'returns hash of details instead of true' do
+        result = described_class.validate('IE6388047V', detail: true)
+
+        if result
           expect(result.delete(:request_date)).to be_kind_of(Date)
           expect(result).to eql({
-            country_code: "IE",
-            vat_number: "6388047V",
-            name: "GOOGLE IRELAND LIMITED",
-            address: "3RD FLOOR, GORDON HOUSE, BARROW STREET, DUBLIN 4",
-            valid: true
-          })
+                                  country_code: 'IE',
+                                  vat_number: '6388047V',
+                                  name: 'GOOGLE IRELAND LIMITED',
+                                  address: '3RD FLOOR, GORDON HOUSE, BARROW STREET, DUBLIN 4',
+                                  valid: true
+                                })
         else
           puts "Skipping IE vies lookup spec; result = #{result.inspect}"
         end
       end
 
-      it "still returns false on not existing VAT number" do
-        result =  Valvat::Lookup.validate("LU21416128", detail: true)
+      it 'still returns false on not existing VAT number' do
+        result = described_class.validate('LU21416128', detail: true)
 
-        unless result.nil?
-          expect(result).to eql(false)
+        if result.nil?
+          puts 'Skipping LU vies lookup spec'
         else
-          puts "Skipping LU vies lookup spec"
+          expect(result).to be(false)
         end
       end
     end
 
-    context "with request identifier" do
-      it "returns hash of details instead of true" do
-        response = Valvat::Lookup.validate("IE6388047V", requester: "IE6388047V")
+    context 'with request identifier' do
+      it 'returns hash of details instead of true' do
+        response = described_class.validate('IE6388047V', requester: 'IE6388047V')
 
         if response
-          expect(response[:request_identifier].size).to eql(16)
+          expect(response[:request_identifier].size).to be(16)
           request_identifier = response[:request_identifier]
           expect(response.delete(:request_date)).to be_kind_of(Date)
           expect(response).to eql({
-            country_code: "IE",
-            vat_number: "6388047V",
-            name: "GOOGLE IRELAND LIMITED",
-            company_type:nil,
-            address: "3RD FLOOR, GORDON HOUSE, BARROW STREET, DUBLIN 4",
-            request_identifier: request_identifier,
-            valid: true
-          })
+                                    country_code: 'IE',
+                                    vat_number: '6388047V',
+                                    name: 'GOOGLE IRELAND LIMITED',
+                                    company_type: nil,
+                                    address: '3RD FLOOR, GORDON HOUSE, BARROW STREET, DUBLIN 4',
+                                    request_identifier: request_identifier,
+                                    valid: true
+                                  })
         else
-          puts "Skipping IE vies lookup spec"
+          puts 'Skipping IE vies lookup spec'
         end
       end
 
-      it "supports old :requester_vat option for backwards stability" do
+      it 'supports old :requester_vat option for backwards stability' do
         expect(
-          Valvat::Lookup.new("IE6388047V", requester_vat: "LU21416127").instance_variable_get(:@options)[:requester]
-        ).to eql("LU21416127")
+          described_class.new('IE6388047V', requester_vat: 'LU21416127').instance_variable_get(:@options)[:requester]
+        ).to eql('LU21416127')
 
         expect(
-          Valvat::Lookup.new("IE6388047V", requester: "LU21416128").instance_variable_get(:@options)[:requester]
-        ).to eql("LU21416128")
+          described_class.new('IE6388047V', requester: 'LU21416128').instance_variable_get(:@options)[:requester]
+        ).to eql('LU21416128')
       end
     end
   end
 
-  describe "#validate with VIES test enviroment" do
+  describe '#validate with VIES test enviroment' do
+    let(:options) do
+      { savon: { wsdl: 'https://ec.europa.eu/taxation_customs/vies/checkVatTestService.wsdl' },
+        skip_local_validation: true }
+    end
 
-    let(:options) { {savon: {wsdl: "https://ec.europa.eu/taxation_customs/vies/checkVatTestService.wsdl"}, skip_local_validation: true} }
+    context 'with valid request with valid VAT number' do
+      subject(:result) { described_class.validate('DE100', options) }
 
-    context "Valid request with Valid VAT Number" do
-      subject{ Valvat::Lookup.validate("DE100", options) }
-
-      it "returns true" do
-        expect(subject).to eql(true)
+      it 'returns true' do
+        expect(result).to be(true)
       end
     end
 
-    context "Valid request with an Invalid VAT Number" do
-      subject{ Valvat::Lookup.validate("DE200", options) }
+    context 'with valid request with an invalid VAT number' do
+      subject(:result) { described_class.validate('DE200', options) }
 
-      it "returns false" do
-        expect(subject).to eql(false)
+      it 'returns false' do
+        expect(result).to be(false)
       end
     end
 
-    context "Error : INVALID_INPUT" do
-      subject{ Valvat::Lookup.validate("DE201", options) }
+    describe 'Error : INVALID_INPUT' do
+      subject(:result) { described_class.validate('DE201', options) }
 
-      it "returns false" do
-        expect(subject).to eql(false)
+      it 'returns false' do
+        expect(result).to be(false)
       end
     end
 
-    context "Error : INVALID_REQUESTER_INFO" do
-      subject{ Valvat::Lookup.validate("DE202", options) }
+    describe 'Error : INVALID_REQUESTER_INFO' do
+      subject(:result) { described_class.validate('DE202', options) }
 
-      it "raises Valvat::InvalidRequester" do
-        expect{ subject }.to raise_error(Valvat::InvalidRequester)
+      it 'raises Valvat::InvalidRequester' do
+        expect { result }.to raise_error(Valvat::InvalidRequester)
       end
     end
 
-    context "Error : SERVICE_UNAVAILABLE" do
-      subject{ Valvat::Lookup.validate("DE300", options) }
+    describe 'Error : SERVICE_UNAVAILABLE' do
+      subject(:result) { described_class.validate('DE300', options) }
 
-      it "returns nil" do
-        expect(subject).to eql(nil)
+      it 'returns nil' do
+        expect(result).to be(nil)
       end
 
-      it "raises error with raise_error: true" do
-        expect{
-          Valvat::Lookup.validate("DE300", options.merge(raise_error: true)
-        ) }.to raise_error(Valvat::ServiceUnavailable)
-      end
-    end
-
-    context "Error : MS_UNAVAILABLE" do
-      subject{ Valvat::Lookup.validate("DE301", options) }
-
-      it "returns nil" do
-        expect(subject).to eql(nil)
-      end
-
-      it "raises error with raise_error: true" do
-        expect{
-          Valvat::Lookup.validate("DE301", options.merge(raise_error: true)
-        ) }.to raise_error(Valvat::MemberStateUnavailable)
+      it 'raises error with raise_error: true' do
+        expect do
+          described_class.validate('DE300', options.merge(raise_error: true))
+        end.to raise_error(Valvat::ServiceUnavailable)
       end
     end
 
-    context "Error : TIMEOUT" do
-      subject{ Valvat::Lookup.validate("DE302", options) }
+    describe 'Error : MS_UNAVAILABLE' do
+      subject(:result) { described_class.validate('DE301', options) }
 
-      it "raises error" do
-        expect{ subject }.to raise_error(Valvat::Timeout)
+      it 'returns nil' do
+        expect(result).to be(nil)
       end
 
-      it "returns nil with raise_error set to false" do
-        expect(Valvat::Lookup.validate("DE302", options.merge(raise_error: false))).to eql(nil)
-      end
-    end
-
-    context "Error : VAT_BLOCKED" do
-      subject{ Valvat::Lookup.validate("DE400", options) }
-
-      it "raises error" do
-        expect{ subject }.to raise_error(Valvat::BlockedError, /VAT_BLOCKED/)
-      end
-
-      it "returns nil with raise_error set to false" do
-        expect(Valvat::Lookup.validate("DE400", options.merge(raise_error: false))).to eql(nil)
+      it 'raises error with raise_error: true' do
+        expect do
+          described_class.validate('DE301', options.merge(raise_error: true))
+        end.to raise_error(Valvat::MemberStateUnavailable)
       end
     end
 
-    context "Error : IP_BLOCKED" do
-      subject{ Valvat::Lookup.validate("DE401", options) }
+    describe 'Error : TIMEOUT' do
+      subject(:result) { described_class.validate('DE302', options) }
 
-      it "raises error" do
-        expect{ subject }.to raise_error(Valvat::BlockedError, /IP_BLOCKED/)
+      it 'raises error' do
+        expect { result }.to raise_error(Valvat::Timeout)
       end
 
-      it "returns nil with raise_error set to false" do
-        expect(Valvat::Lookup.validate("DE401", options.merge(raise_error: false))).to eql(nil)
-      end
-    end
-
-    context "Error : GLOBAL_MAX_CONCURRENT_REQ" do
-      subject{ Valvat::Lookup.validate("DE500", options) }
-
-      it "raises error" do
-        expect{ subject }.to raise_error(Valvat::RateLimitError, /GLOBAL_MAX_CONCURRENT_REQ/)
-      end
-
-      it "returns nil with raise_error set to false" do
-        expect(Valvat::Lookup.validate("DE500", options.merge(raise_error: false))).to eql(nil)
+      it 'returns nil with raise_error set to false' do
+        expect(described_class.validate('DE302', options.merge(raise_error: false))).to be(nil)
       end
     end
 
-    context "Error : GLOBAL_MAX_CONCURRENT_REQ_TIME" do
-      subject{ Valvat::Lookup.validate("DE501", options) }
+    describe 'Error : VAT_BLOCKED' do
+      subject(:result) { described_class.validate('DE400', options) }
 
-      it "raises error" do
-        expect{ subject }.to raise_error(Valvat::RateLimitError, /GLOBAL_MAX_CONCURRENT_REQ_TIME/)
+      it 'raises error' do
+        expect { result }.to raise_error(Valvat::BlockedError, /VAT_BLOCKED/)
       end
 
-      it "returns nil with raise_error set to false" do
-        expect(Valvat::Lookup.validate("DE501", options.merge(raise_error: false))).to eql(nil)
-      end
-    end
-
-    context "Error : MS_MAX_CONCURRENT_REQ" do
-      subject{ Valvat::Lookup.validate("DE600", options) }
-
-      it "raises error" do
-        expect{ subject }.to raise_error(Valvat::RateLimitError, /MS_MAX_CONCURRENT_REQ/)
-      end
-
-      it "returns nil with raise_error set to false" do
-        expect(Valvat::Lookup.validate("DE600", options.merge(raise_error: false))).to eql(nil)
+      it 'returns nil with raise_error set to false' do
+        expect(described_class.validate('DE400', options.merge(raise_error: false))).to be(nil)
       end
     end
 
-    context "Error : MS_MAX_CONCURRENT_REQ_TIME" do
-      subject{ Valvat::Lookup.validate("DE601", options) }
+    describe 'Error : IP_BLOCKED' do
+      subject(:result) { described_class.validate('DE401', options) }
 
-      it "raises error" do
-        expect{ subject }.to raise_error(Valvat::RateLimitError, /MS_MAX_CONCURRENT_REQ_TIME/)
+      it 'raises error' do
+        expect { result }.to raise_error(Valvat::BlockedError, /IP_BLOCKED/)
       end
 
-      it "returns nil with raise_error set to false" do
-        expect(Valvat::Lookup.validate("DE601", options.merge(raise_error: false))).to eql(nil)
+      it 'returns nil with raise_error set to false' do
+        expect(described_class.validate('DE401', options.merge(raise_error: false))).to be(nil)
+      end
+    end
+
+    describe 'Error : GLOBAL_MAX_CONCURRENT_REQ' do
+      subject(:result) { described_class.validate('DE500', options) }
+
+      it 'raises error' do
+        expect { result }.to raise_error(Valvat::RateLimitError, /GLOBAL_MAX_CONCURRENT_REQ/)
+      end
+
+      it 'returns nil with raise_error set to false' do
+        expect(described_class.validate('DE500', options.merge(raise_error: false))).to be(nil)
+      end
+    end
+
+    describe 'Error : GLOBAL_MAX_CONCURRENT_REQ_TIME' do
+      subject(:result) { described_class.validate('DE501', options) }
+
+      it 'raises error' do
+        expect { result }.to raise_error(Valvat::RateLimitError, /GLOBAL_MAX_CONCURRENT_REQ_TIME/)
+      end
+
+      it 'returns nil with raise_error set to false' do
+        expect(described_class.validate('DE501', options.merge(raise_error: false))).to be(nil)
+      end
+    end
+
+    describe 'Error : MS_MAX_CONCURRENT_REQ' do
+      subject(:result) { described_class.validate('DE600', options) }
+
+      it 'raises error' do
+        expect { result }.to raise_error(Valvat::RateLimitError, /MS_MAX_CONCURRENT_REQ/)
+      end
+
+      it 'returns nil with raise_error set to false' do
+        expect(described_class.validate('DE600', options.merge(raise_error: false))).to be(nil)
+      end
+    end
+
+    describe 'Error : MS_MAX_CONCURRENT_REQ_TIME' do
+      subject(:result) { described_class.validate('DE601', options) }
+
+      it 'raises error' do
+        expect { result }.to raise_error(Valvat::RateLimitError, /MS_MAX_CONCURRENT_REQ_TIME/)
+      end
+
+      it 'returns nil with raise_error set to false' do
+        expect(described_class.validate('DE601', options.merge(raise_error: false))).to be(nil)
       end
     end
   end

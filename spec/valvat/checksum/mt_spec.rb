@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Valvat::Checksum::MT do
-  %w(MT11407334 MT10126313 MT11539237).each do |valid_vat|
+  %w[MT11407334 MT10126313 MT11539237].each do |valid_vat|
     it "returns true on valid VAT #{valid_vat}" do
       expect(Valvat::Checksum.validate(valid_vat)).to be true
     end

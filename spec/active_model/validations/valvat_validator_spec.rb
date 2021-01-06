@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 if defined?(ActiveModel)
@@ -6,15 +8,15 @@ if defined?(ActiveModel)
   end
 
   class InvoiceWithLookup < ModelBase
-    validates :vat_number, valvat: {lookup: true}
+    validates :vat_number, valvat: { lookup: true }
   end
 
   class InvoiceWithLookupAndFailIfDown < ModelBase
-    validates :vat_number, valvat: {lookup: :fail_if_down}
+    validates :vat_number, valvat: { lookup: :fail_if_down }
   end
 
   class InvoiceAllowBlank < ModelBase
-    validates :vat_number, valvat: {allow_blank: true}
+    validates :vat_number, valvat: { allow_blank: true }
   end
 
   class InvoiceAllowBlankOnAll < ModelBase
@@ -22,7 +24,7 @@ if defined?(ActiveModel)
   end
 
   class InvoiceCheckCountry < ModelBase
-    validates :vat_number, valvat: {match_country: :country}
+    validates :vat_number, valvat: { match_country: :country }
 
     def country
       @attributes[:country]
@@ -30,7 +32,7 @@ if defined?(ActiveModel)
   end
 
   class InvoiceCheckCountryWithLookup < ModelBase
-    validates :vat_number, valvat: {match_country: :country, lookup: true}
+    validates :vat_number, valvat: { match_country: :country, lookup: true }
 
     def country
       @attributes[:country]
@@ -38,7 +40,7 @@ if defined?(ActiveModel)
   end
 
   class InvoiceWithChecksum < ModelBase
-    validates :vat_number, valvat: {checksum: true}
+    validates :vat_number, valvat: { checksum: true }
   end
 
   describe Invoice do
@@ -46,193 +48,194 @@ if defined?(ActiveModel)
       I18n.locale = :en
     end
 
-    context "with valid VAT number" do
-      it "should be valid" do
-        expect(Invoice.new(vat_number: "DE259597697")).to be_valid
+    context 'with valid VAT number' do
+      it 'is valid' do
+        expect(described_class.new(vat_number: 'DE259597697')).to be_valid
       end
     end
 
-    context "with invalid VAT number" do
-      let(:invoice) { Invoice.new(vat_number: "DE259597697123") }
+    context 'with invalid VAT number' do
+      let(:invoice) { described_class.new(vat_number: 'DE259597697123') }
 
-      it "should not be valid" do
+      it 'is not valid' do
         expect(invoice).not_to be_valid
       end
 
-      it "should add default (country specific) error message" do
+      it 'adds default (country specific) error message' do
         invoice.valid?
-        expect(invoice.errors[:vat_number]).to eql(["is not a valid German VAT number"])
+        expect(invoice.errors[:vat_number]).to eql(['is not a valid German VAT number'])
       end
 
-      context "on DE locale" do
+      context 'with DE locale' do
         before do
           I18n.locale = :de
         end
 
-        it "should add translated error message" do
+        it 'adds translated error message' do
           invoice.valid?
-          expect(invoice.errors[:vat_number]).to eql(["ist keine gültige deutsche USt-IdNr."])
+          expect(invoice.errors[:vat_number]).to eql(['ist keine gültige deutsche USt-IdNr.'])
         end
       end
 
-      context "on PT locale" do
+      context 'with PT locale' do
         before do
           I18n.locale = :pt
         end
 
-        it "should add translated error message" do
+        it 'adds translated error message' do
           invoice.valid?
-          expect(invoice.errors[:vat_number]).to eql(["O NIF alemão não é válido."])
+          expect(invoice.errors[:vat_number]).to eql(['O NIF alemão não é válido.'])
         end
       end
 
-      context "with i18n translation in place" do
+      context 'with i18n translation in place' do
         before do
           I18n.backend.store_translations(:en, activemodel: {
-            errors: {models: {invoice: {invalid_vat: "is ugly."}}}
-          })
+                                            errors: { models: { invoice: { invalid_vat: 'is ugly.' } } }
+                                          })
         end
 
         after { I18n.reload! }
 
-        it "should use translation" do
+        it 'uses translation' do
           invoice.valid?
-          expect(invoice.errors[:vat_number]).to eql(["is ugly."])
+          expect(invoice.errors[:vat_number]).to eql(['is ugly.'])
         end
       end
 
-      context "with i18n translation with country adjective placeholder in place" do
+      context 'with i18n translation with country_adjective placeholder in place' do
         before do
-          I18n.backend.store_translations(:en, activemodel: {
-            errors: {models: {invoice: {invalid_vat: "is not a %{country_adjective} vat"}}}
-          })
+          msg = 'is not a %{country_adjective} vat' # rubocop:disable Style/FormatStringToken
+          translation = { activemodel: { errors: { models: { invoice: { invalid_vat: msg } } } } }
+          I18n.backend.store_translations(:en, translation)
         end
 
         after { I18n.reload! }
 
-        it "should replace country adjective placeholder" do
-          invoice = Invoice.new(vat_number: "IE123")
+        it 'replaces country_adjective placeholder' do
+          invoice = described_class.new(vat_number: 'IE123')
           invoice.valid?
-          expect(invoice.errors[:vat_number]).to eql(["is not a Irish vat"])
+          expect(invoice.errors[:vat_number]).to eql(['is not a Irish vat'])
         end
 
-        it "should fall back to 'European' if country is missing" do
-          invoice = Invoice.new(vat_number: "XX123")
+        it "falls back to 'European' if country is missing" do
+          invoice = described_class.new(vat_number: 'XX123')
           invoice.valid?
-          expect(invoice.errors[:vat_number]).to eql(["is not a European vat"])
+          expect(invoice.errors[:vat_number]).to eql(['is not a European vat'])
         end
       end
     end
 
-    context "with blank VAT number" do
-      it "should not be valid" do
-        expect(Invoice.new(vat_number: "")).not_to be_valid
-        expect(Invoice.new(vat_number: nil)).not_to be_valid
+    context 'with blank VAT number' do
+      it 'is not valid' do
+        expect(described_class.new(vat_number: '')).not_to be_valid
+        expect(described_class.new(vat_number: nil)).not_to be_valid
       end
     end
   end
 
   describe InvoiceWithLookup do
-    context "with valid but not existing VAT number" do
+    context 'with valid but not existing VAT number' do
       before do
         allow(Valvat::Syntax).to receive_messages(validate: true)
         allow(Valvat::Lookup).to receive_messages(validate: false)
       end
 
-      it "should not be valid" do
-        expect(InvoiceWithLookup.new(vat_number: "DE123")).not_to be_valid
+      it 'is not valid' do
+        expect(described_class.new(vat_number: 'DE123')).not_to be_valid
       end
     end
 
-    context "with valid and existing VAT number" do
+    context 'with valid and existing VAT number' do
       before do
         allow(Valvat::Syntax).to receive_messages(validate: true)
         allow(Valvat::Lookup).to receive_messages(validate: true)
       end
 
-      it "should be valid" do
-        expect(InvoiceWithLookup.new(vat_number: "DE123")).to be_valid
+      it 'is valid' do
+        expect(described_class.new(vat_number: 'DE123')).to be_valid
       end
     end
 
-    context "with valid VAT number and VIES country service down" do
+    context 'with valid VAT number and VIES country service down' do
       before do
         allow(Valvat::Syntax).to receive_messages(validate: true)
         allow(Valvat::Lookup).to receive_messages(validate: nil)
       end
 
-      it "should be valid" do
-        expect(InvoiceWithLookup.new(vat_number: "DE123")).to be_valid
+      it 'is valid' do
+        expect(described_class.new(vat_number: 'DE123')).to be_valid
       end
     end
   end
 
   describe InvoiceWithLookupAndFailIfDown do
-    context "with valid VAT number and VIES country service down" do
+    let(:record) { described_class.new }
+
+    context 'with valid VAT number and VIES country service down' do
       before do
         allow(Valvat::Syntax).to receive_messages(validate: true)
         allow(Valvat::Lookup).to receive_messages(validate: nil)
       end
 
-      it "should not be valid" do
-        expect(subject).not_to be_valid
-        expect(subject.errors[:vat_number]).to eql([
-          "Unable to validate your VAT number: the VIES service is down. Please try again later."
-        ])
+      it 'is not valid' do
+        expect(record).not_to be_valid
+        msg = 'Unable to validate your VAT number: the VIES service is down. Please try again later.'
+        expect(record.errors[:vat_number]).to eql([msg])
       end
     end
   end
 
   describe InvoiceAllowBlank do
-    context "with blank VAT number" do
-      it "should be valid" do
-        expect(InvoiceAllowBlank.new(vat_number: "")).to be_valid
-        expect(InvoiceAllowBlank.new(vat_number: nil)).to be_valid
+    context 'with blank VAT number' do
+      it 'is valid' do
+        expect(described_class.new(vat_number: '')).to be_valid
+        expect(described_class.new(vat_number: nil)).to be_valid
       end
     end
   end
 
   describe InvoiceAllowBlankOnAll do
-    context "with blank VAT number" do
-      it "should be valid" do
-        expect(InvoiceAllowBlankOnAll.new(vat_number: "")).to be_valid
-        expect(InvoiceAllowBlankOnAll.new(vat_number: nil)).to be_valid
+    context 'with blank VAT number' do
+      it 'is valid' do
+        expect(described_class.new(vat_number: '')).to be_valid
+        expect(described_class.new(vat_number: nil)).to be_valid
       end
     end
   end
 
   describe InvoiceCheckCountry do
-    it "should be not valid on blank country" do
-      expect(InvoiceCheckCountry.new(country: nil, vat_number: "DE259597697")).not_to be_valid
-      expect(InvoiceCheckCountry.new(country: "", vat_number: "DE259597697")).not_to be_valid
+    it 'is not valid on blank country' do
+      expect(described_class.new(country: nil, vat_number: 'DE259597697')).not_to be_valid
+      expect(described_class.new(country: '', vat_number: 'DE259597697')).not_to be_valid
     end
 
-    it "should be not valid on wired country" do
-      expect(InvoiceCheckCountry.new(country: "XAXXX", vat_number: "DE259597697")).not_to be_valid
-      expect(InvoiceCheckCountry.new(country: "ZO", vat_number: "DE259597697")).not_to be_valid
+    it 'is not valid on wired country' do
+      expect(described_class.new(country: 'XAXXX', vat_number: 'DE259597697')).not_to be_valid
+      expect(described_class.new(country: 'ZO', vat_number: 'DE259597697')).not_to be_valid
     end
 
-    it "should be not valid on mismatching (eu) country" do
-      expect(InvoiceCheckCountry.new(country: "FR", vat_number: "DE259597697")).not_to be_valid
-      expect(InvoiceCheckCountry.new(country: "AT", vat_number: "DE259597697")).not_to be_valid
-      expect(InvoiceCheckCountry.new(country: "DE", vat_number: "ATU65931334")).not_to be_valid
+    it 'is not valid on mismatching (eu) country' do
+      expect(described_class.new(country: 'FR', vat_number: 'DE259597697')).not_to be_valid
+      expect(described_class.new(country: 'AT', vat_number: 'DE259597697')).not_to be_valid
+      expect(described_class.new(country: 'DE', vat_number: 'ATU65931334')).not_to be_valid
     end
 
-    it "should be valid on matching country" do
-      expect(InvoiceCheckCountry.new(country: "DE", vat_number: "DE259597697")).to be_valid
-      expect(InvoiceCheckCountry.new(country: "AT", vat_number: "ATU65931334")).to be_valid
+    it 'is valid on matching country' do
+      expect(described_class.new(country: 'DE', vat_number: 'DE259597697')).to be_valid
+      expect(described_class.new(country: 'AT', vat_number: 'ATU65931334')).to be_valid
     end
 
-    it "should give back error message with country from :country_match" do
-      invoice = InvoiceCheckCountry.new(country: "FR", vat_number: "DE259597697")
+    it 'gives back error message with country from :country_match' do
+      invoice = described_class.new(country: 'FR', vat_number: 'DE259597697')
       invoice.valid?
-      expect(invoice.errors[:vat_number]).to eql(["is not a valid French VAT number"])
+      expect(invoice.errors[:vat_number]).to eql(['is not a valid French VAT number'])
     end
 
-    it "should give back error message with country from :country_match even on invalid VAT number" do
-      invoice = InvoiceCheckCountry.new(country: "FR", vat_number: "DE259597697123")
+    it 'gives back error message with country from :country_match even on invalid VAT number' do
+      invoice = described_class.new(country: 'FR', vat_number: 'DE259597697123')
       invoice.valid?
-      expect(invoice.errors[:vat_number]).to eql(["is not a valid French VAT number"])
+      expect(invoice.errors[:vat_number]).to eql(['is not a valid French VAT number'])
     end
   end
 
@@ -242,29 +245,29 @@ if defined?(ActiveModel)
       allow(Valvat::Lookup).to receive_messages(validate: true)
     end
 
-    it "avoids lookup or syntax check on failed because of mismatching country" do
-      expect(Valvat::Syntax).not_to receive(:validate)
-      expect(Valvat::Lookup).not_to receive(:validate)
-      InvoiceCheckCountryWithLookup.new(country: "FR", vat_number: "DE259597697").valid?
+    it 'avoids lookup or syntax check on failed because of mismatching country' do
+      described_class.new(country: 'FR', vat_number: 'DE259597697').valid?
+      expect(Valvat::Syntax).not_to have_received(:validate)
+      expect(Valvat::Lookup).not_to have_received(:validate)
     end
 
-    it "check syntax and looup on matching country" do
-      expect(Valvat::Syntax).to receive(:validate).and_return(true)
-      expect(Valvat::Lookup).to receive(:validate).and_return(true)
-      InvoiceCheckCountryWithLookup.new(country: "DE", vat_number: "DE259597697").valid?
+    it 'check syntax and looup on matching country' do
+      described_class.new(country: 'DE', vat_number: 'DE259597697').valid?
+      expect(Valvat::Syntax).to have_received(:validate)
+      expect(Valvat::Lookup).to have_received(:validate)
     end
   end
 
   describe InvoiceWithChecksum do
-    context "with valid VAT number" do
-      it "should be valid" do
-        expect(InvoiceWithChecksum.new(vat_number: "DE259597697")).to be_valid
+    context 'with valid VAT number' do
+      it 'is valid' do
+        expect(described_class.new(vat_number: 'DE259597697')).to be_valid
       end
     end
 
-    context "with invalid VAT number" do
-      it "should not be valid" do
-        expect(InvoiceWithChecksum.new(vat_number: "DE259597687")).not_to be_valid
+    context 'with invalid VAT number' do
+      it 'is not valid' do
+        expect(described_class.new(vat_number: 'DE259597687')).not_to be_valid
       end
     end
   end

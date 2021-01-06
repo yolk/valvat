@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'savon'
 
 class Valvat
@@ -12,13 +14,11 @@ class Valvat
       end
 
       def perform
-        begin
-          Response.new(
-            client.call(action, message: message, message_tag: message_tag)
-          )
-        rescue Savon::SOAPFault => fault
-          Fault.new(fault)
-        end
+        Response.new(
+          client.call(action, message: message, message_tag: message_tag)
+        )
+      rescue Savon::SOAPFault => e
+        Fault.new(e)
       end
 
       private
@@ -30,14 +30,10 @@ class Valvat
       end
 
       def message
-        {
-          country_code: @vat.vat_country_code,
-          vat_number: @vat.to_s_wo_country
-        }.merge(@requester ? {
-            requester_country_code: @requester.vat_country_code,
-            requester_vat_number: @requester.to_s_wo_country
-          } : {}
-        )
+        add_requester({
+                        country_code: @vat.vat_country_code,
+                        vat_number: @vat.to_s_wo_country
+                      })
       end
 
       def message_tag
@@ -46,6 +42,15 @@ class Valvat
 
       def action
         @requester ? :check_vat_approx : :check_vat
+      end
+
+      def add_requester(message)
+        return message unless @requester
+
+        message[:requester_country_code] = @requester.vat_country_code
+        message[:requester_vat_number]   = @requester.to_s_wo_country
+
+        message
       end
     end
   end

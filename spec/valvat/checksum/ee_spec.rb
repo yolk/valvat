@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Valvat::Checksum::EE do
-  %w(EE101234568 EE100207415).each do |valid_vat|
+  %w[EE101234568 EE100207415].each do |valid_vat|
     it "returns true on valid VAT #{valid_vat}" do
       expect(Valvat::Checksum.validate(valid_vat)).to be true
     end

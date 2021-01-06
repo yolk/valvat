@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 class Valvat
   module Checksum
     class SE < Base
       check_digit_length 0
 
       def validate
-        vat.to_s_wo_country[-2..-1].to_i > 0 &&
-        super
+        vat.to_s_wo_country[-2..-1].to_i.positive? &&
+          super
       end
 
       private

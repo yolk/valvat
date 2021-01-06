@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+
 class Valvat
   Error = Class.new(RuntimeError)
 
   class ViesError < Error
-    def initialize(faultstring='UNKNOWN')
+    def initialize(faultstring = 'UNKNOWN')
       @faultstring = faultstring
+      super
     end
 
     def to_s
