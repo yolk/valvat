@@ -9,6 +9,8 @@ class Valvat
     EU_COUNTRIES = EU_MEMBER_STATES # TODO: Remove constant
     COUNTRY_PATTERN = /\A([A-Z]{2})(.+)\Z/.freeze
     NORMALIZE_PATTERN = /[[:space:][:punct:][:cntrl:]]+/.freeze
+    CONVERT_VAT_TO_ISO_COUNTRY = { 'EL' => 'GR', 'XI' => 'GB' }.freeze
+    CONVERT_ISO_TO_VAT_COUNTRY = CONVERT_VAT_TO_ISO_COUNTRY.invert.freeze
 
     def self.split(vat)
       COUNTRY_PATTERN =~ vat
@@ -22,13 +24,11 @@ class Valvat
     end
 
     def self.vat_country_to_iso_country(vat_country)
-      return 'GR' if vat_country == 'EL'
-      return 'GB' if vat_country == 'XI'
-      vat_country
+      CONVERT_VAT_TO_ISO_COUNTRY[vat_country] || vat_country
     end
 
     def self.iso_country_to_vat_country(iso_country)
-      iso_country == 'GR' ? 'EL' : iso_country
+      CONVERT_ISO_TO_VAT_COUNTRY[iso_country] || iso_country
     end
 
     def self.country_is_supported?(iso_country)
