@@ -1,6 +1,7 @@
 require: rubocop-rspec
 AllCops:
     NewCops: enable
+    TargetRubyVersion: 2.5
 
 Metrics/BlockLength:
   Exclude:
