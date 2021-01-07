@@ -30,7 +30,7 @@ class Valvat
       'RO' => /\ARO[1-9][0-9]{1,9}\Z/,                                    # Romania
       'SE' => /\ASE[0-9]{10}01\Z/,                                        # Sweden
       'SI' => /\ASI[0-9]{8}\Z/,                                           # Slovenia
-      'SK' => /\ASK[0-9]{10}\Z/,                                          # Slovakia
+      'SK' => /\ASK[0-9]{10}\Z/                                           # Slovakia
     }.freeze
 
     def self.validate(vat)
