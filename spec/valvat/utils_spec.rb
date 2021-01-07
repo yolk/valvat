@@ -25,6 +25,10 @@ describe Valvat::Utils do
     it 'returns EL (language iso code) on greek vat' do
       expect(described_class.split('EL999999999')).to eql(%w[EL 999999999])
     end
+
+    it 'returns XI (vat number code) on northern ireland vat' do
+      expect(described_class.split('XI999999999')).to eql(%w[XI 999999999])
+    end
   end
 
   describe '#normalize' do
@@ -58,6 +62,10 @@ describe Valvat::Utils do
   describe '#vat_country_to_iso_country' do
     it "returns iso country code on greek iso language 'EL'" do
       expect(described_class.vat_country_to_iso_country('EL')).to eql('GR')
+    end
+
+    it "returns iso country code on northern ireland vat prefix 'XI'" do
+      expect(described_class.vat_country_to_iso_country('XI')).to eql('GB')
     end
 
     Valvat::Utils::EU_MEMBER_STATES.each do |iso|
