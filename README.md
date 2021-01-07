@@ -9,6 +9,8 @@ Validates european vat numbers. Standalone or as a ActiveModel validator.
 
 Valvat supports validating VAT-IDs from the UK by syntax & checksum for now. Validation against the VIES web service will probably stop working (and return `false`) in 2021.
 
+Northern Ireland received its own VAT number prefix - XI which is supported by VIES web service so any XI-prefixed VAT numbers should be validated as any EU VAT number.
+
 ## Features
 
 * Simple syntax verification

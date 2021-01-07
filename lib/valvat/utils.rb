@@ -22,7 +22,9 @@ class Valvat
     end
 
     def self.vat_country_to_iso_country(vat_country)
-      vat_country == 'EL' ? 'GR' : vat_country
+      return 'GR' if vat_country == 'EL'
+      return 'GB' if vat_country == 'XI'
+      vat_country
     end
 
     def self.iso_country_to_vat_country(iso_country)
