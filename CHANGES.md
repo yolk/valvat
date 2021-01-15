@@ -1,7 +1,11 @@
 
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v1.0.1...master)
+[full changelog](http://github.com/yolk/valvat/compare/v1.1.0...master)
+
+### 1.1.0 / 2021-01-15
+
+[full changelog](http://github.com/yolk/valvat/compare/v1.0.1...v1.1.0)
 
 * Added support for Northern Ireland XI prefixed VAT numbers (by [Avatar Ignacy Kasperowicz](https://github.com/kspe))
 * ActiveModel: Return specific error message if VIES is down and fail_if_down is set to true (by [Arkadiy Zabazhanov](https://github.com/pyromaniac))
