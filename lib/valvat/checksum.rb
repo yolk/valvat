@@ -2,20 +2,7 @@
 
 class Valvat
   module Checksum
-    ALGORITHMS = {} # rubocop:disable Style/MutableConstant
-
-    def self.validate(vat)
-      vat = Valvat(vat)
-      algo = ALGORITHMS[vat.iso_country_code]
-      Valvat::Syntax.validate(vat) && !!(algo.nil? || algo.new(vat).validate)
-    end
-
     class Base
-      def self.inherited(klass)
-        ALGORITHMS[klass.name.split(/::/).last] = klass
-        super
-      end
-
       attr_reader :vat
 
       def self.check_digit_length(len = nil)
@@ -74,10 +61,18 @@ class Valvat
         end.modulo(11)
       end
     end
-  end
-end
 
-Dir[File.join(File.dirname(__FILE__), 'checksum', '*.rb')].each do |path|
-  # On Ruby 2.1.0 ActiveSupport goes mad if you pass it paths with .rb at the end
-  require path.gsub(/\.rb$/, '')
+    def self.validate(vat)
+      vat = Valvat(vat)
+      algo = ALGORITHMS[vat.iso_country_code]
+      Valvat::Syntax.validate(vat) && !!(algo.nil? || algo.new(vat).validate)
+    end
+
+    ALGORITHMS = Dir[File.join(__dir__, 'checksum', '*.rb')].each_with_object({}) do |path, algos|
+      require path.gsub(/\.rb$/, '')
+
+      classname = File.basename(path, '.rb').upcase
+      algos[classname] = ['Valvat', 'Checksum', classname].inject(Object, :const_get)
+    end.freeze
+  end
 end
