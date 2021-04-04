@@ -3,29 +3,16 @@
 class Valvat
   Error = Class.new(RuntimeError)
 
-  class ViesError < Error
-    def initialize(faultstring = 'UNKNOWN')
-      @faultstring = faultstring
-      super
-    end
+  LookupError = Class.new(Error)
+  MaintenanceError = Class.new(LookupError)
 
-    def to_s
-      "The VIES web service returned the error '#{@faultstring}'."
-    end
+  ServiceUnavailable = Class.new(MaintenanceError)
+  MemberStateUnavailable = Class.new(MaintenanceError)
 
-    def eql?(other)
-      to_s.eql?(other.to_s)
-    end
-  end
-  ViesMaintenanceError = Class.new(ViesError)
+  Timeout = Class.new(LookupError)
+  InvalidRequester = Class.new(LookupError)
+  BlockedError = Class.new(LookupError)
+  RateLimitError = Class.new(LookupError)
 
-  ServiceUnavailable = Class.new(ViesMaintenanceError)
-  MemberStateUnavailable = Class.new(ViesMaintenanceError)
-
-  Timeout = Class.new(ViesError)
-  InvalidRequester = Class.new(ViesError)
-  BlockedError = Class.new(ViesError)
-  RateLimitError = Class.new(ViesError)
-
-  UnknownViesError = Class.new(ViesError)
+  UnknownLookupError = Class.new(LookupError)
 end

@@ -1,7 +1,13 @@
 
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v1.1.0...master)
+[full changelog](http://github.com/yolk/valvat/compare/v1.2.0...master)
+
+### 1.2.0
+
+[full changelog](http://github.com/yolk/valvat/compare/v1.1.0...v1.2.0)
+
+* Added support for GB VAT numbers validation using the HMRC service (by [Adrien Rey-Jarthon](https://github.com/jarthod))
 
 ### 1.1.0 / 2021-01-15
 

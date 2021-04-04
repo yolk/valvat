@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Valvat::Lookup::Fault do
+describe Valvat::Lookup::VIES::Fault do
   it "returns {valid: false} on fault 'INVALID_INPUT'" do
     expect(described_class.new({
                                  fault: { faultstring: 'INVALID_INPUT' }
@@ -20,14 +20,14 @@ describe Valvat::Lookup::Fault do
     'GLOBAL_MAX_CONCURRENT_REQ_TIME' => Valvat::RateLimitError,
     'MS_MAX_CONCURRENT_REQ' => Valvat::RateLimitError,
     'MS_MAX_CONCURRENT_REQ_TIME' => Valvat::RateLimitError,
-    'ANYTHING ELSE' => Valvat::UnknownViesError,
-    'REALLY ANYTHING' => Valvat::UnknownViesError
+    'ANYTHING ELSE' => Valvat::UnknownLookupError,
+    'REALLY ANYTHING' => Valvat::UnknownLookupError
   }.each do |fault, error|
     it "returns error on fault '#{fault}'" do
       expect(described_class.new({
                                    fault: { faultstring: fault }
-                                 }).to_hash).to eql({
-                                                      error: error.new(fault)
+                                 }).to_hash).to match({
+                                                      error: instance_of(error)
                                                     })
     end
   end

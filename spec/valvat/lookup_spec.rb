@@ -4,25 +4,54 @@ require 'spec_helper'
 
 describe Valvat::Lookup do
   describe '#validate' do
-    context 'with existing VAT number' do
+    context 'with existing EU VAT number' do
       it 'returns true' do
         result = described_class.validate('IE6388047V')
-        # Skip if VIES is down
-        expect(result).to be(true) unless result.nil?
+        skip "VIES is down" if result.nil?
+        expect(result).to be(true)
       end
 
       it 'allows Valvat instance as input' do
         result = described_class.validate(Valvat.new('IE6388047V'))
-        # Skip if VIES is down
-        expect(result).to be(true) unless result.nil?
+        skip "VIES is down" if result.nil?
+        expect(result).to be(true)
       end
     end
 
-    context 'with not existing VAT number' do
+    context 'with existing GB VAT number' do
+      it 'returns true' do
+        result = described_class.validate('GB727255821')
+        skip "HMRC is down" if result.nil?
+        expect(result).to be(true)
+      end
+
+      it 'returns details in format similar to VIES' do
+        result = described_class.validate('GB727255821', detail: true)
+        skip "HMRC is down" if result.nil?
+        expect(result).to match({
+          request_date: kind_of(Time),
+          country_code: 'GB',
+          vat_number: '727255821',
+          name: 'AMAZON EU SARL',
+          address: "1 PRINCIPAL PLACE\nWORSHIP STREET\nLONDON\nEC2A 2FA\nGB",
+          valid: true
+        })
+      end
+    end
+
+    context 'with not existing EU VAT number' do
       it 'returns false' do
         result =  described_class.validate('IE6388048V')
-        # Skip if VIES is down
-        expect(result).to be(false) unless result.nil?
+        skip "VIES is down" if result.nil?
+        expect(result).to be(false)
+      end
+    end
+
+    context 'with not existing GB VAT number' do
+      it 'returns false' do
+        result =  described_class.validate('GB727255820')
+        skip "HMRC is down" if result.nil?
+        expect(result).to be(false)
       end
     end
 
@@ -46,46 +75,66 @@ describe Valvat::Lookup do
 
       it 'returns hash of details instead of true' do
         result = described_class.validate('IE6388047V', detail: true)
-        # Skip if VIES is down
-        if result
-          expect(result.delete(:request_date)).to be_kind_of(Date)
-          expect(result).to eql(details)
-        end
+        skip "VIES is down" if result.nil?
+        expect(result.delete(:request_date)).to be_kind_of(Date)
+        expect(result).to eql(details)
       end
 
       it 'still returns false on not existing VAT number' do
         result = described_class.validate('LU21416128', detail: true)
-        # Skip if VIES is down
-        expect(result).to be(false) unless result.nil?
+        skip "VIES is down" if result.nil?
+        expect(result).to be(false)
       end
     end
 
     context 'with request identifier' do
-      let(:response) { described_class.validate('IE6388047V', requester: 'IE6388047V') }
-      let(:details) do
-        {
+      it 'returns hash of details instead of true' do
+        response = described_class.validate('IE6388047V', requester: 'IE6388047V')
+        skip "VIES is down" if response.nil?
+        expect(response.delete(:request_identifier).size).to be(16)
+        expect(response.delete(:request_date)).to be_kind_of(Date)
+        expect(response).to eql({
           country_code: 'IE',
           vat_number: '6388047V',
           name: 'GOOGLE IRELAND LIMITED',
           company_type: nil,
           address: '3RD FLOOR, GORDON HOUSE, BARROW STREET, DUBLIN 4',
           valid: true
-        }
-      end
-
-      it 'returns hash of details instead of true' do
-        # Skip if VIES is down
-        if response
-          expect(response.delete(:request_identifier).size).to be(16)
-          expect(response.delete(:request_date)).to be_kind_of(Date)
-          expect(response).to eql(details)
-        end
+        })
       end
 
       it 'supports old :requester_vat option for backwards stability' do
         expect(
           described_class.new('IE6388047V', requester_vat: 'LU21416127').instance_variable_get(:@options)[:requester]
         ).to eql('LU21416127')
+      end
+
+      context 'with GB VAT number' do
+        it 'returns hash of details with request number' do
+          response = described_class.validate('GB727255821', requester: 'GB727255821')
+          skip "HMRC is down" if response.nil?
+          expect(response).to match({
+            request_date: kind_of(Time),
+            request_identifier: /\A\w\w\w-\w\w\w-\w\w\w\Z/,
+            country_code: 'GB',
+            vat_number: '727255821',
+            name: 'AMAZON EU SARL',
+            address: "1 PRINCIPAL PLACE\nWORSHIP STREET\nLONDON\nEC2A 2FA\nGB",
+            valid: true
+          })
+        end
+
+        it 'raises exception if requester is not from GB' do
+          expect {
+            described_class.validate('GB727255821', requester: 'IE6388047V')
+          }.to raise_error(Valvat::InvalidRequester, "Requester must be a GB number when checking GB VAT numbers.")
+        end
+
+        it 'raises exception if requester is not valid' do
+          expect {
+            described_class.validate('GB727255821', requester: 'GB6388047')
+          }.to raise_error(Valvat::InvalidRequester, "The HMRC web service returned the error 'INVALID_REQUEST' (Invalid requesterVrn - Vrn parameters should be 9 or 12 digits).")
+        end
       end
     end
   end
@@ -138,7 +187,7 @@ describe Valvat::Lookup do
       it 'raises error with raise_error: true' do
         expect do
           described_class.validate('DE300', options.merge(raise_error: true))
-        end.to raise_error(Valvat::ServiceUnavailable)
+        end.to raise_error(Valvat::ServiceUnavailable, "The VIES web service returned the error 'SERVICE_UNAVAILABLE'.")
       end
     end
 
@@ -165,6 +214,21 @@ describe Valvat::Lookup do
 
       it 'returns nil with raise_error set to false' do
         expect(described_class.validate('DE302', options.merge(raise_error: false))).to be(nil)
+      end
+    end
+
+    describe 'Network timeout' do
+      subject(:result) { described_class.validate('DE200', options) }
+      before { stub_request(:get, /ec.europa.eu/).to_timeout }
+
+      it 'raises error' do
+        expect { result }.to raise_error(HTTP::TimeoutError)
+      end
+
+      it 'also raises error with raise_error set to false (not handled)' do
+        expect {
+          described_class.validate('DE302', options.merge(raise_error: false))
+        }.to raise_error(HTTP::TimeoutError)
       end
     end
 
@@ -237,6 +301,134 @@ describe Valvat::Lookup do
 
       it 'returns nil with raise_error set to false' do
         expect(described_class.validate('DE601', options.merge(raise_error: false))).to be(nil)
+      end
+    end
+  end
+
+  describe '#validate with HMRC test enviroment' do
+    # https://developer.service.hmrc.gov.uk/api-documentation/docs/testing
+    # https://github.com/hmrc/vat-registered-companies-api/blob/master/public/api/conf/1.0/test-data/vrn.csv
+    before do
+      stub_const('Valvat::Lookup::HMRC::Request::HMRC_API_URL', 'https://test-api.service.hmrc.gov.uk/organisations/vat/check-vat-number/lookup')
+    end
+
+    subject(:result) { described_class.validate('GB123456789') }
+
+    context 'with valid request with valid VAT number' do
+      it 'returns true' do
+        expect(described_class.validate('GB553557881')).to be(true)
+        expect(described_class.validate('GB146295999727')).to be(true)
+      end
+    end
+
+    context 'with valid request with an invalid VAT number' do
+      it 'returns false' do
+        expect(result).to be(false)
+      end
+    end
+
+    describe 'Error : MESSAGE_THROTTLED_OUT' do
+      before {
+        stub_request(:get, /test-api.service.hmrc.gov.uk/).to_return(
+          status: 429,
+          body: '{"code":"MESSAGE_THROTTLED_OUT"}'
+        )
+      }
+
+      it 'raises error' do
+        expect { result }.to raise_error(Valvat::RateLimitError, /MESSAGE_THROTTLED_OUT/)
+      end
+
+      it 'returns nil with raise_error set to false' do
+        expect(described_class.validate('GB123456789', raise_error: false)).to be(nil)
+      end
+    end
+
+    describe 'Error : SCHEDULED_MAINTENANCE' do
+      before {
+        stub_request(:get, /test-api.service.hmrc.gov.uk/).to_return(
+          status: 503,
+          body: '{"code":"SCHEDULED_MAINTENANCE"}'
+        )
+      }
+
+      it 'returns nil' do
+        expect(result).to be(nil)
+      end
+
+      it 'raises error with raise_error set to false' do
+        expect {
+          described_class.validate('GB123456789', raise_error: true)
+        }.to raise_error(Valvat::ServiceUnavailable, "The HMRC web service returned the error 'SCHEDULED_MAINTENANCE' ().")
+      end
+    end
+
+    describe 'Error : SERVER_ERROR' do
+      before {
+        stub_request(:get, /test-api.service.hmrc.gov.uk/).to_return(
+          status: 503,
+          body: '{"code":"SERVER_ERROR"}'
+        )
+      }
+
+      it 'returns nil' do
+        expect(result).to be(nil)
+      end
+
+      it 'raises error with raise_error set to false' do
+        expect {
+          described_class.validate('GB123456789', raise_error: true)
+        }.to raise_error(Valvat::ServiceUnavailable, "The HMRC web service returned the error 'SERVER_ERROR' ().")
+      end
+    end
+
+    describe 'Error : GATEWAY_TIMEOUT' do
+      before {
+        stub_request(:get, /test-api.service.hmrc.gov.uk/).to_return(
+          status: 504,
+          body: '{"code":"GATEWAY_TIMEOUT"}'
+        )
+      }
+
+      it 'raises error' do
+        expect { result }.to raise_error(Valvat::Timeout, /GATEWAY_TIMEOUT/)
+      end
+
+      it 'returns nil with raise_error set to false' do
+        expect(described_class.validate('GB123456789', raise_error: false)).to be(nil)
+      end
+    end
+
+    describe 'Network timeout' do
+      before {
+        stub_request(:get, /test-api.service.hmrc.gov.uk/).to_timeout
+      }
+
+      it 'raises error' do
+        expect { result }.to raise_error(Net::OpenTimeout)
+      end
+
+      it 'also raises error with raise_error set to false (not handled)' do
+        expect {
+          described_class.validate('GB123456789', raise_error: false)
+        }.to raise_error(Net::OpenTimeout)
+      end
+    end
+
+    describe 'Error : INTERNAL_SERVER_ERROR' do
+      before {
+        stub_request(:get, /test-api.service.hmrc.gov.uk/).to_return(
+          status: 500,
+          body: '{"code":"INTERNAL_SERVER_ERROR"}'
+        )
+      }
+
+      it 'raises error' do
+        expect { result }.to raise_error(Valvat::UnknownLookupError, /INTERNAL_SERVER_ERROR/)
+      end
+
+      it 'returns nil with raise_error set to false' do
+        expect(described_class.validate('GB123456789', raise_error: false)).to be(nil)
       end
     end
   end

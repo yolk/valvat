@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Valvat::Lookup::Response do
+describe Valvat::Lookup::VIES::Response do
   it 'removes @xmlns from :check_vat_response hash' do
     expect(described_class.new({
                                  check_vat_response: { :a => 1, :b => 2, :@xmlns => true }

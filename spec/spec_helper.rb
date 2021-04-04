@@ -7,8 +7,10 @@ rescue LoadError
   puts 'Running specs without active_model extension'
 end
 
+require 'webmock/rspec'
 require "#{File.dirname(__FILE__)}/../lib/valvat.rb"
 
+WebMock.allow_net_connect!
 RSpec.configure do |config|
   config.mock_with :rspec
   config.filter_run focus: true
