@@ -5,7 +5,7 @@ class Valvat
     class IT < Base
       def validate
         y = figures_str[7..9].to_i
-        y >= 1 && (y <= 100 || [120, 121].include?(y)) &&
+        y >= 1 && (y <= 100 || [120, 121, 999].include?(y)) &&
           figures_str[0..6] != '0000000' &&
           super
       end
