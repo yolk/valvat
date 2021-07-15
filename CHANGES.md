@@ -1,7 +1,13 @@
 
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v1.1.0...master)
+[full changelog](http://github.com/yolk/valvat/compare/v1.1.1...master)
+
+### 1.1.0 / 2021-07-15
+
+[full changelog](http://github.com/yolk/valvat/compare/v1.1.0...v1.1.1)
+
+* Added support for italian VAT numbers with special province part (#104)
 
 ### 1.1.0 / 2021-01-15
 
