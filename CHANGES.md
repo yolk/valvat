@@ -1,7 +1,13 @@
 
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v1.1.1...master)
+[full changelog](http://github.com/yolk/valvat/compare/v1.1.2...master)
+
+### 1.1.0 / 2021-10-29
+
+[full changelog](http://github.com/yolk/valvat/compare/v1.1.1...v1.1.2)
+
+* Fixed SOAPAction error (#105) (by [Ľubo ](https://github.com/lubosch))
 
 ### 1.1.0 / 2021-07-15
 
