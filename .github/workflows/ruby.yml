@@ -22,10 +22,6 @@ jobs:
         exclude:
           - ruby-version: '3.0'
             gemfile: 'activemodel-5'
-          - ruby-version: 'jruby-9.3.2.0'
-            gemfile: 'activemodel-5'
-          - ruby-version: 'jruby-9.3.2.0'
-            gemfile: 'activemodel-6'
 
     steps:
     - uses: actions/checkout@v2
