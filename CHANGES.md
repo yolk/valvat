@@ -1,7 +1,11 @@
 
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v1.1.2...master)
+[full changelog](http://github.com/yolk/valvat/compare/v1.1.3...master)
+
+### 1.1.3 / 2022-01-26
+
+[full changelog](http://github.com/yolk/valvat/compare/v1.1.2...v1.1.3)
 
 * Handle Savon::HTTPError and Savon::UnknownOperationError as ViesError and throw Valvat::HTTPError and Valvat::OperationUnknown instead.
 
