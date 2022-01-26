@@ -17,7 +17,7 @@ class Valvat
         Response.new(
           client.call(action, message: message, message_tag: message_tag, soap_action: nil)
         )
-      rescue Savon::SOAPFault => e
+      rescue Savon::SOAPFault, Savon::HTTPError, Savon::UnknownOperationError => e
         Fault.new(e)
       end
 
