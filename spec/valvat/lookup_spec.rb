@@ -239,5 +239,22 @@ describe Valvat::Lookup do
         expect(described_class.validate('DE601', options.merge(raise_error: false))).to be(nil)
       end
     end
+
+    describe 'Error : Savon::UnknownOperationError' do
+      before do
+        dbl = double(Savon::Client)
+        allow(Savon::Client).to receive(:new).and_return(dbl)
+        allow(dbl).to receive(:call).and_raise(Savon::UnknownOperationError.new('from stub'))
+      end
+      subject(:result) { described_class.validate('DE601', options) }
+
+      it 'raises error' do
+        expect { result }.to raise_error(Valvat::OperationUnknown, /#<Savon::UnknownOperationError: from stub>/)
+      end
+
+      it 'returns nil with raise_error set to false' do
+        expect(described_class.validate('DE601', options.merge(raise_error: false))).to be(nil)
+      end
+    end
   end
 end

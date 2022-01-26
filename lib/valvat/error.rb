@@ -4,9 +4,10 @@ class Valvat
   Error = Class.new(RuntimeError)
 
   class ViesError < Error
-    def initialize(faultstring = 'UNKNOWN')
-      @faultstring = faultstring
-      super
+    def initialize(faultstring = 'UNKNOWN', exception = nil)
+      @faultstring = faultstring || exception.inspect
+      @exception = exception
+      super(faultstring)
     end
 
     def to_s
@@ -22,6 +23,7 @@ class Valvat
   ServiceUnavailable = Class.new(ViesMaintenanceError)
   MemberStateUnavailable = Class.new(ViesMaintenanceError)
 
+  OperationUnknown = Class.new(ViesError)
   Timeout = Class.new(ViesError)
   InvalidRequester = Class.new(ViesError)
   BlockedError = Class.new(ViesError)
