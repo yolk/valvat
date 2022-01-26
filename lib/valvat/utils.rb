@@ -8,7 +8,7 @@ class Valvat
     SUPPORTED_STATES = EU_MEMBER_STATES + %w[GB]
     EU_COUNTRIES = EU_MEMBER_STATES # TODO: Remove constant
     COUNTRY_PATTERN = /\A([A-Z]{2})(.+)\Z/.freeze
-    NORMALIZE_PATTERN = /[[:space:][:punct:][:cntrl:]]+/.freeze
+    NORMALIZE_PATTERN = /([[:punct:][:cntrl:]]|[[:space:]])+/.freeze
     CONVERT_VAT_TO_ISO_COUNTRY = { 'EL' => 'GR', 'XI' => 'GB' }.freeze
     CONVERT_ISO_TO_VAT_COUNTRY = CONVERT_VAT_TO_ISO_COUNTRY.invert.freeze
 
