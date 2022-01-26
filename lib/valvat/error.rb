@@ -24,6 +24,7 @@ class Valvat
   MemberStateUnavailable = Class.new(ViesMaintenanceError)
 
   OperationUnknown = Class.new(ViesError)
+  HTTPError = Class.new(ViesError)
   Timeout = Class.new(ViesError)
   InvalidRequester = Class.new(ViesError)
   BlockedError = Class.new(ViesError)

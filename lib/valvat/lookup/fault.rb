@@ -4,7 +4,10 @@ class Valvat
   class Lookup
     class Fault < Response
       def to_hash
-        @to_hash ||= if @raw.is_a?(Savon::UnknownOperationError)
+        @to_hash ||= case @raw
+        when Savon::HTTPError
+          { error: HTTPError.new(nil, @raw) }
+        when Savon::UnknownOperationError
           { error: OperationUnknown.new(nil, @raw) }
         else
           fault = @raw.to_hash[:fault][:faultstring]
