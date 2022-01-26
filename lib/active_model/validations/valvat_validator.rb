@@ -72,9 +72,9 @@ module ActiveModel
       def add_invalid_vat_error(record, attribute, iso_country_code)
         record.errors.add(attribute, :invalid_vat,
                           message: options[:message],
-                          country_adjective: I18n.t(
+                          country_adjective: I18n.translate(
                             :"valvat.country_adjectives.#{iso_country_code.downcase}",
-                            :default => [:"valvat.country_adjectives.eu", 'european']
+                            **{:default => [:"valvat.country_adjectives.eu", 'european']}
                           ))
       end
 
