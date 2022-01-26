@@ -74,7 +74,7 @@ module ActiveModel
                           message: options[:message],
                           country_adjective: I18n.t(
                             :"valvat.country_adjectives.#{iso_country_code.downcase}",
-                            default: [:"valvat.country_adjectives.eu", 'european']
+                            :default => [:"valvat.country_adjectives.eu", 'european']
                           ))
       end
 
