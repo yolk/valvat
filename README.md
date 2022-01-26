@@ -20,7 +20,7 @@ Northern Ireland received its own VAT number prefix - XI which is supported by V
 * I18n locales for language specific error messages in English, German, French, Spanish, Italian, Portuguese, Polish, Swedish, Dutch, Danish, Czech, Slovakian, Hungarian, Bulgarian, Romanian, Latvian, Catalan, Norwegian, and Finnish.
 * *Experimental* checksum verification
 
-valvat is tested and works with ruby MRI 2.5/2.6/2.7/3.0/3.1, jruby-head, truffleruby-head and ActiveModel 5/6/7. If you need support for ruby down to 1.9.3 and ActiveModel 3 and 4 use [v1.0.1](https://github.com/yolk/valvat/tree/v1.0.1).
+valvat is tested and works with ruby MRI 2.6/2.7/3.0/3.1, jruby, truffleruby-head and ActiveModel 5/6/7. If you need support for ruby down to 1.9.3 and ActiveModel 3 and 4 use [v1.0.1](https://github.com/yolk/valvat/tree/v1.0.1).
 
 ## Installation
 
