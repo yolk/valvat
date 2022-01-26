@@ -17,11 +17,15 @@ jobs:
       BUNDLE_GEMFILE: gemfiles/${{ matrix.gemfile }}
     strategy:
       matrix:
-        ruby-version: ['2.5', '2.6', '2.7', '3.0', 'truffleruby-head']
+        ruby-version: ['2.5', '2.6', '2.7', '3.0', 'truffleruby-head', 'jruby-9.3.2.0']
         gemfile: [ 'standalone', 'activemodel-5', 'activemodel-6' ]
         exclude:
           - ruby-version: '3.0'
             gemfile: 'activemodel-5'
+          - ruby-version: 'jruby-9.3.2.0'
+            gemfile: 'activemodel-5'
+          - ruby-version: 'jruby-9.3.2.0'
+            gemfile: 'activemodel-6'
 
     steps:
     - uses: actions/checkout@v2
