@@ -28,6 +28,8 @@ jobs:
             gemfile: 'activemodel-7'
           - ruby-version: '2.6'
             gemfile: 'activemodel-7'
+          - ruby-version: 'jruby-9.3.2.0'
+            gemfile: 'activemodel-7'
 
     steps:
     - uses: actions/checkout@v2
