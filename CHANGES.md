@@ -1,7 +1,14 @@
 
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v1.1.3...master)
+[full changelog](http://github.com/yolk/valvat/compare/v1.1.4...master)
+
+### 1.1.4 / 2022-05-05
+
+[full changelog](http://github.com/yolk/valvat/compare/v1.1.3...v1.1.4)
+
+* Support BE 1-series format (by [Cashaca](https://github.com/Cashaca))
+* Removed duplication on french error messages (by [Sunny Ripert](https://github.com/sunny))
 
 ### 1.1.3 / 2022-01-26
 
