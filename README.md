@@ -52,7 +52,7 @@ It is also possible to bypass initializing a Valvat instance and check the synta
     Valvat::Syntax.validate("DE345789003")
     => true or false
 
-## Validate agains the VIES web service
+## Validate against the VIES web service
 
 To check if the given vat number exists via the VIES web service:
 
