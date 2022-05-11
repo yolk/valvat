@@ -147,7 +147,9 @@ Valvat.new("IE6388047V").exists?(savon: { log: true })
 
 Or to use higher timeouts for the requests:
 
-   Valvat.new("IE6388047V").exists?(savon: {open_timeout: 10, read_timeout: 10})
+```ruby
+Valvat.new("IE6388047V").exists?(savon: {open_timeout: 10, read_timeout: 10})
+```
 
 ### Skip local validation before lookup
 
