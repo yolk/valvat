@@ -4,11 +4,21 @@ class Valvat
   class Lookup
     module VIES
       class Fault < Response
-        def self.cleanup(hash)
-          fault = hash[:fault][:faultstring]
-          return { valid: false } if fault == 'INVALID_INPUT'
-
-          { error: fault_to_error(fault) }
+        def to_hash
+          @to_hash ||= case @raw
+          when Savon::HTTPError
+            { error: HTTPError.new(@raw) }
+          when Savon::UnknownOperationError
+            { error: OperationUnknown.new(@raw) }
+          else
+            fault = @raw.to_hash[:fault][:faultstring]
+            if fault == 'INVALID_INPUT'
+              { valid: false }
+            else
+              error = (FAULTS[fault] || UnknownLookupError).new("The VIES web service returned the error '#{fault}'.")
+              { error: error }
+            end
+          end
         end
 
         FAULTS = {
@@ -23,10 +33,6 @@ class Valvat
           'MS_MAX_CONCURRENT_REQ' => RateLimitError,
           'MS_MAX_CONCURRENT_REQ_TIME' => RateLimitError
         }.freeze
-
-        def self.fault_to_error(fault)
-          (FAULTS[fault] || UnknownLookupError).new("The VIES web service returned the error '#{fault}'.")
-        end
       end
     end
   end

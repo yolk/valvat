@@ -6,3 +6,4 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'guard-rspec', '~>4.0'
+gem "net-smtp" if RUBY_VERSION >= "3.1.0"

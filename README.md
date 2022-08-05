@@ -21,17 +21,21 @@ Northern Ireland received its own VAT number prefix - XI which is supported by V
 * I18n locales for language specific error messages in English, German, French, Spanish, Italian, Portuguese, Polish, Swedish, Dutch, Danish, Czech, Slovakian, Hungarian, Bulgarian, Romanian, Latvian, Catalan, Norwegian, and Finnish.
 * *Experimental* checksum verification
 
-valvat is tested and works with ruby MRI 2.5/2.6/2.7/3.0, jruby-head, truffleruby-head and ActiveModel 5/6. If you need support for ruby down to 1.9.3 and ActiveModel 3 and 4 use [v1.0.1](https://github.com/yolk/valvat/tree/v1.0.1).
+valvat is tested and works with ruby MRI 2.6/2.7/3.0/3.1, jruby, truffleruby-head and ActiveModel 5/6/7. If you need support for ruby down to 1.9.3 and ActiveModel 3 and 4 use [v1.0.1](https://github.com/yolk/valvat/tree/v1.0.1).
 
 ## Installation
 
 Add it to your Gemfile:
 
-    gem 'valvat'
+```ruby
+gem 'valvat'
+```
 
 To use less memory (~0.5 mb vs. ~3.5 mb) and load only the local verification functionality – and not the remote lookup with VIES or HMRC – add it like this instead:
 
-    gem 'valvat', require: 'valvat/local'
+```ruby
+gem 'valvat', require: 'valvat/local'
+```
 
 In any case run:
 
@@ -45,25 +49,33 @@ Or install it yourself as:
 
 To verify the syntax of a vat number:
 
-    Valvat.new("DE345789003").valid?
-    => true or false
+```ruby
+Valvat.new("DE345789003").valid?
+# => true or false
+```
 
 It is also possible to bypass initializing a Valvat instance and check the syntax of a vat number string directly with:
 
-    Valvat::Syntax.validate("DE345789003")
-    => true or false
+```ruby
+Valvat::Syntax.validate("DE345789003")
+# => true or false
+```
 
 ## Validate against the VIES / HMRC web service
 
 To check if the given vat number exists via the VIES or HMRC web service:
 
-    Valvat.new("DE345789003").exists?
-    => true or false or nil
+```ruby
+Valvat.new("DE345789003").exists?
+# => true or false or nil
+```
 
 Or to lookup a vat number string directly:
 
-    Valvat::Lookup.validate("DE345789003")
-    => true or false or nil
+```ruby
+Valvat::Lookup.validate("DE345789003")
+# => true or false or nil
+```
 
 *IMPORTANT* Keep in mind that the web service might be offline at some time for all or some member states. If this happens `exists?` or `Valvat::Lookup.validate` will return `nil`. See *Handling of maintenance errors* for further details.
 
@@ -71,24 +83,28 @@ Or to lookup a vat number string directly:
 
 If you need all details and not only if the VAT is valid, pass {detail: true} as second parameter to the lookup call.
 
-    Valvat.new("IE6388047V").exists?(detail: true)
-    => {
-      :country_code=>"IE", :vat_number => "6388047V", :valid => true,
-      :request_date => Date.today, :name=>"GOOGLE IRELAND LIMITED",
-      :address=>"1ST & 2ND FLOOR ,GORDON HOUSE ,BARROW STREET ,DUBLIN 4"
-    } or false or nil
+```ruby
+Valvat.new("IE6388047V").exists?(detail: true)
+=> {
+  :country_code=>"IE", :vat_number => "6388047V", :valid => true,
+  :request_date => Date.today, :name=>"GOOGLE IRELAND LIMITED",
+  :address=>"1ST & 2ND FLOOR ,GORDON HOUSE ,BARROW STREET ,DUBLIN 4"
+} or false or nil
+```
 
 According to EU law, or at least as Austria sees it, it's mandatory to verify the VAT number of every new customer, but also to check the VAT number periodicaly. To prove that you have checked the VAT number, the web service can return a `request_identifier`.
 
 To receive a `request_identifier` you need to pass your own VAT number in the options hash. In this example, Google (VAT IE6388047V) is checking the validity of eBays VAT number (LU21416127)
 
-    Valvat.new("LU21416127").exists?(requester: "IE6388047V")
-    => {
-      :country_code=>"LU", :vat_number => "21416127", :valid => true,
-      :request_date => Date.today, :name=>"EBAY EUROPE S.A R.L.",
-      :address => "22, BOULEVARD ROYAL\nL-2449  LUXEMBOURG",
-      :company_type => nil, :request_identifier => "some_uniq_string"
-    } or false or nil
+```ruby
+Valvat.new("LU21416127").exists?(requester: "IE6388047V")
+=> {
+  :country_code=>"LU", :vat_number => "21416127", :valid => true,
+  :request_date => Date.today, :name=>"EBAY EUROPE S.A R.L.",
+  :address => "22, BOULEVARD ROYAL\nL-2449  LUXEMBOURG",
+  :company_type => nil, :request_identifier => "some_uniq_string"
+} or false or nil
+```
 
 If the given `requester` is invalid, a `Valvat::InvalidRequester` error is thrown.
 
@@ -102,7 +118,9 @@ Also when requesting a `request_identifier` for a GB number, the requester must 
 
 From time to time the web service for one or all member states is down for maintenance. To handle this kind of temporary errors, `Valvat::Lookup#validate` returns `nil` by default to indicate that there is no way at the moment to say if the given VAT is valid or not. You should revalidate the VAT later. If you prefer an error, use the `raise_error` option:
 
-    Valvat.new("IE6388047V").exists?(raise_error: true)
+```ruby
+Valvat.new("IE6388047V").exists?(raise_error: true)
+```
 
 This raises `Valvat::ServiceUnavailable` or `Valvat::MemberStateUnavailable` instead of returning `nil`.
 
@@ -120,7 +138,9 @@ All other errors accuring while validating against the web service are raised an
 
 If you want to suppress all known error cases. Pass in the `raise_error` option set to `false`:
 
-    Valvat.new("IE6388047V").exists?(raise_error: false)
+```ruby
+Valvat.new("IE6388047V").exists?(raise_error: false)
+```
 
 This will return `nil` instead of raising a known error.
 
@@ -128,11 +148,15 @@ This will return `nil` instead of raising a known error.
 
 Use the `:savon` key to set options for the used savon SOAP client (VIES only). For example to log all requests:
 
-    Valvat.new("IE6388047V").exists?(savon: {log: true})
+```ruby
+Valvat.new("IE6388047V").exists?(savon: { log: true })
+```
 
 Or to use higher timeouts for the requests:
 
-   Valvat.new("IE6388047V").exists?(savon: {open_timeout: 10, read_timeout: 10})
+```ruby
+Valvat.new("IE6388047V").exists?(savon: {open_timeout: 10, read_timeout: 10})
+```
 
 ### Skip local validation before lookup
 
@@ -142,8 +166,10 @@ To prevent unnecessary requests, valvat performs a local syntax check before mak
 
 valvat allows to check vat numbers from AT, BE, BG, DE, DK, ES, FR, FI, GR, IE, IT, LU, NL, PL, PT, SE and SI against a checksum calculation. All other member states will fall back to a basic syntax check:
 
-    Valvat.new("DE345789003").valid_checksum?
-    => true or false`
+```ruby
+Valvat.new("DE345789003").valid_checksum?
+# => true or false
+```
 
 These results are more valuable than a simple syntax check, but keep in mind: they can not replace an online lookup.
 
@@ -151,8 +177,10 @@ These results are more valuable than a simple syntax check, but keep in mind: th
 
 To bypass initializing a Valvat instance:
 
-    Valvat::Checksum.validate("DE345789003")
-    => true or false
+```ruby
+Valvat::Checksum.validate("DE345789003")
+# => true or false
+```
 
 ## Usage with ActiveModel / Rails
 
@@ -160,7 +188,9 @@ To bypass initializing a Valvat instance:
 
 When the valvat gem is required and ActiveModel is already loaded, everything will work fine out of the box. If your load order differs just add
 
-    require 'active_model/validations/valvat_validator'
+```ruby
+require 'active_model/validations/valvat_validator'
+```
 
 after ActiveModel has been loaded.
 
@@ -168,35 +198,47 @@ after ActiveModel has been loaded.
 
 To validate the attribute `vat_number` add this to your model:
 
-    class MyModel < ActiveRecord::Base
-      validates :vat_number, valvat: true
-    end
+```ruby
+class MyModel < ActiveRecord::Base
+  validates :vat_number, valvat: true
+end
+```
 
 ### Additional lookup validation
 
 To additionally perform an online lookup:
 
-    validates :vat_number, valvat: {lookup: true}
+```ruby
+validates :vat_number, valvat: { lookup: true }
+```
 
 By default this will validate to true if the web service is down. To fail in this case simply add the `:fail_if_down` option:
 
-    validates :vat_number, valvat: {lookup: {fail_if_down: true}}
+```ruby
+validates :vat_number, valvat: { lookup: { fail_if_down: true } }
+```
 
 You can pass in any options accepted by `Valvat::Lookup#validate`:
 
-    validates :vat_number, valvat: {lookup: {raise_error: true, savon: {log: true}}}
+```ruby
+validates :vat_number, valvat: { lookup: { raise_error: true, savon: { log: true } } }
+```
 
 ### Additional (and experimental) checksum validation
 
 To additionally perform a checksum validation:
 
-    validates :vat_number, valvat: {checksum: true}
+```ruby
+validates :vat_number, valvat: { checksum: true }
+```
 
 ### Additional ISO country code validation
 
 If you want the vat number’s (ISO) country to match another country attribute, use the _match_country_ option:
 
-    validates :vat_number, valvat: {match_country: :country}
+```ruby
+validates :vat_number, valvat: { match_country: :country }
+```
 
 where it is supposed that your model has a method named _country_ which returns the country ISO code you want to match.
 
@@ -204,48 +246,62 @@ where it is supposed that your model has a method named _country_ which returns 
 
 By default blank vat numbers validate to false. To change this add the `:allow_blank` option:
 
-    validates :vat_number, valvat: {allow_blank: true}
+```ruby
+validates :vat_number, valvat: { allow_blank: true }
+```
 
 ### Allow vat numbers outside of europe
 
 To allow vat numbers from outside of europe, add something like this to your model (country_code should return a upcase ISO country code):
 
-    class MyModel < ActiveRecord::Base
-      validates :vat_number, valvat: true, if: :eu?
+```ruby
+class MyModel < ActiveRecord::Base
+  validates :vat_number, valvat: true, if: :eu?
 
-      def eu?
-        Valvat::Utils::EU_MEMBER_STATES.include?(country_code)
-      end
-    end
+  def eu?
+    Valvat::Utils::EU_MEMBER_STATES.include?(country_code)
+  end
+end
+```
 
 ## Utilities
 
 To split a vat number into the country code and the remaining chars:
 
-    Valvat::Utils.split("ATU345789003")
-    => ["AT", "U345789003"]
+```ruby
+Valvat::Utils.split("ATU345789003")
+# => ["AT", "U345789003"]
+```
 
 or
 
-    Valvat.new("ATU345789003").to_a
-    => ["AT", "U345789003"]
+```ruby
+Valvat.new("ATU345789003").to_a
+# => ["AT", "U345789003"]
+```
 
 Both methods always return an array. If it can not detect the country or the given country is located outside of europe it returns `[nil, nil]`. Please note that this does not strictly return the ISO country code: for greek vat numbers this returns the ISO language code 'EL' instead of the ISO country code 'GR'.
 
 To extract the ISO country code of a given vat number:
 
-    Valvat.new("EL7345789003").iso_country_code
-    => "GR"
+```ruby
+Valvat.new("EL7345789003").iso_country_code
+# => "GR"
+```
 
 To extract the vat country code (first two chars in every european vat number):
 
-    Valvat.new("EL7345789003").vat_country_code
-    => "EL"
+```ruby
+Valvat.new("EL7345789003").vat_country_code
+# => "EL"
+```
 
 To normalize a vat number:
 
-    Valvat::Utils.normalize("atu345789003")
-    => "ATU345789003"
+```ruby
+Valvat::Utils.normalize("atu345789003")
+# => "ATU345789003"
+```
 
 This basically just removes trailing spaces and ensures all chars are uppercase.
 
@@ -266,7 +322,7 @@ https://github.com/yolk/valvat/graphs/contributors
 
 ## BlaBla
 
-Copyright (c) 2011-2021 Yolk Sebastian Munz & Julia Soergel GbR
+Copyright (c) 2011-2022 Yolk Sebastian Munz & Julia Soergel GbR
 
 Beyond that, the implementation is licensed under the MIT License.
 

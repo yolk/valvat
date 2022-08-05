@@ -15,4 +15,6 @@ class Valvat
   RateLimitError = Class.new(LookupError)
 
   UnknownLookupError = Class.new(LookupError)
+  OperationUnknown = Class.new(LookupError)
+  HTTPError = Class.new(LookupError)
 end

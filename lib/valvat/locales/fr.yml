@@ -1,7 +1,7 @@
 fr:
   errors:
     messages:
-      invalid_vat: "Numéro de TVA %{country_adjective} invalide"
+      invalid_vat: "n’est pas un numéro de TVA %{country_adjective} valide"
       vies_down: "Impossible de valider votre numéro de TVA : le service de validation VIES est indisponible. Merci de réessayer ultérieurement."
   valvat:
     country_adjectives:

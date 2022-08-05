@@ -5,9 +5,22 @@
 
 ### 1.2.0
 
-[full changelog](http://github.com/yolk/valvat/compare/v1.1.2...v1.2.0)
+[full changelog](http://github.com/yolk/valvat/compare/v1.1.4...v1.2.0)
 
 * Added support for GB VAT numbers validation using the HMRC service (by [Adrien Rey-Jarthon](https://github.com/jarthod))
+
+### 1.1.4 / 2022-05-05
+
+[full changelog](http://github.com/yolk/valvat/compare/v1.1.3...v1.1.4)
+
+* Support BE 1-series format (by [Cashaca](https://github.com/Cashaca))
+* Removed duplication on french error messages (by [Sunny Ripert](https://github.com/sunny))
+
+### 1.1.3 / 2022-01-26
+
+[full changelog](http://github.com/yolk/valvat/compare/v1.1.2...v1.1.3)
+
+* Handle Savon::HTTPError and Savon::UnknownOperationError as ViesError and throw Valvat::HTTPError and Valvat::OperationUnknown instead.
 
 ### 1.1.2 / 2021-10-29
 

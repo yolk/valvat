@@ -85,6 +85,13 @@ describe Valvat::Lookup do
         skip "VIES is down" if result.nil?
         expect(result).to be(false)
       end
+
+      it 'also works through .exists?' do
+        result = Valvat.new('IE6388047V').exists?(detail: true)
+        skip "VIES is down" if result.nil?
+        expect(result.delete(:request_date)).to be_kind_of(Date)
+        expect(result).to eql(details)
+      end
     end
 
     context 'with request identifier' do
@@ -297,6 +304,40 @@ describe Valvat::Lookup do
 
       it 'raises error' do
         expect { result }.to raise_error(Valvat::RateLimitError, /MS_MAX_CONCURRENT_REQ_TIME/)
+      end
+
+      it 'returns nil with raise_error set to false' do
+        expect(described_class.validate('DE601', options.merge(raise_error: false))).to be(nil)
+      end
+    end
+
+    describe 'Error : Savon::UnknownOperationError' do
+      before do
+        dbl = double(Savon::Client)
+        allow(Savon::Client).to receive(:new).and_return(dbl)
+        allow(dbl).to receive(:call).and_raise(Savon::UnknownOperationError.new('from stub'))
+      end
+      subject(:result) { described_class.validate('DE601', options) }
+
+      it 'raises error' do
+        expect { result }.to raise_error(Valvat::OperationUnknown, /from stub/)
+      end
+
+      it 'returns nil with raise_error set to false' do
+        expect(described_class.validate('DE601', options.merge(raise_error: false))).to be(nil)
+      end
+    end
+
+    describe 'Error : Savon::HTTPError' do
+      before do
+        dbl = double(Savon::Client)
+        allow(Savon::Client).to receive(:new).and_return(dbl)
+        allow(dbl).to receive(:call).and_raise(Savon::HTTPError.new(Struct.new(:code, :body).new(403, 'from stub')))
+      end
+      subject(:result) { described_class.validate('DE601', options) }
+
+      it 'raises error' do
+        expect { result }.to raise_error(Valvat::HTTPError, /HTTP error \(403\): from stub/)
       end
 
       it 'returns nil with raise_error set to false' do

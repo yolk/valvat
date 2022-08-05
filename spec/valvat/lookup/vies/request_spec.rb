@@ -16,4 +16,17 @@ describe Valvat::Lookup::VIES::Request do
     expect(response).to be_a(Valvat::Lookup::VIES::Fault)
     expect(response.to_hash).to eql({ valid: false })
   end
+
+  context 'when Savon::UnknownOperationError is (wrongly) thrown' do
+    before do
+      dbl = double(Savon::Client)
+      allow(Savon::Client).to receive(:new).and_return(dbl)
+      allow(dbl).to receive(:call).and_raise(Savon::UnknownOperationError.new('from stub'))
+    end
+
+    it "does handle it like vies down" do
+      response = described_class.new('IE6388047V', {}).perform
+      expect(response.to_hash[:error]).to be_a(Valvat::OperationUnknown)
+    end
+  end
 end
