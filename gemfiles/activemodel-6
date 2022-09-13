@@ -3,5 +3,8 @@ source "https://rubygems.org"
 gem "activemodel", "~> 6.0"
 
 gem 'rack'
+gem 'net-smtp', require: false
+gem 'net-imap', require: false
+gem 'net-pop', require: false
 
 gemspec path: "../"
