@@ -3,6 +3,8 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v1.1.4...master)
 
+* Fixed natural person VAT checksum validation for ES (by [Thomas Scalise](https://github.com/KirtashW17))
+
 ### 1.1.4 / 2022-05-05
 
 [full changelog](http://github.com/yolk/valvat/compare/v1.1.3...v1.1.4)
