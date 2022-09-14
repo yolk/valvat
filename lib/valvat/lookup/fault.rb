@@ -5,20 +5,20 @@ class Valvat
     class Fault < Response
       def to_hash
         @to_hash ||= case @raw
-        when Savon::HTTPError
-          { error: HTTPError.new(nil, @raw) }
-        when Savon::UnknownOperationError
-          { error: OperationUnknown.new(nil, @raw) }
-        else
-          fault = @raw.to_hash[:fault][:faultstring]
+                     when Savon::HTTPError
+                       { error: HTTPError.new(nil, @raw) }
+                     when Savon::UnknownOperationError
+                       { error: OperationUnknown.new(nil, @raw) }
+                     else
+                       fault = @raw.to_hash[:fault][:faultstring]
 
-          if fault == 'INVALID_INPUT'
-            { valid: false }
-          else
-            error = (FAULTS[fault] || UnknownViesError).new(fault)
-            { error: error }
-          end
-        end
+                       if fault == 'INVALID_INPUT'
+                         { valid: false }
+                       else
+                         error = (FAULTS[fault] || UnknownViesError).new(fault)
+                         { error: error }
+                       end
+                     end
       end
 
       FAULTS = {

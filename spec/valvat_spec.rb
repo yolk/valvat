@@ -171,15 +171,15 @@ describe Valvat do
 
     describe '#iso_country_code' do
       it 'returns nil' do
-        expect(us_vat.iso_country_code).to be(nil)
-        expect(ch_vat.iso_country_code).to be(nil)
+        expect(us_vat.iso_country_code).to be_nil
+        expect(ch_vat.iso_country_code).to be_nil
       end
     end
 
     describe '#vat_country_code' do
       it 'returns nil' do
-        expect(us_vat.vat_country_code).to be(nil)
-        expect(ch_vat.vat_country_code).to be(nil)
+        expect(us_vat.vat_country_code).to be_nil
+        expect(ch_vat.vat_country_code).to be_nil
       end
     end
 
@@ -231,19 +231,19 @@ describe Valvat do
 
     describe '#iso_country_code' do
       it 'returns nil' do
-        expect(only_iso_vat.iso_country_code).to be(nil)
-        expect(num_vat.iso_country_code).to be(nil)
-        expect(empty_vat.iso_country_code).to be(nil)
-        expect(nil_vat.iso_country_code).to be(nil)
+        expect(only_iso_vat.iso_country_code).to be_nil
+        expect(num_vat.iso_country_code).to be_nil
+        expect(empty_vat.iso_country_code).to be_nil
+        expect(nil_vat.iso_country_code).to be_nil
       end
     end
 
     describe '#vat_country_code' do
       it 'returns nil' do
-        expect(only_iso_vat.vat_country_code).to be(nil)
-        expect(num_vat.vat_country_code).to be(nil)
-        expect(empty_vat.vat_country_code).to be(nil)
-        expect(nil_vat.vat_country_code).to be(nil)
+        expect(only_iso_vat.vat_country_code).to be_nil
+        expect(num_vat.vat_country_code).to be_nil
+        expect(empty_vat.vat_country_code).to be_nil
+        expect(nil_vat.vat_country_code).to be_nil
       end
     end
 

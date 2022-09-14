@@ -24,7 +24,7 @@ describe Valvat::Lookup::Request do
       allow(dbl).to receive(:call).and_raise(Savon::UnknownOperationError.new('from stub'))
     end
 
-    it "does handle it like vies down" do
+    it 'does handle it like vies down' do
       response = described_class.new('IE6388047V', {}).perform
       expect(response.to_hash[:error]).to be_a(Valvat::OperationUnknown)
     end

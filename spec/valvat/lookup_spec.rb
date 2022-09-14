@@ -36,7 +36,7 @@ describe Valvat::Lookup do
     context 'with details' do
       let(:details) do
         {
-          :"@xmlns:ns2" => "urn:ec.europa.eu:taxud:vies:services:checkVat:types",
+          '@xmlns:ns2': 'urn:ec.europa.eu:taxud:vies:services:checkVat:types',
           country_code: 'IE',
           vat_number: '6388047V',
           name: 'GOOGLE IRELAND LIMITED',
@@ -65,7 +65,7 @@ describe Valvat::Lookup do
       let(:response) { described_class.validate('IE6388047V', requester: 'IE6388047V') }
       let(:details) do
         {
-          :"@xmlns:ns2" => "urn:ec.europa.eu:taxud:vies:services:checkVat:types",
+          '@xmlns:ns2': 'urn:ec.europa.eu:taxud:vies:services:checkVat:types',
           country_code: 'IE',
           vat_number: '6388047V',
           name: 'GOOGLE IRELAND LIMITED',
@@ -134,7 +134,7 @@ describe Valvat::Lookup do
       subject(:result) { described_class.validate('DE300', options) }
 
       it 'returns nil' do
-        expect(result).to be(nil)
+        expect(result).to be_nil
       end
 
       it 'raises error with raise_error: true' do
@@ -148,7 +148,7 @@ describe Valvat::Lookup do
       subject(:result) { described_class.validate('DE301', options) }
 
       it 'returns nil' do
-        expect(result).to be(nil)
+        expect(result).to be_nil
       end
 
       it 'raises error with raise_error: true' do
@@ -166,7 +166,7 @@ describe Valvat::Lookup do
       end
 
       it 'returns nil with raise_error set to false' do
-        expect(described_class.validate('DE302', options.merge(raise_error: false))).to be(nil)
+        expect(described_class.validate('DE302', options.merge(raise_error: false))).to be_nil
       end
     end
 
@@ -178,7 +178,7 @@ describe Valvat::Lookup do
       end
 
       it 'returns nil with raise_error set to false' do
-        expect(described_class.validate('DE400', options.merge(raise_error: false))).to be(nil)
+        expect(described_class.validate('DE400', options.merge(raise_error: false))).to be_nil
       end
     end
 
@@ -190,7 +190,7 @@ describe Valvat::Lookup do
       end
 
       it 'returns nil with raise_error set to false' do
-        expect(described_class.validate('DE401', options.merge(raise_error: false))).to be(nil)
+        expect(described_class.validate('DE401', options.merge(raise_error: false))).to be_nil
       end
     end
 
@@ -202,7 +202,7 @@ describe Valvat::Lookup do
       end
 
       it 'returns nil with raise_error set to false' do
-        expect(described_class.validate('DE500', options.merge(raise_error: false))).to be(nil)
+        expect(described_class.validate('DE500', options.merge(raise_error: false))).to be_nil
       end
     end
 
@@ -214,7 +214,7 @@ describe Valvat::Lookup do
       end
 
       it 'returns nil with raise_error set to false' do
-        expect(described_class.validate('DE501', options.merge(raise_error: false))).to be(nil)
+        expect(described_class.validate('DE501', options.merge(raise_error: false))).to be_nil
       end
     end
 
@@ -226,7 +226,7 @@ describe Valvat::Lookup do
       end
 
       it 'returns nil with raise_error set to false' do
-        expect(described_class.validate('DE600', options.merge(raise_error: false))).to be(nil)
+        expect(described_class.validate('DE600', options.merge(raise_error: false))).to be_nil
       end
     end
 
@@ -238,41 +238,43 @@ describe Valvat::Lookup do
       end
 
       it 'returns nil with raise_error set to false' do
-        expect(described_class.validate('DE601', options.merge(raise_error: false))).to be(nil)
+        expect(described_class.validate('DE601', options.merge(raise_error: false))).to be_nil
       end
     end
 
     describe 'Error : Savon::UnknownOperationError' do
+      subject(:result) { described_class.validate('DE601', options) }
+
       before do
         dbl = double(Savon::Client)
         allow(Savon::Client).to receive(:new).and_return(dbl)
         allow(dbl).to receive(:call).and_raise(Savon::UnknownOperationError.new('from stub'))
       end
-      subject(:result) { described_class.validate('DE601', options) }
 
       it 'raises error' do
         expect { result }.to raise_error(Valvat::OperationUnknown, /#<Savon::UnknownOperationError: from stub>/)
       end
 
       it 'returns nil with raise_error set to false' do
-        expect(described_class.validate('DE601', options.merge(raise_error: false))).to be(nil)
+        expect(described_class.validate('DE601', options.merge(raise_error: false))).to be_nil
       end
     end
 
     describe 'Error : Savon::HTTPError' do
+      subject(:result) { described_class.validate('DE601', options) }
+
       before do
         dbl = double(Savon::Client)
         allow(Savon::Client).to receive(:new).and_return(dbl)
         allow(dbl).to receive(:call).and_raise(Savon::HTTPError.new(Struct.new(:code, :body).new(403, 'from stub')))
       end
-      subject(:result) { described_class.validate('DE601', options) }
 
       it 'raises error' do
         expect { result }.to raise_error(Valvat::HTTPError, /#<Savon::HTTPError: HTTP error \(403\): from stub>/)
       end
 
       it 'returns nil with raise_error set to false' do
-        expect(described_class.validate('DE601', options.merge(raise_error: false))).to be(nil)
+        expect(described_class.validate('DE601', options.merge(raise_error: false))).to be_nil
       end
     end
   end

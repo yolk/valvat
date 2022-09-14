@@ -19,7 +19,7 @@ class Valvat
         (
           hash[:check_vat_approx_response] || hash[:check_vat_response] || {}
         ).each_with_object({}) do |(key, value), result|
-          result[cleanup_key(key)] = cleanup_value(value) unless key == :"@xmlns"
+          result[cleanup_key(key)] = cleanup_value(value) unless key == :@xmlns
         end
       end
 

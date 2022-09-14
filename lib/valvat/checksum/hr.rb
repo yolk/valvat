@@ -13,7 +13,7 @@ class Valvat
           product = (2 * sum) % 11
         end
 
-        (10 - (product - 1) % 10) % 10
+        (10 - ((product - 1) % 10)) % 10
       end
     end
   end

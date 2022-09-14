@@ -16,11 +16,10 @@ describe Valvat::Checksum::ES do
     end
   end
 
-  describe "if starts with [KLMXYZ\\d], is always a natural person" do
-    invalid_vat = "ESX65474207"
+  describe 'if starts with [KLMXYZ\\d], is always a natural person' do
+    invalid_vat = 'ESX65474207'
     it "returns false on invalid VAT #{invalid_vat}" do
       expect(Valvat::Checksum.validate(invalid_vat)).to be(false)
     end
   end
-
 end

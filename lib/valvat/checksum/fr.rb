@@ -5,7 +5,7 @@ class Valvat
     class FR < Base
       def check_digit
         siren = str_wo_country[2..-1].to_i
-        (12 + (3 * siren) % 97) % 97
+        (12 + ((3 * siren) % 97)) % 97
       end
 
       def given_check_digit

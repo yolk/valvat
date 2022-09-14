@@ -10,7 +10,7 @@ class Valvat
           digit * multipliers[index]
         end
 
-        (10 - sum % 10) % 10
+        (10 - (sum % 10)) % 10
       end
     end
   end
