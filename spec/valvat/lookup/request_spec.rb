@@ -19,7 +19,7 @@ describe Valvat::Lookup::Request do
 
   context 'when Savon::UnknownOperationError is (wrongly) thrown' do
     before do
-      dbl = double(Savon::Client)
+      dbl = instance_double(Savon::Client)
       allow(Savon::Client).to receive(:new).and_return(dbl)
       allow(dbl).to receive(:call).and_raise(Savon::UnknownOperationError.new('from stub'))
     end

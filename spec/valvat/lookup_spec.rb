@@ -246,7 +246,7 @@ describe Valvat::Lookup do
       subject(:result) { described_class.validate('DE601', options) }
 
       before do
-        dbl = double(Savon::Client)
+        dbl = instance_double(Savon::Client)
         allow(Savon::Client).to receive(:new).and_return(dbl)
         allow(dbl).to receive(:call).and_raise(Savon::UnknownOperationError.new('from stub'))
       end
@@ -264,7 +264,7 @@ describe Valvat::Lookup do
       subject(:result) { described_class.validate('DE601', options) }
 
       before do
-        dbl = double(Savon::Client)
+        dbl = instance_double(Savon::Client)
         allow(Savon::Client).to receive(:new).and_return(dbl)
         allow(dbl).to receive(:call).and_raise(Savon::HTTPError.new(Struct.new(:code, :body).new(403, 'from stub')))
       end
