@@ -33,7 +33,7 @@ class Valvat
       end
 
       def figures
-        figures_str.split('').map(&:to_i)
+        figures_str.chars.map(&:to_i)
       end
 
       def str_wo_country
@@ -45,7 +45,7 @@ class Valvat
       end
 
       def sum_of_squares(num)
-        num.to_s.split('').map(&:to_i).inject(:+)
+        num.to_s.chars.map(&:to_i).inject(:+)
       end
 
       def sum_of_figures_for_at_es_it_se(reverse_ints: false)
