@@ -13,3 +13,6 @@ Style/Documentation:
 
 RSpec/MultipleExpectations:
     Enabled: false
+
+Style/StringChars:
+    Enabled: false
