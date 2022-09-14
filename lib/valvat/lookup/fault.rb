@@ -10,14 +10,7 @@ class Valvat
                      when Savon::UnknownOperationError
                        { error: OperationUnknown.new(nil, @raw) }
                      else
-                       fault = @raw.to_hash[:fault][:faultstring]
-
-                       if fault == 'INVALID_INPUT'
-                         { valid: false }
-                       else
-                         error = (FAULTS[fault] || UnknownViesError).new(fault)
-                         { error: error }
-                       end
+                       soap_fault
                      end
       end
 
@@ -33,6 +26,19 @@ class Valvat
         'MS_MAX_CONCURRENT_REQ' => RateLimitError,
         'MS_MAX_CONCURRENT_REQ_TIME' => RateLimitError
       }.freeze
+
+      private
+
+      def soap_fault
+        fault = @raw.to_hash[:fault][:faultstring]
+
+        if fault == 'INVALID_INPUT'
+          { valid: false }
+        else
+          error = (FAULTS[fault] || UnknownViesError).new(fault)
+          { error: error }
+        end
+      end
     end
   end
 end
