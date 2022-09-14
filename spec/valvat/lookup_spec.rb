@@ -36,6 +36,7 @@ describe Valvat::Lookup do
     context 'with details' do
       let(:details) do
         {
+          :"@xmlns:ns2" => "urn:ec.europa.eu:taxud:vies:services:checkVat:types",
           country_code: 'IE',
           vat_number: '6388047V',
           name: 'GOOGLE IRELAND LIMITED',
@@ -64,6 +65,7 @@ describe Valvat::Lookup do
       let(:response) { described_class.validate('IE6388047V', requester: 'IE6388047V') }
       let(:details) do
         {
+          :"@xmlns:ns2" => "urn:ec.europa.eu:taxud:vies:services:checkVat:types",
           country_code: 'IE',
           vat_number: '6388047V',
           name: 'GOOGLE IRELAND LIMITED',
