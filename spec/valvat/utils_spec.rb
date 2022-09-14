@@ -56,7 +56,7 @@ describe Valvat::Utils do
     it 'removes special chars' do
       expect(described_class.normalize('DE.345-889_00:3,;')).to eql('DE345889003')
       expect(described_class.normalize("→ DE·Ö34588 9003\0 ☺")).to eql(
-        RUBY_ENGINE == 'truffleruby' ? 'DEÖ345889003' : '→DEÖ345889003☺'
+        '→DEÖ345889003☺'
       )
     end
   end
