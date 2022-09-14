@@ -17,7 +17,7 @@ describe Valvat::Utils do
     it 'returns two nils on non-sense input as array' do
       expect(described_class.split('DE')).to eql([nil, nil])
       expect(described_class.split('X345889003')).to eql([nil, nil])
-      expect(described_class.chars).to eql([nil, nil])
+      expect(described_class.split('')).to eql([nil, nil])
       expect(described_class.split('1234')).to eql([nil, nil])
       expect(described_class.split(' ')).to eql([nil, nil]) # rubocop:disable Style/RedundantArgument
     end

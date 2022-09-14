@@ -11,7 +11,7 @@ class Valvat
         total.modulo(23)
       end
 
-      CHARS = 'WABCDEFGHIJKLMNOPQRSTUV'.chars
+      CHARS = 'WABCDEFGHIJKLMNOPQRSTUV'.split('')
 
       def given_check_digit
         if str_wo_country.size == 9

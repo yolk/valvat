@@ -38,7 +38,7 @@ class Valvat
       end
 
       def vat_base_sum
-        @vat_base_sum ||= vat_base.chars
+        @vat_base_sum ||= vat_base.split('')
                                   .map(&:to_i)
                                   .zip([8, 7, 6, 5, 4, 3, 2])
                                   .map { |vat_number_digit, multiplier| vat_number_digit * multiplier }
