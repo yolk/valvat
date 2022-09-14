@@ -1,9 +1,15 @@
 
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v1.1.4...master)
+[full changelog](http://github.com/yolk/valvat/compare/v1.1.5...master)
 
-* Fixed natural person VAT checksum validation for ES (by [Thomas Scalise](https://github.com/KirtashW17))
+### 1.1.5 / 2022-09-14
+
+[full changelog](http://github.com/yolk/valvat/compare/v1.1.4...v1.1.5)
+
+* Fixed natural person VAT checksum validation for ES #114 (by [Thomas Scalise](https://github.com/KirtashW17))
+* Better (ruby) code blocks in README #113
+* Minor internal syntax changes / refactorings
 
 ### 1.1.4 / 2022-05-05
 
