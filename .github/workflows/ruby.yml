@@ -2,12 +2,12 @@ name: Specs
 
 on:
   push:
-    branches: [ master ]
     paths-ignore:
       - 'README.md'
       - 'CHANGES.md'
   pull_request:
-    branches: [ master ]
+  schedule:
+    - cron:  '45 10 * * *
 
 jobs:
   test:
