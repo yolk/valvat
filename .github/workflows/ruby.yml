@@ -7,7 +7,7 @@ on:
       - 'CHANGES.md'
   pull_request:
   schedule:
-    - cron:  '45 10 * * *'
+    - cron:  '52 8 * * *'
 
 jobs:
   test:
