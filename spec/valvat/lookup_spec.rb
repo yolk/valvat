@@ -64,7 +64,7 @@ describe Valvat::Lookup do
     end
 
     context 'with request identifier' do
-      let(:response) { described_class.validate('IE6388047V', requester: 'IE6388047V') }
+      let(:result) { described_class.validate('IE6388047V', requester: 'IE6388047V') }
       let(:details) do
         {
           country_code: 'IE',
@@ -79,9 +79,9 @@ describe Valvat::Lookup do
       it 'returns hash of details instead of true' do
         skip "VIES is down" if result.nil?
 
-        expect(response.delete(:request_identifier).size).to be(16)
-        expect(response.delete(:request_date)).to be_kind_of(Date)
-        expect(response).to eql(details)
+        expect(result.delete(:request_identifier).size).to be(16)
+        expect(result.delete(:request_date)).to be_kind_of(Date)
+        expect(result).to eql(details)
       end
 
       it 'supports old :requester_vat option for backwards stability' do

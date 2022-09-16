@@ -6,7 +6,7 @@ require 'erb'
 
 class Valvat
   class Lookup
-    class Vies
+    class VIES
       SERVICE_URL = 'https://ec.europa.eu/taxation_customs/vies/services/checkVatService'
       HEADERS = {
         'Content-Type' => 'text/xml;charset=UTF-8',

@@ -28,7 +28,7 @@ class Valvat
     end
 
     def response
-      @response ||= Vies.new(@vat, @options).perform
+      @response ||= VIES.new(@vat, @options).perform
     end
 
     def show_details?
