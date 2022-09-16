@@ -11,22 +11,22 @@ describe Valvat::Lookup do
     context 'with existing VAT number' do
       it 'returns true' do
         result = described_class.validate('IE6388047V')
-        # Skip if VIES is down
-        expect(result).to be(true) unless result.nil?
+        skip "VIES is down" if result.nil?
+        expect(result).to be(true)
       end
 
       it 'allows Valvat instance as input' do
         result = described_class.validate(Valvat.new('IE6388047V'))
-        # Skip if VIES is down
-        expect(result).to be(true) unless result.nil?
+        skip "VIES is down" if result.nil?
+        expect(result).to be(true)
       end
     end
 
     context 'with not existing VAT number' do
       it 'returns false' do
         result =  described_class.validate('IE6388048V')
-        # Skip if VIES is down
-        expect(result).to be(false) unless result.nil?
+        skip "VIES is down" if result.nil?
+        expect(result).to be(false)
       end
     end
 
@@ -50,17 +50,16 @@ describe Valvat::Lookup do
 
       it 'returns hash of details instead of true' do
         result = described_class.validate('IE6388047V', detail: true)
-        # Skip if VIES is down
-        if result
-          expect(result.delete(:request_date)).to be_kind_of(Date)
-          expect(result).to eql(details)
-        end
+        skip "VIES is down" if result.nil?
+
+        expect(result.delete(:request_date)).to be_kind_of(Date)
+        expect(result).to eql(details)
       end
 
       it 'still returns false on not existing VAT number' do
         result = described_class.validate('LU21416128', detail: true)
-        # Skip if VIES is down
-        expect(result).to be(false) unless result.nil?
+        skip "VIES is down" if result.nil?
+        expect(result).to be(false)
       end
     end
 
@@ -78,12 +77,11 @@ describe Valvat::Lookup do
       end
 
       it 'returns hash of details instead of true' do
-        # Skip if VIES is down
-        if response
-          expect(response.delete(:request_identifier).size).to be(16)
-          expect(response.delete(:request_date)).to be_kind_of(Date)
-          expect(response).to eql(details)
-        end
+        skip "VIES is down" if result.nil?
+
+        expect(response.delete(:request_identifier).size).to be(16)
+        expect(response.delete(:request_date)).to be_kind_of(Date)
+        expect(response).to eql(details)
       end
 
       it 'supports old :requester_vat option for backwards stability' do
