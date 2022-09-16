@@ -20,8 +20,6 @@ Gem::Specification.new do |s|
   s.signing_key   = File.expand_path('~/.ssh/gem-private_key.pem') if $PROGRAM_NAME =~ /gem\z/
   s.required_ruby_version = '>= 2.5.0'
 
-  s.add_dependency             'savon', '>= 2.3.0'
-
   s.add_development_dependency 'activemodel', '>= 5.0'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec', '~> 3.0'

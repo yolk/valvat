@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
-require 'savon'
-
-require 'uri'
 require 'net/http'
+require 'uri'
 require 'erb'
 
 class Valvat
