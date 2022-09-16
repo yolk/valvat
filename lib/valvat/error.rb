@@ -23,12 +23,21 @@ class Valvat
   ServiceUnavailable = Class.new(ViesMaintenanceError)
   MemberStateUnavailable = Class.new(ViesMaintenanceError)
 
-  OperationUnknown = Class.new(ViesError)
-  HTTPError = Class.new(ViesError)
   Timeout = Class.new(ViesError)
   InvalidRequester = Class.new(ViesError)
   BlockedError = Class.new(ViesError)
   RateLimitError = Class.new(ViesError)
 
   UnknownViesError = Class.new(ViesError)
+
+  class HTTPError < ViesError
+    def initialize(response)
+      @response = response
+      super('HTTP_ERROR')
+    end
+
+    def to_s
+      "The VIES web service returned the HTTP status code '#{@response.code}'."
+    end
+  end
 end

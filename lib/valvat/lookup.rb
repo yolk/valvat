@@ -12,7 +12,7 @@ class Valvat
       return false if !@options[:skip_local_validation] && !@vat.valid?
       return handle_vies_error(response[:error]) if response[:error]
 
-      response[:valid] && show_details? ? response.to_hash : response[:valid]
+      response[:valid] && show_details? ? response : response[:valid]
     end
 
     class << self
@@ -28,7 +28,7 @@ class Valvat
     end
 
     def response
-      @response ||= Request.new(@vat, @options).perform
+      @response ||= Vies.new(@vat, @options).perform
     end
 
     def show_details?
