@@ -24,7 +24,7 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v1.1.2...v1.1.3)
 
-* Handle Savon::HTTPError and Savon::UnknownOperationError as ViesError and throw Valvat::HTTPError and Valvat::OperationUnknown instead.
+* Handle Savon::HTTPError and Savon::UnknownOperationError as LookupError and throw Valvat::HTTPError and Valvat::OperationUnknown instead.
 
 ### 1.1.2 / 2021-10-29
 

@@ -121,7 +121,7 @@ class Valvat
         fault = hash[:faultstring]
         return hash.merge({ valid: false }) if fault == 'INVALID_INPUT'
 
-        hash.merge({ error: (FAULTS[fault] || UnknownViesError).new(fault) })
+        hash.merge({ error: (FAULTS[fault] || UnknownLookupError).new(fault) })
       end
     end
   end
