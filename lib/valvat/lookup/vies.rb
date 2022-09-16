@@ -7,7 +7,7 @@ require 'erb'
 class Valvat
   class Lookup
     class VIES
-      SERVICE_URL = 'https://ec.europa.eu/taxation_customs/vies/services/checkVatService'
+      ENDPOINT_URI = URI('https://ec.europa.eu/taxation_customs/vies/services/checkVatService').freeze
       HEADERS = {
         'Content-Type' => 'text/xml;charset=UTF-8',
         'SOAPAction' => ''
@@ -39,7 +39,7 @@ class Valvat
       end
 
       def perform
-        response = fetch(URI.parse(@options[:vies_url] || SERVICE_URL))
+        response = fetch(ENDPOINT_URI)
 
         case response
         when Net::HTTPSuccess
