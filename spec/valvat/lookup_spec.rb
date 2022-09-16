@@ -48,8 +48,14 @@ describe Valvat::Lookup do
         result = described_class.validate('IE6388047V', detail: true)
         skip "VIES is down" if result.nil?
 
-        expect(result.delete(:request_date)).to be_kind_of(Date)
-        expect(result).to eql(details)
+        expect(result).to match({
+          request_date: kind_of(Date),
+          country_code: 'IE',
+          vat_number: '6388047V',
+          name: 'GOOGLE IRELAND LIMITED',
+          address: '3RD FLOOR, GORDON HOUSE, BARROW STREET, DUBLIN 4',
+          valid: true
+        })
       end
 
       it 'still returns false on not existing VAT number' do
@@ -60,30 +66,36 @@ describe Valvat::Lookup do
     end
 
     context 'with request identifier' do
-      let(:result) { described_class.validate('IE6388047V', requester: 'IE6388047V') }
-      let(:details) do
-        {
+      it 'returns hash of details instead of true' do
+        result = described_class.validate('IE6388047V', requester: 'IE6388047V')
+
+        skip "VIES is down" if result.nil?
+
+        expect(result).to match({
+          request_date: kind_of(Date),
+          request_identifier: /\A[\w\W]{16}\Z/,
           country_code: 'IE',
           vat_number: '6388047V',
           name: 'GOOGLE IRELAND LIMITED',
           company_type: nil,
           address: '3RD FLOOR, GORDON HOUSE, BARROW STREET, DUBLIN 4',
           valid: true
-        }
+        })
       end
 
-      it 'returns hash of details instead of true' do
-        skip "VIES is down" if result.nil?
+      it 'supports old :requester_vat option for backwards compatibility' do
+        result = described_class.validate('IE6388047V', requester_vat: 'LU21416127')
 
-        expect(result.delete(:request_identifier).size).to be(16)
-        expect(result.delete(:request_date)).to be_kind_of(Date)
-        expect(result).to eql(details)
-      end
-
-      it 'supports old :requester_vat option for backwards stability' do
-        expect(
-          described_class.new('IE6388047V', requester_vat: 'LU21416127').instance_variable_get(:@options)[:requester]
-        ).to eql('LU21416127')
+        expect(result).to match({
+          request_date: kind_of(Date),
+          request_identifier: /\A[\w\W]{16}\Z/,
+          country_code: 'IE',
+          vat_number: '6388047V',
+          name: 'GOOGLE IRELAND LIMITED',
+          company_type: nil,
+          address: '3RD FLOOR, GORDON HOUSE, BARROW STREET, DUBLIN 4',
+          valid: true
+        })
       end
     end
   end
