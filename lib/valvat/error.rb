@@ -37,7 +37,7 @@ class Valvat
     end
 
     def to_s
-      "The VIES web service returned the HTTP status code '#{@response.code}'."
+      "The VIES web service returned the HTTP status code #{@response.code}."
     end
   end
 end
