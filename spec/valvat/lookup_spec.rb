@@ -92,8 +92,11 @@ describe Valvat::Lookup do
 
   describe '#validate with VIES test enviroment' do
     let(:options) do
-      { vies_url: 'https://ec.europa.eu/taxation_customs/vies/test-services/checkVatTestService',
-        skip_local_validation: true }
+      { skip_local_validation: true }
+    end
+
+    before do
+      stub_const('Valvat::Lookup::VIES::ENDPOINT_URI', URI('https://ec.europa.eu/taxation_customs/vies/test-services/checkVatTestService'))
     end
 
     context 'with valid request with valid VAT number' do
