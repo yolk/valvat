@@ -3,10 +3,6 @@
 require 'spec_helper'
 
 describe Valvat::Lookup do
-  before do
-    WebMock.allow_net_connect!
-  end
-
   describe '#validate' do
     context 'with existing VAT number' do
       it 'returns true' do
