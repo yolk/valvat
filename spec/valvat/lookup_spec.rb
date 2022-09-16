@@ -96,7 +96,7 @@ describe Valvat::Lookup do
 
   describe '#validate with VIES test enviroment' do
     let(:options) do
-      { http: { url: 'https://ec.europa.eu/taxation_customs/vies/test-services/checkVatTestService' },
+      { vies_url: 'https://ec.europa.eu/taxation_customs/vies/test-services/checkVatTestService',
         skip_local_validation: true }
     end
 
@@ -248,7 +248,7 @@ describe Valvat::Lookup do
       subject(:result) { described_class.validate('DE601', options) }
 
       before do
-        stub_request(:post, /\Ahttps:\/\/ec\.europa\.eu/).to_return({status: 405})
+        stub_request(:post, %r{\Ahttps://ec\.europa\.eu}).to_return({ status: 405 })
       end
 
       it 'raises error' do
