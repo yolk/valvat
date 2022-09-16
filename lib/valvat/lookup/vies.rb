@@ -9,6 +9,7 @@ class Valvat
     class VIES
       ENDPOINT_URI = URI('https://ec.europa.eu/taxation_customs/vies/services/checkVatService').freeze
       HEADERS = {
+        'Accept' => 'text/xml;charset=UTF-8',
         'Content-Type' => 'text/xml;charset=UTF-8',
         'SOAPAction' => ''
       }.freeze
