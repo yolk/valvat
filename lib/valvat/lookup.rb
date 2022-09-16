@@ -36,7 +36,7 @@ class Valvat
     end
 
     def handle_vies_error(error)
-      if error.is_a?(ViesMaintenanceError)
+      if error.is_a?(MaintenanceError)
         raise error if @options[:raise_error]
       else
         raise error unless @options[:raise_error] == false

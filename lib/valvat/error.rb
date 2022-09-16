@@ -3,7 +3,7 @@
 class Valvat
   Error = Class.new(RuntimeError)
 
-  class ViesError < Error
+  class LookupError < Error
     def initialize(faultstring = 'UNKNOWN', exception = nil)
       @faultstring = faultstring || exception.inspect
       @exception = exception
@@ -11,26 +11,26 @@ class Valvat
     end
 
     def to_s
-      "The VIES web service returned the error '#{@faultstring}'."
+      "The web service returned the error '#{@faultstring}'."
     end
 
     def eql?(other)
       to_s.eql?(other.to_s)
     end
   end
-  ViesMaintenanceError = Class.new(ViesError)
+  MaintenanceError = Class.new(LookupError)
 
-  ServiceUnavailable = Class.new(ViesMaintenanceError)
-  MemberStateUnavailable = Class.new(ViesMaintenanceError)
+  ServiceUnavailable = Class.new(MaintenanceError)
+  MemberStateUnavailable = Class.new(MaintenanceError)
 
-  Timeout = Class.new(ViesError)
-  InvalidRequester = Class.new(ViesError)
-  BlockedError = Class.new(ViesError)
-  RateLimitError = Class.new(ViesError)
+  Timeout = Class.new(LookupError)
+  InvalidRequester = Class.new(LookupError)
+  BlockedError = Class.new(LookupError)
+  RateLimitError = Class.new(LookupError)
 
-  UnknownViesError = Class.new(ViesError)
+  UnknownLookupError = Class.new(LookupError)
 
-  class HTTPError < ViesError
+  class HTTPError < LookupError
     def initialize(response)
       @response = response
       super('HTTP_ERROR')
