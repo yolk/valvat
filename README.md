@@ -138,14 +138,14 @@ Valvat.new("IE6388047V").exists?(raise_error: false)
 
 This will return `nil` instead of raising a known error.
 
-### Set options for the vies client
+### Set options for the Net::HTTP client
 
-Use the `:vies` key to set options for the http client. These options are directly passed to `Net::HTTP.start`.
+Use the `:http` key to set options for the http client. These options are directly passed to `Net::HTTP.start`.
 
 For example to set timeouts:
 
 ```ruby
-Valvat.new("IE6388047V").exists?(vies: { open_timeout: 10, read_timeout: 10 })
+Valvat.new("IE6388047V").exists?(http: { open_timeout: 10, read_timeout: 10 })
 ```
 
 ### Skip local validation before lookup

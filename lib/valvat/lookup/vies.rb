@@ -69,7 +69,7 @@ class Valvat
         request = Net::HTTP::Post.new(uri.request_uri, HEADERS)
         request.body = BODY_TEMPLATE.result(binding)
 
-        options = (@options[:vies] || {}).merge({ use_ssl: URI::HTTPS === uri })
+        options = (@options[:http] || {}).merge({ use_ssl: URI::HTTPS === uri })
 
         Net::HTTP.start(uri.host, uri.port, options) do |http|
           http.request(request)
