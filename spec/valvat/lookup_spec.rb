@@ -248,7 +248,7 @@ describe Valvat::Lookup do
       end
 
       it 'raises error' do
-        expect { result }.to raise_error(Valvat::HTTPError, "The VIES web service returned the HTTP status code '405'.")
+        expect { result }.to raise_error(Valvat::HTTPError, "The VIES web service returned the HTTP status code 405.")
       end
 
       it 'returns nil with raise_error set to false' do
