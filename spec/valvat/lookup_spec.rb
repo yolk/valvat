@@ -3,6 +3,10 @@
 require 'spec_helper'
 
 describe Valvat::Lookup do
+  before do
+    WebMock.allow_net_connect!
+  end
+
   describe '#validate' do
     context 'with existing VAT number' do
       it 'returns true' do
@@ -36,7 +40,6 @@ describe Valvat::Lookup do
     context 'with details' do
       let(:details) do
         {
-          '@xmlns:ns2': 'urn:ec.europa.eu:taxud:vies:services:checkVat:types',
           country_code: 'IE',
           vat_number: '6388047V',
           name: 'GOOGLE IRELAND LIMITED',
@@ -65,7 +68,6 @@ describe Valvat::Lookup do
       let(:response) { described_class.validate('IE6388047V', requester: 'IE6388047V') }
       let(:details) do
         {
-          '@xmlns:ns2': 'urn:ec.europa.eu:taxud:vies:services:checkVat:types',
           country_code: 'IE',
           vat_number: '6388047V',
           name: 'GOOGLE IRELAND LIMITED',
@@ -94,7 +96,7 @@ describe Valvat::Lookup do
 
   describe '#validate with VIES test enviroment' do
     let(:options) do
-      { savon: { wsdl: 'https://ec.europa.eu/taxation_customs/vies/checkVatTestService.wsdl' },
+      { http: { url: 'https://ec.europa.eu/taxation_customs/vies/test-services/checkVatTestService' },
         skip_local_validation: true }
     end
 
@@ -242,35 +244,15 @@ describe Valvat::Lookup do
       end
     end
 
-    describe 'Error : Savon::UnknownOperationError' do
+    describe 'Error : HTTP error' do
       subject(:result) { described_class.validate('DE601', options) }
 
       before do
-        dbl = instance_double(Savon::Client)
-        allow(Savon::Client).to receive(:new).and_return(dbl)
-        allow(dbl).to receive(:call).and_raise(Savon::UnknownOperationError.new('from stub'))
+        stub_request(:post, /\Ahttps:\/\/ec\.europa\.eu/).to_return({status: 405})
       end
 
       it 'raises error' do
-        expect { result }.to raise_error(Valvat::OperationUnknown, /#<Savon::UnknownOperationError: from stub>/)
-      end
-
-      it 'returns nil with raise_error set to false' do
-        expect(described_class.validate('DE601', options.merge(raise_error: false))).to be_nil
-      end
-    end
-
-    describe 'Error : Savon::HTTPError' do
-      subject(:result) { described_class.validate('DE601', options) }
-
-      before do
-        dbl = instance_double(Savon::Client)
-        allow(Savon::Client).to receive(:new).and_return(dbl)
-        allow(dbl).to receive(:call).and_raise(Savon::HTTPError.new(Struct.new(:code, :body).new(403, 'from stub')))
-      end
-
-      it 'raises error' do
-        expect { result }.to raise_error(Valvat::HTTPError, /#<Savon::HTTPError: HTTP error \(403\): from stub>/)
+        expect { result }.to raise_error(Valvat::HTTPError, "The VIES web service returned the HTTP status code '405'.")
       end
 
       it 'returns nil with raise_error set to false' do

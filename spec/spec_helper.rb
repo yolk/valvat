@@ -6,6 +6,7 @@ begin
 rescue LoadError
   puts 'Running specs without active_model extension'
 end
+require 'webmock/rspec'
 
 require "#{File.dirname(__FILE__)}/../lib/valvat.rb"
 
