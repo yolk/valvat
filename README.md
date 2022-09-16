@@ -17,6 +17,7 @@ Northern Ireland received its own VAT number prefix - XI which is supported by V
 * Lookup via the VIES web service
 * ActiveModel/Rails integration
 * Works standalone without ActiveModel
+* No runtime dependencies
 * I18n locales for language specific error messages in English, German, French, Spanish, Italian, Portuguese, Polish, Swedish, Dutch, Danish, Czech, Slovakian, Hungarian, Bulgarian, Romanian, Latvian, Catalan, Norwegian, and Finnish.
 * *Experimental* checksum verification
 
