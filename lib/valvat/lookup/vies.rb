@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require 'net/http'
-require 'uri'
 require 'erb'
+require 'rexml'
 
 class Valvat
   class Lookup
