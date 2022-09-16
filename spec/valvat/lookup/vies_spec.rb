@@ -10,7 +10,7 @@ describe Valvat::Lookup::Vies do
   it 'returns valid: true on success' do
     response = described_class.new('IE6388047V', {}).perform
 
-    expect(response[:valid]).to eql(true)
+    expect(response[:valid]).to be(true)
     expect(response[:name]).to eql('GOOGLE IRELAND LIMITED')
   end
 

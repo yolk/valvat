@@ -39,27 +39,20 @@ class Valvat
       end
 
       def perform
-        response = fetch(URI.parse(
-          @options[:http] && @options[:http][:url] ||  SERVICE_URL
-        ))
+        response = fetch(URI.parse(@options[:vies_url] || SERVICE_URL))
 
         case response
         when Net::HTTPSuccess
           parse_xml(response.body)
         else
-          {error: Valvat::HTTPError.new(response)}
+          { error: Valvat::HTTPError.new(response) }
         end
       end
 
       private
 
       def fetch(uri, limit = 0)
-        request = Net::HTTP::Post.new(uri.request_uri, HEADERS)
-        request.body = BODY_TEMPLATE.result(binding)
-
-        response = Net::HTTP.start(uri.host, uri.port, use_ssl: URI::HTTPS === uri) do |http|
-          http.request(request)
-        end
+        response = send_request(uri)
 
         if Net::HTTPRedirection == response && limit < 5
           fetch(URI.parse(response['Location']), limit + 1)
@@ -68,7 +61,19 @@ class Valvat
         end
       rescue Errno::ECONNRESET
         raise if limit > 5
+
         fetch(uri, limit + 1)
+      end
+
+      def send_request(uri)
+        request = Net::HTTP::Post.new(uri.request_uri, HEADERS)
+        request.body = BODY_TEMPLATE.result(binding)
+
+        options = (@options[:vies] || {}).merge({ use_ssl: URI::HTTPS === uri })
+
+        Net::HTTP.start(uri.host, uri.port, options) do |http|
+          http.request(request)
+        end
       end
 
       def parse_xml(body)
@@ -80,21 +85,22 @@ class Valvat
       end
 
       def convert_key(key)
-        key.gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
-            gsub(/([a-z\d])([A-Z])/,'\1_\2').
-            tr("-", "_").
-            sub(/\Atrader_/, '').
-            downcase.to_sym
+        key.gsub(/([A-Z]+)([A-Z][a-z])/, '\1_\2')
+           .gsub(/([a-z\d])([A-Z])/, '\1_\2')
+           .tr('-', '_')
+           .sub(/\Atrader_/, '')
+           .downcase.to_sym
       end
 
       def convert_value(value)
-        value === '---' ? nil : value
+        value == '---' ? nil : value
       end
 
       def convert_values(hash)
         return build_fault(hash) if hash[:faultstring]
+
         hash[:valid] = hash[:valid] == 'true' || (hash[:valid] == 'false' ? false : nil) if hash.key?(:valid)
-        hash[:request_date] = Date.parse(hash[:request_date]) if hash[:request_date]
+        hash[:request_date] = Date.parse(hash[:request_date]) if hash.key?(:request_date)
         hash
       end
 
@@ -113,11 +119,9 @@ class Valvat
 
       def build_fault(hash)
         fault = hash[:faultstring]
-        return hash.merge({valid: false}) if fault == 'INVALID_INPUT'
+        return hash.merge({ valid: false }) if fault == 'INVALID_INPUT'
 
-        hash.merge({
-          error: (FAULTS[fault] || UnknownViesError).new(fault)
-        })
+        hash.merge({ error: (FAULTS[fault] || UnknownViesError).new(fault) })
       end
     end
   end
