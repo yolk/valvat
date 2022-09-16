@@ -34,16 +34,6 @@ describe Valvat::Lookup do
     end
 
     context 'with details' do
-      let(:details) do
-        {
-          country_code: 'IE',
-          vat_number: '6388047V',
-          name: 'GOOGLE IRELAND LIMITED',
-          address: '3RD FLOOR, GORDON HOUSE, BARROW STREET, DUBLIN 4',
-          valid: true
-        }
-      end
-
       it 'returns hash of details instead of true' do
         result = described_class.validate('IE6388047V', detail: true)
         skip "VIES is down" if result.nil?
