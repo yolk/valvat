@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
+require_relative 'base'
 require 'net/http'
 require 'erb'
 require 'rexml'
 
 class Valvat
   class Lookup
-    class VIES
+    class VIES < Base
       ENDPOINT_URI = URI('https://ec.europa.eu/taxation_customs/vies/services/checkVatService').freeze
       HEADERS = {
         'Accept' => 'text/xml;charset=UTF-8',
@@ -33,51 +34,19 @@ class Valvat
       XML
       BODY_TEMPLATE = ERB.new(BODY).freeze
 
-      def initialize(vat, options = {})
-        @vat = Valvat(vat)
-        @options = options
-        @requester = @options[:requester] && Valvat(@options[:requester])
-      end
-
-      def perform
-        response = fetch(ENDPOINT_URI)
-
-        case response
-        when Net::HTTPSuccess
-          parse_xml(response.body)
-        else
-          { error: Valvat::HTTPError.new(response) }
-        end
-      end
-
       private
 
-      def fetch(uri, limit = 0)
-        response = send_request(uri)
-
-        if Net::HTTPRedirection == response && limit < 5
-          fetch(URI.parse(response['Location']), limit + 1)
-        else
-          response
-        end
-      rescue Errno::ECONNRESET
-        raise if limit > 5
-
-        fetch(uri, limit + 1)
+      def endpoint_uri
+        ENDPOINT_URI
       end
 
-      def send_request(uri)
+      def build_request(uri)
         request = Net::HTTP::Post.new(uri.request_uri, HEADERS)
         request.body = BODY_TEMPLATE.result(binding)
-
-        options = (@options[:http] || {}).merge({ use_ssl: URI::HTTPS === uri })
-
-        Net::HTTP.start(uri.host, uri.port, options) do |http|
-          http.request(request)
-        end
+        request
       end
 
-      def parse_xml(body)
+      def parse(body)
         doc = REXML::Document.new(body)
         elements = doc.get_elements('/env:Envelope/env:Body').first.first
         convert_values(elements.each_with_object({}) do |el, hash|
@@ -122,7 +91,7 @@ class Valvat
         fault = hash[:faultstring]
         return hash.merge({ valid: false }) if fault == 'INVALID_INPUT'
 
-        hash.merge({ error: (FAULTS[fault] || UnknownLookupError).new(fault) })
+        hash.merge({ error: (FAULTS[fault] || UnknownLookupError).new(fault, self.class) })
       end
     end
   end

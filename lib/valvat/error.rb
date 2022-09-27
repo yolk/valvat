@@ -4,14 +4,14 @@ class Valvat
   Error = Class.new(RuntimeError)
 
   class LookupError < Error
-    def initialize(faultstring = 'UNKNOWN', exception = nil)
-      @faultstring = faultstring || exception.inspect
-      @exception = exception
-      super(faultstring)
+    def initialize(message, kind)
+      @message = message.to_s
+      @kind = kind.is_a?(Class) ? kind.name.split('::').last : kind.to_s
+      super(@message)
     end
 
     def to_s
-      "The web service returned the error '#{@faultstring}'."
+      "The #{@kind} web service returned the error: #{@message}"
     end
 
     def eql?(other)
@@ -30,14 +30,5 @@ class Valvat
 
   UnknownLookupError = Class.new(LookupError)
 
-  class HTTPError < LookupError
-    def initialize(response)
-      @response = response
-      super('HTTP_ERROR')
-    end
-
-    def to_s
-      "The VIES web service returned the HTTP status code #{@response.code}."
-    end
-  end
+  HTTPError = Class.new(LookupError)
 end
