@@ -36,13 +36,13 @@ describe Valvat::Lookup do
 
     context 'with existing GB VAT number' do
       it 'returns true' do
-        result = described_class.validate('GB727255821')
+        result = described_class.validate('GB727255821', uk: true)
         skip 'HMRC is down' if result.nil?
         expect(result).to be(true)
       end
 
       it 'returns details in format similar to VIES' do
-        result = described_class.validate('GB727255821', detail: true)
+        result = described_class.validate('GB727255821', detail: true, uk: true)
         skip 'HMRC is down' if result.nil?
         expect(result).to match({
                                   request_date: kind_of(Time),
@@ -73,7 +73,7 @@ describe Valvat::Lookup do
 
     context 'with not existing GB VAT number' do
       it 'returns false' do
-        result =  described_class.validate('GB727255820')
+        result =  described_class.validate('GB727255820', uk: true)
         skip 'HMRC is down' if result.nil?
         expect(result).to be(false)
       end
@@ -121,7 +121,7 @@ describe Valvat::Lookup do
 
       context 'with GB VAT number' do
         it 'returns hash of details with request number' do
-          response = described_class.validate('GB727255821', requester: 'GB727255821')
+          response = described_class.validate('GB727255821', requester: 'GB727255821', uk: true)
           skip 'HMRC is down' if response.nil?
           expect(response).to match({
                                       request_date: kind_of(Time),
@@ -136,7 +136,7 @@ describe Valvat::Lookup do
 
         it 'raises exception if requester is not from GB' do
           expect do
-            described_class.validate('GB727255821', requester: 'IE6388047V')
+            described_class.validate('GB727255821', requester: 'IE6388047V', uk: true)
           end.to raise_error(Valvat::InvalidRequester,
                              'The HMRC web service returned the error: '\
                              'INVALID_REQUEST (Invalid requesterVrn - Vrn parameters should be 9 or 12 digits)')
@@ -144,7 +144,7 @@ describe Valvat::Lookup do
 
         it 'raises exception if requester is not valid' do
           expect do
-            described_class.validate('GB727255821', requester: 'GB6388047')
+            described_class.validate('GB727255821', requester: 'GB6388047', uk: true)
           end.to raise_error(Valvat::InvalidRequester,
                              'The HMRC web service returned the error: '\
                              'INVALID_REQUEST (Invalid requesterVrn - Vrn parameters should be 9 or 12 digits)')
@@ -342,7 +342,7 @@ describe Valvat::Lookup do
   describe '#validate with HMRC test enviroment' do
     # https://developer.service.hmrc.gov.uk/api-documentation/docs/testing
     # https://github.com/hmrc/vat-registered-companies-api/blob/master/public/api/conf/1.0/test-data/vrn.csv
-    subject(:result) { described_class.validate('GB123456789') }
+    subject(:result) { described_class.validate('GB123456789', uk: true) }
 
     before do
       stub_const('Valvat::Lookup::HMRC::ENDPOINT_URL', 'https://test-api.service.hmrc.gov.uk/organisations/vat/check-vat-number/lookup')
@@ -350,8 +350,8 @@ describe Valvat::Lookup do
 
     context 'with valid request with valid VAT number' do
       it 'returns true' do
-        expect(described_class.validate('GB553557881')).to be(true)
-        expect(described_class.validate('GB146295999727')).to be(true)
+        expect(described_class.validate('GB553557881', uk: true)).to be(true)
+        expect(described_class.validate('GB146295999727', uk: true)).to be(true)
       end
     end
 
@@ -374,7 +374,7 @@ describe Valvat::Lookup do
       end
 
       it 'returns nil with raise_error set to false' do
-        expect(described_class.validate('GB123456789', raise_error: false)).to be_nil
+        expect(described_class.validate('GB123456789', raise_error: false, uk: true)).to be_nil
       end
     end
 
@@ -392,7 +392,7 @@ describe Valvat::Lookup do
 
       it 'raises error with raise_error set to false' do
         expect do
-          described_class.validate('GB123456789', raise_error: true)
+          described_class.validate('GB123456789', raise_error: true, uk: true)
         end.to raise_error(Valvat::ServiceUnavailable, 'The HMRC web service returned the error: SCHEDULED_MAINTENANCE')
       end
     end
@@ -411,7 +411,7 @@ describe Valvat::Lookup do
 
       it 'raises error with raise_error set to false' do
         expect do
-          described_class.validate('GB123456789', raise_error: true)
+          described_class.validate('GB123456789', raise_error: true, uk: true)
         end.to raise_error(Valvat::ServiceUnavailable, 'The HMRC web service returned the error: SERVER_ERROR')
       end
     end
@@ -429,7 +429,7 @@ describe Valvat::Lookup do
       end
 
       it 'returns nil with raise_error set to false' do
-        expect(described_class.validate('GB123456789', raise_error: false)).to be_nil
+        expect(described_class.validate('GB123456789', raise_error: false, uk: true)).to be_nil
       end
     end
 
@@ -444,7 +444,7 @@ describe Valvat::Lookup do
 
       it 'also raises error with raise_error set to false (not handled)' do
         expect do
-          described_class.validate('GB123456789', raise_error: false)
+          described_class.validate('GB123456789', raise_error: false, uk: true)
         end.to raise_error(Net::OpenTimeout)
       end
     end
@@ -462,7 +462,7 @@ describe Valvat::Lookup do
       end
 
       it 'returns nil with raise_error set to false' do
-        expect(described_class.validate('GB123456789', raise_error: false)).to be_nil
+        expect(described_class.validate('GB123456789', raise_error: false, uk: true)).to be_nil
       end
     end
   end
