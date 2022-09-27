@@ -3,6 +3,8 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v1.1.5...master)
 
+* Apply more rules to spanish VAT numbers on checksum validation #115 (by [Thomas Scalise](https://github.com/KirtashW17))
+
 ### 1.1.5 / 2022-09-14
 
 [full changelog](http://github.com/yolk/valvat/compare/v1.1.4...v1.1.5)
