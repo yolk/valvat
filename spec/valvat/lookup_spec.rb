@@ -134,11 +134,13 @@ describe Valvat::Lookup do
                                     })
         end
 
-        # it 'raises exception if requester is not from GB' do
-        #   expect {
-        #     described_class.validate('GB727255821', requester: 'IE6388047V')
-        #   }.to raise_error(Valvat::InvalidRequester, "Requester must be a GB number when checking GB VAT numbers.")
-        # end
+        it 'raises exception if requester is not from GB' do
+          expect do
+            described_class.validate('GB727255821', requester: 'IE6388047V')
+          end.to raise_error(Valvat::InvalidRequester,
+                             'The HMRC web service returned the error: '\
+                             'INVALID_REQUEST (Invalid requesterVrn - Vrn parameters should be 9 or 12 digits)')
+        end
 
         it 'raises exception if requester is not valid' do
           expect do
