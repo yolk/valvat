@@ -3,7 +3,7 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v1.1.5...master)
 
-* Implemented lookup of VAT numbers from the UK (via HMRC api) (by [Adrien Rey-Jarthon](https://github.com/jarthod))
+* Implemented lookup of VAT numbers from the UK (via HMRC api and only with :uk option set to true) (by [Adrien Rey-Jarthon](https://github.com/jarthod))
 * Remimplemented VIES lookup using only nethttp (removes dependency on savon)
 * Deprecate require 'valvat/local'. Please require 'valvat' directly.
 * Apply more rules to spanish VAT numbers on checksum validation #115 (by [Thomas Scalise](https://github.com/KirtashW17))

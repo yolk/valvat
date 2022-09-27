@@ -7,7 +7,7 @@ Validates european vat numbers. Standalone or as a ActiveModel validator.
 
 ## A note on Brexit
 
-Valvat supports validating VAT-IDs from the UK by syntax, checksum and using the HMRC API. Validation against the VIES web service stopped working early 2021.
+Valvat supports validating VAT-IDs from the UK by syntax, checksum and using the HMRC API (for backwards compatibility only with the `:uk` option set to true). Validation against the VIES web service stopped working early 2021.
 
 Northern Ireland received its own VAT number prefix - XI which is supported by VIES web service so any XI-prefixed VAT numbers should be validated as any EU VAT number.
 
@@ -15,7 +15,7 @@ Northern Ireland received its own VAT number prefix - XI which is supported by V
 
 * Simple syntax verification
 * Lookup via the VIES web service
-* Lookup via the HMRC web service (for UK VAT numbers)
+* (Optional) lookup via the HMRC web service (for UK VAT numbers)
 * ActiveModel/Rails integration
 * Works standalone without ActiveModel
 * No runtime dependencies
@@ -71,6 +71,15 @@ Or to lookup a vat number string directly:
 Valvat::Lookup.validate("DE345789003")
 # => true or false or nil
 ```
+
+To keep backwards compatibility lookups of UK VAT numbers against the HMRC API are only performed with the option `:uk` set to true.
+
+```ruby
+Valvat::Lookup.validate("GB553557881", uk: true)
+# => true or false or nil
+```
+
+Without this option the lookup of UK VAT number always returns `false`.
 
 *IMPORTANT* Keep in mind that the web service might be offline at some time for all or some member states. If this happens `exists?` or `Valvat::Lookup.validate` will return `nil`. See *Handling of maintenance errors* for further details.
 
@@ -198,10 +207,16 @@ end
 
 ### Additional lookup validation
 
-To additionally perform an lookup via VIES / HMRC:
+To additionally perform an lookup via VIES:
 
 ```ruby
 validates :vat_number, valvat: { lookup: true }
+```
+
+To also perform an lookup via HMRC for UK VAT numbers:
+
+```ruby
+validates :vat_number, valvat: { lookup: { uk: true } }
 ```
 
 By default this will validate to true if the web service is down. To fail in this case simply add the `:fail_if_down` option:

@@ -8,7 +8,7 @@ describe Valvat::Lookup::HMRC do
   end
 
   it 'returns hash with valid: true on success' do
-    response = described_class.new('GB553557881', {}).perform
+    response = described_class.new('GB553557881', { uk: true }).perform
 
     expect(response).to match({
                                 valid: true,
@@ -21,7 +21,12 @@ describe Valvat::Lookup::HMRC do
   end
 
   it 'returns hash with valid: false on invalid input' do
-    response = described_class.new('GB123456789', {}).perform
+    response = described_class.new('GB123456789', { uk: true }).perform
+    expect(response).to match({ valid: false })
+  end
+
+  it 'returns hash with valid: false on valid input with :uk option not set' do
+    response = described_class.new('GB553557881', {}).perform
     expect(response).to match({ valid: false })
   end
 end
