@@ -53,11 +53,20 @@ class Valvat
       def send_request(uri)
         request = build_request(uri)
 
-        options = (@options[:http] || {}).merge({ use_ssl: URI::HTTPS === uri })
-
-        Net::HTTP.start(uri.host, uri.port, options) do |http|
+        Net::HTTP.start(uri.host, uri.port, options_for(uri)) do |http|
           http.request(request)
         end
+      end
+
+      def options_for(uri)
+        options = if @options.key?(:savon)
+                    puts 'DEPRECATED: The option :savon is deprecated. Use :http instead.'
+                    @options[:savon]
+                  else
+                    @options[:http]
+                  end || {}
+
+        options.merge({ use_ssl: URI::HTTPS === uri })
       end
     end
   end
