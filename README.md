@@ -7,7 +7,7 @@ Validates european vat numbers. Standalone or as a ActiveModel validator.
 
 ## A note on Brexit
 
-Valvat supports validating VAT-IDs from the UK by syntax & checksum for now. Validation against the VIES web service will probably stop working (and return `false`) in 2021.
+Valvat supports validating VAT-IDs from the UK by syntax, checksum and using the HMRC API. Validation against the VIES web service stopped working early 2021.
 
 Northern Ireland received its own VAT number prefix - XI which is supported by VIES web service so any XI-prefixed VAT numbers should be validated as any EU VAT number.
 
@@ -15,6 +15,7 @@ Northern Ireland received its own VAT number prefix - XI which is supported by V
 
 * Simple syntax verification
 * Lookup via the VIES web service
+* Lookup via the HMRC web service (for UK VAT numbers)
 * ActiveModel/Rails integration
 * Works standalone without ActiveModel
 * No runtime dependencies
@@ -31,13 +32,7 @@ Add it to your Gemfile:
 gem 'valvat'
 ```
 
-To use less memory (~0.5 mb vs. ~3.5 mb) and load only the local verification functionality – and not the remote lookup with VIES – add it like this instead:
-
-```ruby
-gem 'valvat', require: 'valvat/local'
-```
-
-In any case run:
+And run:
 
     $ bundle
 
@@ -61,23 +56,23 @@ Valvat::Syntax.validate("DE345789003")
 # => true or false
 ```
 
-## Validate against the VIES web service
+## Validate against the VIES / HMRC web service
 
-To check if the given vat number exists via the VIES web service:
+To check if the given vat number exists via the VIES or HMRC web service:
 
 ```ruby
 Valvat.new("DE345789003").exists?
 # => true or false or nil
 ```
 
-Or to lookup a vat number string directly via VIES web service:
+Or to lookup a vat number string directly:
 
 ```ruby
 Valvat::Lookup.validate("DE345789003")
 # => true or false or nil
 ```
 
-*IMPORTANT* Keep in mind that the VIES web service might be offline at some time for all or some member states. If this happens `exists?` or `Valvat::Lookup.validate` will return `nil`. See *Handling of VIES maintenance errors* for further details.
+*IMPORTANT* Keep in mind that the web service might be offline at some time for all or some member states. If this happens `exists?` or `Valvat::Lookup.validate` will return `nil`. See *Handling of maintenance errors* for further details.
 
 ### Details & request identifier
 
@@ -86,13 +81,13 @@ If you need all details and not only if the VAT is valid, pass {detail: true} as
 ```ruby
 Valvat.new("IE6388047V").exists?(detail: true)
 => {
-  :country_code=>"IE", :vat_number => "6388047V", :valid => true,
-  :request_date => Date.today, :name=>"GOOGLE IRELAND LIMITED",
-  :address=>"1ST & 2ND FLOOR ,GORDON HOUSE ,BARROW STREET ,DUBLIN 4"
+  :country_code=> "IE", :vat_number => "6388047V", :valid => true,
+  :request_date => Date.today, :name=> "GOOGLE IRELAND LIMITED",
+  :address=> "1ST & 2ND FLOOR ,GORDON HOUSE ,BARROW STREET ,DUBLIN 4"
 } or false or nil
 ```
 
-According to EU law, or at least as Austria sees it, it's mandatory to verify the VAT number of every new customer, but also to check the VAT number periodicaly. To prove that you have checked the VAT number, the VIES Web service can return a `request_identifier`.
+According to EU law, or at least as Austria sees it, it's mandatory to verify the VAT number of every new customer, but also to check the VAT number periodicaly. To prove that you have checked the VAT number, the web service can return a `request_identifier`.
 
 To receive a `request_identifier` you need to pass your own VAT number in the options hash. In this example, Google (VAT IE6388047V) is checking the validity of eBays VAT number (LU21416127)
 
@@ -108,7 +103,14 @@ Valvat.new("LU21416127").exists?(requester: "IE6388047V")
 
 If the given `requester` is invalid, a `Valvat::InvalidRequester` error is thrown.
 
-### Handling of VIES maintenance errors
+When requesting a `request_identifier` for a GB VAT number, the requester must be your own GB number; a EU VAT number won't work.
+
+Note that when validating UK VAT numbers using the HMRC service, the detail output is modified to match the one from VIES more closely with slight differences remaining:
+
+1. The `request_date` will actually be a (more precise) `Time` instead of a `Date`
+2. The `address` string will join lines using `\n` instead of `,` so it's more acurate and can be displayed nicely.
+
+### Handling of maintenance errors
 
 From time to time the VIES web service for one or all member states is down for maintenance. To handle this kind of temporary errors, `Valvat::Lookup#validate` returns `nil` by default to indicate that there is no way at the moment to say if the given VAT is valid or not. You should revalidate the VAT later. If you prefer an error, use the `raise_error` option:
 
@@ -120,9 +122,9 @@ This raises `Valvat::ServiceUnavailable` or `Valvat::MemberStateUnavailable` ins
 
 Visit [http://ec.europa.eu/taxation_customs/vies/viesspec.do](http://ec.europa.eu/taxation_customs/vies/viesspec.do) for more accurate information at what time the service for a specific member state will be down.
 
-### Handling of other VIES errors
+### Handling of other errors
 
-All other errors accuring while validating against the VIES web service are raised and must be handled by you. These include:
+All other errors accuring while validating against the web service are raised and must be handled by you. These include:
 
  * `Valvat::InvalidRequester`
  * `Valvat::BlockedError`
@@ -150,7 +152,7 @@ Valvat.new("IE6388047V").exists?(http: { open_timeout: 10, read_timeout: 10 })
 
 ### Skip local validation before lookup
 
-To prevent unnecessary requests, valvat performs a local syntax check before making the request to the VIES web service. If you want to skip this step (for any reason), set the `:skip_local_validation` option to `true`.
+To prevent unnecessary requests, valvat performs a local syntax check before making the request to the web service. If you want to skip this step (for any reason), set the `:skip_local_validation` option to `true`.
 
 ## Experimental checksum verification
 
@@ -161,7 +163,7 @@ Valvat.new("DE345789003").valid_checksum?
 # => true or false
 ```
 
-These results are more valuable than a simple syntax check, but keep in mind: they can not replace a lookup via VIES.
+These results are more valuable than a simple syntax check, but keep in mind: they can not replace a lookup via VIES or HMRC.
 
 *IMPORTANT* This feature was tested against all vat numbers I could get my hand on, but it is still marked as *experimental* because these calculations are not documented and may return wrong results.
 
@@ -196,13 +198,13 @@ end
 
 ### Additional lookup validation
 
-To additionally perform a lookup via VIES:
+To additionally perform an lookup via VIES / HMRC:
 
 ```ruby
 validates :vat_number, valvat: { lookup: true }
 ```
 
-By default this will validate to true if the VIES web service is down. To fail in this case simply add the `:fail_if_down` option:
+By default this will validate to true if the web service is down. To fail in this case simply add the `:fail_if_down` option:
 
 ```ruby
 validates :vat_number, valvat: { lookup: { fail_if_down: true } }
@@ -302,6 +304,7 @@ There seems to be a problem when using the VIES service over IPv6. Sadly this is
 ## Links
 
 * [VIES web service](http://ec.europa.eu/taxation_customs/vies)
+* [HMRC web service](https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/vat-registered-companies-api/1.0)
 * [European vat number formats (german)](http://bzst.de/DE/Steuern_International/USt_Identifikationsnummer/Merkblaetter/Aufbau_USt_IdNr.html)
 * [European vat number formats on Wikipedia](http://en.wikipedia.org/wiki/European_Union_Value_Added_Tax)
 
