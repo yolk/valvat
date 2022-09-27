@@ -228,7 +228,7 @@ validates :vat_number, valvat: { lookup: { fail_if_down: true } }
 You can pass in any options accepted by `Valvat::Lookup#validate`:
 
 ```ruby
-validates :vat_number, valvat: { lookup: { raise_error: true, savon: { log: true } } }
+validates :vat_number, valvat: { lookup: { raise_error: true, http: { read_timeout: 12 } } }
 ```
 
 ### Additional (and experimental) checksum validation
