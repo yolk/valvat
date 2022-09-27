@@ -314,7 +314,7 @@ https://github.com/yolk/valvat/graphs/contributors
 
 ## BlaBla
 
-Copyright (c) 2011-2022 Yolk Sebastian Munz & Julia Soergel GbR
+Copyright (c) 2011-2022 mite GmbH
 
 Beyond that, the implementation is licensed under the MIT License.
 
