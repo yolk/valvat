@@ -15,7 +15,6 @@ RSpec.configure do |config|
   config.mock_with :rspec
   config.filter_run focus: true
   config.run_all_when_everything_filtered = true
-  config.backtrace_exclusion_patterns = [%r{rspec/(core|expectations)}]
 end
 
 I18n.enforce_available_locales = false if defined?(I18n)
