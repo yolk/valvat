@@ -5,7 +5,7 @@
 
 * Implemented lookup of VAT numbers from the UK (via HMRC api) (by [Adrien Rey-Jarthon](https://github.com/jarthod))
 * Remimplemented VIES lookup using only nethttp (removes dependency on savon)
-* BREAKING: require 'valvat/local' is deprecated. Please require 'valvat' directly.
+* Deprecate require 'valvat/local'. Please require 'valvat' directly.
 * Apply more rules to spanish VAT numbers on checksum validation #115 (by [Thomas Scalise](https://github.com/KirtashW17))
 
 ### 1.1.5 / 2022-09-14

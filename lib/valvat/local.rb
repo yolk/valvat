@@ -1,3 +1,5 @@
 # frozen_string_literal: true
 
-raise "require 'valvat/local' is deprecated. Please require 'valvat' directly."
+puts "DEPRECATED: Requiring 'valvat/local' is deprecated. Please require 'valvat' directly."
+
+require_relative '../valvat'
