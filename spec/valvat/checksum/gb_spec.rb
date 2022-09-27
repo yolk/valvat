@@ -21,6 +21,7 @@ describe Valvat::Checksum::GB do
 
   it 'is true for a new format valid vat' do
     expect(Valvat::Checksum.validate('GB434031439')).to be true
+    expect(Valvat::Checksum.validate('GB727255821')).to be true
   end
 
   it 'is false for an old format VAT in forbidden group' do
