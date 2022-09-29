@@ -39,6 +39,8 @@ class Valvat
 
   # TODO: Remove method / not in use
   def european?
+    puts 'DEPRECATED: #european? is deprecated. Instead access Valvat::Utils::EU_MEMBER_STATES directly.'
+
     Valvat::Utils::EU_MEMBER_STATES.include?(iso_country_code)
   end
 
