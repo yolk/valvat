@@ -1,7 +1,11 @@
 
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v1.1.5...master)
+[full changelog](http://github.com/yolk/valvat/compare/v1.2.0...master)
+
+### 1.2.0 / 2022-09-30
+
+[full changelog](http://github.com/yolk/valvat/compare/v1.1.5...v1.2.0)
 
 * Implemented lookup of VAT numbers from the UK (via HMRC api and only with :uk option set to true) (by [Adrien Rey-Jarthon](https://github.com/jarthod))
 * Remimplemented VIES lookup using only nethttp (removes dependency on savon)
