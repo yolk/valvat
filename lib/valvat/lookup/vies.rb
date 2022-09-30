@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'base'
+require 'date'
 require 'net/http'
 require 'erb'
 require 'rexml'

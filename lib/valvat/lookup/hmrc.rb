@@ -3,6 +3,7 @@
 require_relative 'base'
 require 'net/http'
 require 'json'
+require 'time'
 
 class Valvat
   class Lookup
