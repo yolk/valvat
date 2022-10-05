@@ -3,6 +3,8 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v1.2.0...master)
 
+* Added missing dependency rexml #117
+
 ### 1.2.0 / 2022-09-30
 
 [full changelog](http://github.com/yolk/valvat/compare/v1.1.5...v1.2.0)
