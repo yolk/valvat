@@ -1,9 +1,15 @@
 
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v1.2.0...master)
+[full changelog](http://github.com/yolk/valvat/compare/v1.2.1...master)
+
+### 1.2.1 / 2022-10-05
+
+[full changelog](http://github.com/yolk/valvat/compare/v1.2.0...v1.2.1)
 
 * Added missing dependency rexml #117
+* Lookup: Retry IOError
+* Lookup: require 'date' in VIES and 'time' in HMRC
 
 ### 1.2.0 / 2022-09-30
 
