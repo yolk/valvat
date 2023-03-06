@@ -129,7 +129,7 @@ Valvat.new("IE6388047V").exists?(raise_error: true)
 
 This raises `Valvat::ServiceUnavailable` or `Valvat::MemberStateUnavailable` instead of returning `nil`.
 
-Visit [http://ec.europa.eu/taxation_customs/vies/viesspec.do](http://ec.europa.eu/taxation_customs/vies/viesspec.do) for more accurate information at what time the service for a specific member state will be down.
+Visit [https://ec.europa.eu/taxation_customs/vies/#/help](https://ec.europa.eu/taxation_customs/vies/#/help) for more accurate information at what time the service for a specific member state will be down.
 
 ### Handling of other errors
 
