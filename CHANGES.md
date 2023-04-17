@@ -4,6 +4,7 @@
 [full changelog](http://github.com/yolk/valvat/compare/v1.2.1...master)
 
 * Checksum::FR: Correct validation for french VAT ids not starting with two numerical chars #119
+* Equality for Valvat objects #120
 
 ### 1.2.1 / 2022-10-05
 
