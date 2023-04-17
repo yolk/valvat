@@ -45,7 +45,7 @@ describe Valvat::Checksum::ES do
   end
 
   describe 'applies special rules to validation' do
-    describe 'special NIF categories (KLM) require CD to be a letter and first two digits '\
+    describe 'special NIF categories (KLM) require CD to be a letter and first two digits ' \
              'to be between 01 and 56 (inclusive)' do
       %w[ESK8201230M ESK0001230B].each do |invalid_vat|
         it "returns false on invalid VAT #{invalid_vat}" do

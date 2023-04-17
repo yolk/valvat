@@ -138,7 +138,7 @@ describe Valvat::Lookup do
           expect do
             described_class.validate('GB727255821', requester: 'IE6388047V', uk: true)
           end.to raise_error(Valvat::InvalidRequester,
-                             'The HMRC web service returned the error: '\
+                             'The HMRC web service returned the error: ' \
                              'INVALID_REQUEST (Invalid requesterVrn - Vrn parameters should be 9 or 12 digits)')
         end
 
@@ -146,7 +146,7 @@ describe Valvat::Lookup do
           expect do
             described_class.validate('GB727255821', requester: 'GB6388047', uk: true)
           end.to raise_error(Valvat::InvalidRequester,
-                             'The HMRC web service returned the error: '\
+                             'The HMRC web service returned the error: ' \
                              'INVALID_REQUEST (Invalid requesterVrn - Vrn parameters should be 9 or 12 digits)')
         end
       end

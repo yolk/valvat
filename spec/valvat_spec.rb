@@ -18,12 +18,12 @@ describe Valvat do
 
   describe 'Valvat()' do
     it 'initializes new Valvat instance on string' do
-      expect(Valvat('abc')).to be_kind_of(described_class)
+      expect(Valvat('abc')).to be_a(described_class)
     end
 
     it 'returns same Valvat instance on Valvat instance' do
       vat = described_class.new('abc')
-      expect(Valvat(vat)).to be_kind_of(described_class)
+      expect(Valvat(vat)).to be_a(described_class)
       expect(Valvat(vat).object_id).to eql(vat.object_id)
     end
   end

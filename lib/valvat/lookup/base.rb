@@ -39,7 +39,7 @@ class Valvat
       def fetch(uri, limit = 0)
         response = send_request(uri)
 
-        if Net::HTTPRedirection == response && limit < 5
+        if response == Net::HTTPRedirection && limit < 5
           fetch(URI.parse(response['Location']), limit + 1)
         else
           response
