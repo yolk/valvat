@@ -42,6 +42,29 @@ describe Valvat do
     end
   end
 
+  describe 'object equality' do
+    it 'returns true when the underlying number are the same' do
+      first = "DE259597697"
+      second = "DE259597697"
+
+      expect(described_class.new(first)).to eql(described_class.new(second))
+    end
+
+    it 'returns true when the underlying number are the same when normalized' do
+      first = "DE259597697"
+      second = "DE  2595 9 7697    "
+
+      expect(described_class.new(first)).to eql(described_class.new(second))
+    end
+
+    it 'returns false when the underlying number are different' do
+      first = "DE259597697"
+      second = "ATU458890031"
+
+      expect(described_class.new(first)).not_to eql(described_class.new(second))
+    end
+  end
+
   context 'with european VAT number' do
     let(:de_vat) { described_class.new('DE259597697') } # valid & exists
     let(:invalid_checksum) { described_class.new('DE259597687') } # valid & invalid checksum
