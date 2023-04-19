@@ -6,3 +6,7 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'guard-rspec', '~>4.0'
+gem 'activemodel', '>= 5.0'
+gem 'rake'
+gem 'rspec', '~> 3.0'
+gem 'webmock', '~> 3.0'
