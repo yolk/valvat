@@ -55,7 +55,7 @@ class Valvat
   def ==(other)
     raw == other.raw
   end
-  alias_method :eql?, :==
+  alias eql? ==
 
   def inspect
     "#<Valvat #{[raw, iso_country_code].compact.join(' ')}>"

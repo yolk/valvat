@@ -6,7 +6,7 @@ class Valvat
       check_digit_length 0
 
       def validate
-        vat.to_s_wo_country[-2..-1].to_i.positive? &&
+        vat.to_s_wo_country[-2..].to_i.positive? &&
           super
       end
 

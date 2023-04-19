@@ -14,11 +14,11 @@ class Valvat
         check = (ALPHABET.index(str_wo_country[0]) * (numeric_start ? 24 : 34)) +
                 ALPHABET.index(str_wo_country[1]) - (numeric_start ? 10 : 100)
 
-        (str_wo_country[2..-1].to_i + 1 + (check / 11)) % 11 == check % 11
+        (str_wo_country[2..].to_i + 1 + (check / 11)) % 11 == check % 11
       end
 
       def check_digit
-        siren = str_wo_country[2..-1].to_i
+        siren = str_wo_country[2..].to_i
         (12 + ((3 * siren) % 97)) % 97
       end
 

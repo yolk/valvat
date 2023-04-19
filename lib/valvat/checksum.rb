@@ -21,7 +21,7 @@ class Valvat
       private
 
       def given_check_digit_str
-        str_wo_country[-self.class.check_digit_length..-1]
+        str_wo_country[-self.class.check_digit_length..]
       end
 
       def given_check_digit

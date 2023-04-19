@@ -44,22 +44,22 @@ describe Valvat do
 
   describe 'object equality' do
     it 'returns true when the underlying number are the same' do
-      first = "DE259597697"
-      second = "DE259597697"
+      first = 'DE259597697'
+      second = 'DE259597697'
 
       expect(described_class.new(first)).to eql(described_class.new(second))
     end
 
     it 'returns true when the underlying number are the same when normalized' do
-      first = "DE259597697"
-      second = "DE  2595 9 7697    "
+      first = 'DE259597697'
+      second = 'DE  2595 9 7697    '
 
       expect(described_class.new(first)).to eql(described_class.new(second))
     end
 
     it 'returns false when the underlying number are different' do
-      first = "DE259597697"
-      second = "ATU458890031"
+      first = 'DE259597697'
+      second = 'ATU458890031'
 
       expect(described_class.new(first)).not_to eql(described_class.new(second))
     end

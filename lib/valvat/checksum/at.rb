@@ -9,7 +9,7 @@ class Valvat
       end
 
       def str_wo_country
-        super[1..-1]
+        super[1..]
       end
     end
   end

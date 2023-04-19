@@ -55,7 +55,7 @@ class Valvat
 
       def str_wo_country
         str = super
-        str[0] =~ /\d/ ? str : str[1..-1]
+        str[0] =~ /\d/ ? str : str[1..]
       end
 
       def person?
