@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
   s.cert_chain    = ['certs/mite.pem']
   s.signing_key   = File.expand_path('~/.ssh/gem-private_key.pem') if $PROGRAM_NAME =~ /gem\z/
-  s.required_ruby_version = '>= 2.5.0'
+  s.required_ruby_version = '>= 2.6.0'
 
   s.add_runtime_dependency('rexml', '>= 3.2', '< 4.0')
 
