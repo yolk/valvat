@@ -9,13 +9,13 @@ Gem::Specification.new do |s|
   s.platform      = Gem::Platform::RUBY
   s.license       = 'MIT'
   s.authors       = ['Sebastian Munz']
-  s.email         = ['sebastian@yo.lk']
+  s.email         = ['sebastian@mite.de']
   s.homepage      = 'https://github.com/yolk/valvat'
   s.summary       = 'Validates european vat numbers. Standalone or as a ActiveModel validator.'
   s.description   = 'Validates european vat numbers. Standalone or as a ActiveModel validator.'
   s.files         = `git ls-files`.split("\n")
   s.require_paths = ['lib']
-  s.cert_chain    = ['certs/yolk.pem']
+  s.cert_chain    = ['certs/mite.pem']
   s.signing_key   = File.expand_path('~/.ssh/gem-private_key.pem') if $PROGRAM_NAME =~ /gem\z/
   s.required_ruby_version = '>= 2.5.0'
 
