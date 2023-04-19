@@ -333,4 +333,4 @@ Copyright (c) 2011-2023 mite GmbH
 
 Beyond that, the implementation is licensed under the MIT License.
 
-Code was originally extracted from our time tracking webapp [mite](https://mite.yo.lk/en/).
+Code was originally extracted from our time tracking webapp [mite](https://mite.de/en/).
