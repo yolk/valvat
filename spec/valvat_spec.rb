@@ -140,14 +140,6 @@ describe Valvat do
       end
     end
 
-    describe '#european?' do
-      it 'returns true' do
-        expect(de_vat).to be_european
-        expect(at_vat).to be_european
-        expect(gr_vat).to be_european
-      end
-    end
-
     describe '#to_s' do
       it 'returns full VAT number' do
         expect(de_vat.to_s).to eql('DE259597697')
@@ -206,13 +198,6 @@ describe Valvat do
       end
     end
 
-    describe '#european?' do
-      it 'returns false' do
-        expect(us_vat).not_to be_european
-        expect(ch_vat).not_to be_european
-      end
-    end
-
     describe '#to_s' do
       it 'returns full given VAT number' do
         expect(us_vat.to_s).to eql('US345889003')
@@ -267,15 +252,6 @@ describe Valvat do
         expect(num_vat.vat_country_code).to be_nil
         expect(empty_vat.vat_country_code).to be_nil
         expect(nil_vat.vat_country_code).to be_nil
-      end
-    end
-
-    describe '#european?' do
-      it 'returns false' do
-        expect(only_iso_vat).not_to be_european
-        expect(num_vat).not_to be_european
-        expect(empty_vat).not_to be_european
-        expect(nil_vat).not_to be_european
       end
     end
 
