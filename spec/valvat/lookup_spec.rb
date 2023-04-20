@@ -363,7 +363,7 @@ describe Valvat::Lookup do
 
     describe 'Error : MESSAGE_THROTTLED_OUT' do
       before do
-        stub_request(:get, /test-api.service.hmrc.gov.uk/).to_return(
+        stub_request(:get, /test-api\.service\.hmrc\.gov\.uk/).to_return(
           status: 429,
           body: '{"code":"MESSAGE_THROTTLED_OUT"}'
         )
@@ -380,7 +380,7 @@ describe Valvat::Lookup do
 
     describe 'Error : SCHEDULED_MAINTENANCE' do
       before do
-        stub_request(:get, /test-api.service.hmrc.gov.uk/).to_return(
+        stub_request(:get, /test-api\.service\.hmrc\.gov\.uk/).to_return(
           status: 503,
           body: '{"code":"SCHEDULED_MAINTENANCE"}'
         )
@@ -399,7 +399,7 @@ describe Valvat::Lookup do
 
     describe 'Error : SERVER_ERROR' do
       before do
-        stub_request(:get, /test-api.service.hmrc.gov.uk/).to_return(
+        stub_request(:get, /test-api\.service\.hmrc\.gov\.uk/).to_return(
           status: 503,
           body: '{"code":"SERVER_ERROR"}'
         )
@@ -418,7 +418,7 @@ describe Valvat::Lookup do
 
     describe 'Error : GATEWAY_TIMEOUT' do
       before do
-        stub_request(:get, /test-api.service.hmrc.gov.uk/).to_return(
+        stub_request(:get, /test-api\.service\.hmrc\.gov\.uk/).to_return(
           status: 504,
           body: '{"code":"GATEWAY_TIMEOUT"}'
         )
@@ -435,7 +435,7 @@ describe Valvat::Lookup do
 
     describe 'Network timeout' do
       before do
-        stub_request(:get, /test-api.service.hmrc.gov.uk/).to_timeout
+        stub_request(:get, /test-api\.service\.hmrc\.gov\.uk/).to_timeout
       end
 
       it 'raises error' do
@@ -451,7 +451,7 @@ describe Valvat::Lookup do
 
     describe 'Error : INTERNAL_SERVER_ERROR' do
       before do
-        stub_request(:get, /test-api.service.hmrc.gov.uk/).to_return(
+        stub_request(:get, /test-api\.service\.hmrc\.gov\.uk/).to_return(
           status: 500,
           body: '{"code":"INTERNAL_SERVER_ERROR"}'
         )
