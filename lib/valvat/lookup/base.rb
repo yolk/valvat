@@ -44,9 +44,10 @@ class Valvat
         else
           response
         end
-      rescue Errno::ECONNRESET, IOError, OpenSSL::OpenSSLError
+      rescue Errno::ECONNRESET, IOError, OpenSSL::SSL::SSLError
         raise if limit > 5
 
+        sleep(0.01)
         fetch(uri, limit + 1)
       end
 
