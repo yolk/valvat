@@ -2,13 +2,13 @@
 
 require_relative 'lookup/vies'
 require_relative 'lookup/hmrc'
+require_relative 'options'
 
 class Valvat
   class Lookup
     def initialize(vat, options = {})
       @vat = Valvat(vat)
-      @options = options || {}
-      @options[:requester] ||= @options[:requester_vat]
+      @options = Valvat::Options(options)
     end
 
     def validate
@@ -26,20 +26,14 @@ class Valvat
 
     private
 
-    def valid?
-      response[:valid]
-    end
-
     def response
       @response ||= webservice.new(@vat, @options).perform
     end
 
     def webservice
-      case @vat.vat_country_code
-      when 'GB' then HMRC
-      else
-        VIES
-      end
+      return HMRC if @vat.vat_country_code == 'GB'
+
+      VIES
     end
 
     def show_details?

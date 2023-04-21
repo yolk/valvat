@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 require 'net/http'
+require_relative '../options'
 
 class Valvat
   class Lookup
     class Base
       def initialize(vat, options = {})
         @vat = Valvat(vat)
-        @options = options
+        @options = Valvat::Options(options)
         @requester = @options[:requester] && Valvat(@options[:requester])
       end
 
@@ -59,14 +60,7 @@ class Valvat
       end
 
       def options_for(uri)
-        options = if @options.key?(:savon)
-                    puts 'DEPRECATED: The option :savon is deprecated. Use :http instead.'
-                    @options[:savon]
-                  else
-                    @options[:http]
-                  end || {}
-
-        options.merge({ use_ssl: URI::HTTPS === uri })
+        @options[:http].merge({ use_ssl: URI::HTTPS === uri })
       end
     end
   end

@@ -2,6 +2,8 @@
 
 require 'valvat/error'
 require 'valvat/utils'
+require 'valvat/options'
+require 'valvat/configuration'
 require 'valvat/syntax'
 require 'valvat/checksum'
 require 'valvat/version'

@@ -150,6 +150,28 @@ describe Valvat::Lookup do
                              'INVALID_REQUEST (Invalid requesterVrn - Vrn parameters should be 9 or 12 digits)')
         end
       end
+
+      context 'when set in global config' do
+        before { Valvat.configure(requester: 'IE6388047V') }
+        after { Valvat.configure(requester: nil) }
+
+        it 'returns hash of details instead of true' do
+          result = described_class.validate('IE6388047V')
+
+          skip 'VIES is down' if result.nil?
+
+          expect(result).to match({
+                                    request_date: kind_of(Date),
+                                    request_identifier: /\A[\w\W]{16}\Z/,
+                                    country_code: 'IE',
+                                    vat_number: '6388047V',
+                                    name: 'GOOGLE IRELAND LIMITED',
+                                    company_type: nil,
+                                    address: '3RD FLOOR, GORDON HOUSE, BARROW STREET, DUBLIN 4',
+                                    valid: true
+                                  })
+        end
+      end
     end
   end
 

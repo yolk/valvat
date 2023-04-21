@@ -15,7 +15,7 @@ class Valvat
       }.freeze
 
       def perform
-        return { valid: false } unless @options[:uk] == true
+        return { valid: false } unless @options[:uk]
 
         parse(fetch(endpoint_uri).body)
       end

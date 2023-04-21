@@ -33,5 +33,17 @@ class Valvat
     def self.country_is_supported?(iso_country)
       SUPPORTED_STATES.include?(iso_country)
     end
+
+    def self.deep_symbolize_keys(value)
+      value = value.transform_keys do |key|
+        key.to_sym
+      rescue StandardError
+        key
+      end
+
+      value.transform_values! do |val|
+        val.is_a?(Hash) ? deep_symbolize_keys(val) : val
+      end
+    end
   end
 end

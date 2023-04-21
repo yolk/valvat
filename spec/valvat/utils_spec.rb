@@ -112,4 +112,14 @@ describe Valvat::Utils do
       end
     end
   end
+
+  describe '#deep_symbolize_keys' do
+    it 'symbolizes keys of flat hash' do
+      expect(described_class.deep_symbolize_keys({ 'a' => 1, :b => 2 })).to eql({ a: 1, b: 2 })
+    end
+
+    it 'symbolizes all hashes' do
+      expect(described_class.deep_symbolize_keys({ 'a' => 1, :b => { 'c' => 3 } })).to eql({ a: 1, b: { c: 3 } })
+    end
+  end
 end
