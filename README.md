@@ -183,6 +183,20 @@ Valvat::Checksum.validate("DE345789003")
 # => true or false
 ```
 
+## Configuration
+
+Instead of passing in the same options again and again, Valvat allows to alter its default configuration. This feature is intended to be used when initializing your application (for example in a Rails initializer file).
+
+```ruby
+Valvat.configure(
+  uk: true,
+  raise_error: true,
+  http: { read_timeout: 5 }
+)
+```
+
+To see all options and the defaults, take a look at [valvat/configuration](https://github.com/yolk/valvat/blob/master/lib/valvat/configuration.rb#L25).
+
 ## Usage with ActiveModel / Rails
 
 ### Loading
