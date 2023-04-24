@@ -3,6 +3,8 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v1.3.0...master)
 
+# Valvat.configure: Allow global configuration
+
 ### 1.3.0 / 2023-04-19
 
 [full changelog](http://github.com/yolk/valvat/compare/v1.2.1...v1.3.0)
