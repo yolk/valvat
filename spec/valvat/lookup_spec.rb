@@ -107,6 +107,8 @@ describe Valvat::Lookup do
       it 'supports old :requester_vat option for backwards compatibility' do
         result = described_class.validate('IE6388047V', requester_vat: 'LU21416127')
 
+        skip 'VIES is down' if result.nil?
+
         expect(result).to match({
                                   request_date: kind_of(Date),
                                   request_identifier: /\A[\w\W]{16}\Z/,

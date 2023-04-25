@@ -6,6 +6,8 @@ describe Valvat::Lookup::VIES do
   it 'returns hash with valid: true on success' do
     response = described_class.new('IE6388047V', {}).perform
 
+    skip 'VIES is down' if Valvat::MemberStateUnavailable === response[:error]
+
     expect(response).to match({
                                 valid: true,
                                 address: '3RD FLOOR, GORDON HOUSE, BARROW STREET, DUBLIN 4',
