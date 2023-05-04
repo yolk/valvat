@@ -23,9 +23,9 @@ class Valvat
         !(
           # [KLM]: CD first two numerical digits must be between 01 and 56 (both inclusive)
           (vat.to_s_wo_country =~ SPECIAL_NIF_EXP &&
-          vat.to_s_wo_country[1..2].to_i > 56) or vat.to_s_wo_country[1..2].to_i < 0o1 ||
-          # Exceptions: X0000000T, 00000001R, 00000000T, 99999999R are invalid.
-          %w[X0000000T 00000001R 00000000T 99999999R].include?(vat.to_s_wo_country)
+            (vat.to_s_wo_country[1..2].to_i > 56 || vat.to_s_wo_country[1..2].to_i < 1)) ||
+            # Exceptions: X0000000T, 00000001R, 00000000T & 99999999R are invalid.
+            %w[X0000000T 00000001R 00000000T 99999999R].include?(vat.to_s_wo_country)
         )
       end
 
