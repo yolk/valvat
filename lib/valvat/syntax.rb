@@ -6,7 +6,7 @@ class Valvat
       'AT' => /\AATU[0-9]{8}\Z/,                                          # Austria
       'BE' => /\ABE[0-1][0-9]{9}\Z/,                                      # Belgium
       'BG' => /\ABG[0-9]{9,10}\Z/,                                        # Bulgaria
-      'CY' => /\ACY(?!12)[0-59][0-9]{7}[A-Z]\Z/,                          # Cyprus
+      'CY' => /\ACY(?!12)[0-69][0-9]{7}[A-Z]\Z/,                          # Cyprus
       'CZ' => /\ACZ[0-9]{8,10}\Z/,                                        # Czech Republic
       'DE' => /\ADE[0-9]{9}\Z/,                                           # Germany
       'DK' => /\ADK[0-9]{8}\Z/,                                           # Denmark
