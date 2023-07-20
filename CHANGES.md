@@ -4,6 +4,7 @@
 [full changelog](http://github.com/yolk/valvat/compare/v1.3.0...master)
 
 * Valvat.configure: Allow global configuration
+* Update the Cyprus syntax regular expression by [Orien Madgwick](https://github.com/orien))
 * Valvat::Checksum::ES: Fixed issue with VAT ids starting with '*00' #124 / #115 (by [Thomas Scalise](https://github.com/KirtashW17))
 
 ### 1.3.0 / 2023-04-19
