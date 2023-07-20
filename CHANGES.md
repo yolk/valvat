@@ -1,7 +1,11 @@
 
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v1.3.0...master)
+[full changelog](http://github.com/yolk/valvat/compare/v1.4.0...master)
+
+### 1.4.0 / 2023-07-20
+
+[full changelog](http://github.com/yolk/valvat/compare/v1.3.0...v1.4.0)
 
 * Valvat.configure: Allow global configuration
 * Update the Cyprus syntax regular expression by [Orien Madgwick](https://github.com/orien))
