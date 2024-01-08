@@ -26,8 +26,8 @@ class Valvat
                 <urn:countryCode><%= @vat.vat_country_code %></urn:countryCode>
                 <urn:vatNumber><%= @vat.to_s_wo_country %></urn:vatNumber>
                 <% if @requester %>
-                <urn:requesterCountryCode><%= @vat.vat_country_code %></urn:requesterCountryCode>
-                <urn:requesterVatNumber><%= @vat.to_s_wo_country %></urn:requesterVatNumber>
+                <urn:requesterCountryCode><%= @requester.vat_country_code %></urn:requesterCountryCode>
+                <urn:requesterVatNumber><%= @requester.to_s_wo_country %></urn:requesterVatNumber>
                 <% end %>
             </urn:checkVat<%= 'Approx' if @requester %>>
           </soapenv:Body>
