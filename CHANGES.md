@@ -1,7 +1,13 @@
 
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v1.4.0...master)
+[full changelog](http://github.com/yolk/valvat/compare/v1.4.1...master)
+
+### 1.4.1 / 2024-01-08
+
+[full changelog](http://github.com/yolk/valvat/compare/v1.4.0...v1.4.1)
+
+* Fixed incorrect variable usage in SOAP request body by [Jay Tabudlo](https://github.com/jaymoneybird))
 
 ### 1.4.0 / 2023-07-20
 

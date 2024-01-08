@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 class Valvat
-  VERSION = '1.4.0'
+  VERSION = '1.4.1'
 end
