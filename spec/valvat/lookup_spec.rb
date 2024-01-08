@@ -88,7 +88,7 @@ describe Valvat::Lookup do
 
     context 'with request identifier' do
       it 'returns hash of details instead of true' do
-        result = described_class.validate('IE6388047V', requester: 'IE6388047V')
+        result = described_class.validate('IE6388047V', requester: 'DE129415943')
 
         skip 'VIES is down' if result.nil?
 
