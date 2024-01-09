@@ -1,24 +1,28 @@
 # frozen_string_literal: true
 
-$LOAD_PATH.push File.expand_path('lib', __dir__)
-require 'valvat/version'
+require_relative 'valvat/version'
 
 Gem::Specification.new do |s|
-  s.name                              = 'valvat'
-  s.version                           = Valvat::VERSION
-  s.platform                          = Gem::Platform::RUBY
-  s.license                           = 'MIT'
-  s.authors                           = ['Sebastian Munz']
-  s.email                             = ['sebastian@mite.de']
-  s.homepage                          = 'https://github.com/yolk/valvat'
-  s.summary                           = 'Validates european vat numbers. Standalone or as a ActiveModel validator.'
-  s.description                       = 'Validates european vat numbers. Standalone or as a ActiveModel validator.'
-  s.files                             = Dir['lib/**/*.rb']
-  s.require_paths                     = ['lib']
-  s.cert_chain                        = ['certs/mite.pem']
-  s.signing_key                       = File.expand_path('~/.ssh/gem-private_key.pem') if $PROGRAM_NAME =~ /gem\z/
-  s.metadata['rubygems_mfa_required'] = 'true'
-  s.required_ruby_version             = '>= 2.6.0'
+  s.name                    = 'valvat'
+  s.version                 = Valvat::VERSION
+  s.license                 = 'MIT'
+  s.authors                 = ['Sebastian Munz']
+  s.email                   = ['sebastian@mite.de']
+  s.homepage                = 'https://github.com/yolk/valvat'
+  s.summary                 = 'Validates european vat numbers. Standalone or as a ActiveModel validator.'
+  s.description             = 'Validates european vat numbers. Standalone or as a ActiveModel validator.'
+  s.required_ruby_version   = '>= 2.6.0'
+  s.file                    = Dir['lib/**/*.rb']
+  s.cert_chain              = ['certs/mite.pem']
+  s.signing_key             = File.expand_path('~/.ssh/gem-private_key.pem') if $PROGRAM_NAME.end_with?('gem') && ARGV == ['build', __FILE__]
+  s.metadata = {
+    'bug_tracker_uri'       => 'https://github.com/yolk/valvat/issues',
+    'changelog_uri'         => 'https://github.com/yolk/valvat/blob/master/CHANGES.md',
+    'documentation_uri'     => 'https://github.com/yolk/valvat/blob/master/README.md',
+    'homepage_uri'          => s.homepage,
+    'source_code_uri'       => 'https://github.com/yolk/valvat'
+    'rubygems_mfa_required' => 'true'
+  }
 
   s.add_runtime_dependency('rexml', '>= 3.2', '< 4.0')
 end
