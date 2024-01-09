@@ -14,13 +14,13 @@ Gem::Specification.new do |s|
   s.required_ruby_version   = '>= 2.6.0'
   s.files                   = Dir['lib/**/*.rb']
   s.cert_chain              = ['certs/mite.pem']
-  s.signing_key             = File.expand_path('~/.ssh/gem-private_key.pem') if $PROGRAM_NAME.end_with?('gem') && ARGV == ['build', __FILE__]
+  s.signing_key             = File.expand_path('~/.ssh/gem-private_key.pem') if $PROGRAM_NAME.end_with?('gem')
   s.metadata = {
-    'bug_tracker_uri'       => "#{s.homepage}/issues",
-    'changelog_uri'         => "#{s.homepage}/blob/master/CHANGES.md",
-    'documentation_uri'     => "#{s.homepage}/blob/master/README.md",
-    'homepage_uri'          => s.homepage,
-    'source_code_uri'       => s.homepage,
+    'bug_tracker_uri' => "#{s.homepage}/issues",
+    'changelog_uri' => "#{s.homepage}/blob/master/CHANGES.md",
+    'documentation_uri' => "#{s.homepage}/blob/master/README.md",
+    'homepage_uri' => s.homepage,
+    'source_code_uri' => s.homepage,
     'rubygems_mfa_required' => 'true'
   }
 
