@@ -27,6 +27,9 @@ class Valvat
   InvalidRequester = Class.new(LookupError)
   BlockedError = Class.new(LookupError)
   RateLimitError = Class.new(LookupError)
+  InfrastructureError = Class.new(LookupError)
+  SecurityError = Class.new(LookupError)
+  BusinessError = Class.new(LookupError)
 
   UnknownLookupError = Class.new(LookupError)
 

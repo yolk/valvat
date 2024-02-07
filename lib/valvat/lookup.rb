@@ -2,6 +2,7 @@
 
 require_relative 'lookup/vies'
 require_relative 'lookup/hmrc'
+require_relative 'lookup/bfs'
 require_relative 'options'
 
 class Valvat
@@ -32,6 +33,7 @@ class Valvat
 
     def webservice
       return HMRC if @vat.vat_country_code == 'GB'
+      return BFS if @vat.vat_country_code == 'CH'
 
       VIES
     end

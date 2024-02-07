@@ -42,7 +42,11 @@ class Valvat
 
       # Use lookup via HMRC for VAT numbers from the UK
       # if set to false lookup will always return false for UK VAT numbers
-      uk: false
+      uk: false,
+
+      # Use lookup via BFS for VAT numbers from the Switzerland
+      # if set to false lookup will always return false for CH VAT numbers
+      ch: false
     }.freeze
 
     def self.initialize
