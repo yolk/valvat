@@ -46,11 +46,15 @@ class Valvat
         # BFS responds with a 500 if input is invalid, fault code is Data_validation_failed
         response = fetch(endpoint_uri)
 
-        case [response, response.body]
-        in [Net::HTTPSuccess, _]
+        case response
+        when Net::HTTPSuccess
           parse(response.body)
-        in [Net::HTTPServerError, /Data_validation_failed/]
-          parse(response.body)
+        when Net::HTTPServerError
+          if response.body =~ /Data_validation_failed/
+            parse(response.body)
+          else
+            { error: Valvat::HTTPError.new(response.code, self.class) }
+          end
         else
           { error: Valvat::HTTPError.new(response.code, self.class) }
         end
