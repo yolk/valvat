@@ -6,7 +6,7 @@ class Valvat
       # All CH VAT starts with CHE. First figure is a character and should be skipped.
       # The CH VATs can have a suffix (MWST, TVA, IVA) which should be skipped.
       # Thus giving 8 figures to calculate the check digit
-      FIGURES_RANGE = [1..8]
+      FIGURES_RANGE = [1..8].freeze
       CHECK_DIGIT_POS = 9
 
       def check_digit

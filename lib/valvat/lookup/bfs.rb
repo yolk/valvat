@@ -35,7 +35,7 @@ class Valvat
       def self.prepare_for_lookup(vat)
         # BFS requires a space between the VAT number and the suffix (if present)
         index_of_suffix = vat =~ /MWST|IVA|TVA/
-        return if !index_of_suffix
+        return unless index_of_suffix
 
         vat.insert(index_of_suffix, ' ')
       end
@@ -43,24 +43,27 @@ class Valvat
       def perform
         return { valid: false } unless @options[:ch]
 
-        # BFS responds with a 500 if input is invalid, fault code is Data_validation_failed
         response = fetch(endpoint_uri)
-
         case response
         when Net::HTTPSuccess
           parse(response.body)
         when Net::HTTPServerError
-          if response.body =~ /Data_validation_failed/
-            parse(response.body)
-          else
-            { error: Valvat::HTTPError.new(response.code, self.class) }
-          end
+          parse_http_server_error(response)
         else
           { error: Valvat::HTTPError.new(response.code, self.class) }
         end
       end
 
       private
+
+      def parse_http_server_error(response)
+        # BFS returns a 500 status code for data validation error
+        if response.body =~ /Data_validation_failed/
+          parse(response.body)
+        else
+          { error: Valvat::HTTPError.new(response.code, self.class) }
+        end
+      end
 
       def endpoint_uri
         ENDPOINT_URI
@@ -90,10 +93,9 @@ class Valvat
         return build_fault(hash) if hash[:faultstring]
 
         is_valid = case hash[:validate_vat_number_result]
-                        when 'true' then true
-                        when 'false' then false
-                        else nil
-                       end
+                   when 'true' then true
+                   when 'false' then false
+                   end
 
         { valid: is_valid }
       end
@@ -101,7 +103,7 @@ class Valvat
       FAULTS = {
         'securityFaultFault' => SecurityError,
         'businessFaultFault' => BusinessError,
-        'infrastructureFaultFault' => InfrastructureError,
+        'infrastructureFaultFault' => InfrastructureError
       }.freeze
 
       def build_fault(hash)

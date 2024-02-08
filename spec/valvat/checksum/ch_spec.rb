@@ -3,7 +3,8 @@
 require 'spec_helper'
 
 describe Valvat::Checksum::CH do
-    ["CHE-343.663.860", "CHE343663860", "CHE-355.036.078", "CHE355036078", "CHE-480.519.647", "	CHE480519647"].each do |valid_vat|
+  ['CHE-343.663.860', 'CHE343663860', 'CHE-355.036.078', 'CHE355036078', 'CHE-480.519.647',
+   'CHE480519647'].each do |valid_vat|
     it "returns true on valid VAT #{valid_vat}" do
       expect(Valvat::Checksum.validate(valid_vat)).to be(true)
     end
