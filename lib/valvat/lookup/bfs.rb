@@ -57,8 +57,8 @@ class Valvat
       private
 
       def parse_http_server_error(response)
-        # BFS returns a 500 status code for data validation error
-        if response.body =~ /Data_validation_failed/
+        # BFS returns a 500 status code for data validation error and request limit exceeded
+        if response.body =~ /Data_validation_failed|Request_limit_exceeded/
           parse(response.body)
         else
           { error: Valvat::HTTPError.new(response.code, self.class) }
@@ -108,7 +108,7 @@ class Valvat
 
       def build_fault(hash)
         fault = hash[:faultstring]
-        return hash.merge({ valid: false }) if fault == 'Data_validation_failed'
+        return hash.merge({ valid: false }) if %w[Data_validation_failed Request_limit_exceeded].include? fault
 
         hash.merge({ error: (FAULTS[fault] || UnknownLookupError).new(fault, self.class) })
       end
