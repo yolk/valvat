@@ -26,6 +26,7 @@ class Valvat
       'LV' => /\ALV[0-9]{11}\Z/,                                                    # Latvia
       'MT' => /\AMT[0-9]{8}\Z/,                                                     # Malta
       'NL' => /\ANL[0-9]{9}B[0-9]{2}\Z/,                                            # Netherlands
+      'NO' => /\ANO[0-9]{9}(MVA)?\Z/,                                               # Norway
       'PL' => /\APL[0-9]{10}\Z/,                                                    # Poland
       'PT' => /\APT[0-9]{9}\Z/,                                                     # Portugal
       'RO' => /\ARO[1-9][0-9]{1,9}\Z/,                                              # Romania

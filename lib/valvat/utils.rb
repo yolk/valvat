@@ -5,7 +5,7 @@ require 'date'
 class Valvat
   module Utils
     EU_MEMBER_STATES = %w[AT BE BG CY CZ DE DK EE ES FI FR GR HR HU IE IT LT LU LV MT NL PL PT RO SE SI SK].freeze
-    SUPPORTED_STATES = EU_MEMBER_STATES + %w[CH GB]
+    SUPPORTED_STATES = EU_MEMBER_STATES + %w[CH GB NO]
     COUNTRY_PATTERN = /\A([A-Z]{2})(.+)\Z/.freeze
     NORMALIZE_PATTERN = /([[:punct:][:cntrl:]]|[[:space:]])+/.freeze
     CONVERT_VAT_TO_ISO_COUNTRY = { 'EL' => 'GR', 'XI' => 'GB' }.freeze

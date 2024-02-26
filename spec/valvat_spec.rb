@@ -168,47 +168,40 @@ describe Valvat do
 
   context 'with VAT number from outside of europe' do
     let(:us_vat) { described_class.new('US345889003') }
-    let(:no_vat) { described_class.new('NO445889003') }
 
     describe '#valid?' do
       it 'returns false' do
         expect(us_vat).not_to be_valid
-        expect(no_vat).not_to be_valid
       end
     end
 
     describe '#exist?' do
       it 'returns false' do
         expect(us_vat).not_to be_exist
-        expect(no_vat).not_to be_exist
       end
     end
 
     describe '#iso_country_code' do
       it 'returns nil' do
         expect(us_vat.iso_country_code).to be_nil
-        expect(no_vat.iso_country_code).to be_nil
       end
     end
 
     describe '#vat_country_code' do
       it 'returns nil' do
         expect(us_vat.vat_country_code).to be_nil
-        expect(no_vat.vat_country_code).to be_nil
       end
     end
 
     describe '#to_s' do
       it 'returns full given VAT number' do
         expect(us_vat.to_s).to eql('US345889003')
-        expect(no_vat.to_s).to eql('NO445889003')
       end
     end
 
     describe '#inspect' do
       it 'returns VAT number without iso country code' do
         expect(us_vat.inspect).to eql('#<Valvat US345889003>')
-        expect(no_vat.inspect).to eql('#<Valvat NO445889003>')
       end
     end
   end

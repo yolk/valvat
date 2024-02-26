@@ -106,7 +106,7 @@ describe Valvat::Utils do
       expect(described_class.country_is_supported?('GB')).to be(true)
     end
 
-    %w[US AE CA CN BR AU NO ML].each do |code|
+    %w[US AE CA CN BR AU ML].each do |code|
       it "returns false on #{code}" do
         expect(described_class.country_is_supported?(code)).to be(false)
       end
