@@ -46,7 +46,11 @@ class Valvat
 
       # Use lookup via BFS for VAT numbers from the Switzerland
       # if set to false lookup will always return false for CH VAT numbers
-      ch: false
+      ch: false,
+
+      # Use lookup via BRREG for VAT numbers from Norway
+      # if set to false lookup will always return false for NO VAT numbers
+      no: false
     }.freeze
 
     def self.initialize
