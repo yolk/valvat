@@ -3,6 +3,8 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v1.4.1...master)
 
+* Resolved [rexml security vulnerability](https://github.com/ruby/rexml/security/advisories/GHSA-vg3r-rm7w-2xgh) by [Riana Ferreira](https://github.com/bad-vegan)
+
 ### 1.4.1 / 2024-01-08
 
 [full changelog](http://github.com/yolk/valvat/compare/v1.4.0...v1.4.1)
