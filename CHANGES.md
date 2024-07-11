@@ -1,7 +1,11 @@
 
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v1.4.2...master)
+[full changelog](http://github.com/yolk/valvat/compare/v1.4.3...master)
+
+### 1.4.3 / 2024-07-11
+
+[full changelog](http://github.com/yolk/valvat/compare/v1.4.2...v1.4.3)
 
 * Readded translation files back to the gem [Edouard Brière](https://github.com/edouard)
 
