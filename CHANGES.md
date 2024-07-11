@@ -3,6 +3,8 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v1.4.2...master)
 
+* Readded translation files back to the gem [Edouard Brière](https://github.com/edouard)
+
 ### 1.4.2 / 2024-07-09
 
 [full changelog](http://github.com/yolk/valvat/compare/v1.4.1...v1.4.2)
