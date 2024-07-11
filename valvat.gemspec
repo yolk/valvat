@@ -24,5 +24,5 @@ Gem::Specification.new do |s|
     'rubygems_mfa_required' => 'true'
   }
 
-  s.add_runtime_dependency('rexml', '>= 3.2.7', '< 4.0.0')
+  s.add_dependency('rexml', '>= 3.2.7', '< 4.0.0')
 end
