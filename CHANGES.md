@@ -1,13 +1,19 @@
 
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v1.4.3...master)
+[full changelog](http://github.com/yolk/valvat/compare/v1.4.4...master)
+
+### 1.4.4 / 2024-07-11
+
+[full changelog](http://github.com/yolk/valvat/compare/v1.4.3...v1.4.4)
+
+* Merged missed pull request intended for v1.4.3: Readded translation files back to the gem [Edouard Brière](https://github.com/edouard)
 
 ### 1.4.3 / 2024-07-11
 
 [full changelog](http://github.com/yolk/valvat/compare/v1.4.2...v1.4.3)
 
-* Readded translation files back to the gem [Edouard Brière](https://github.com/edouard)
+* Missed to merge pull request. Skip this version.
 
 ### 1.4.2 / 2024-07-09
 
