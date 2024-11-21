@@ -31,4 +31,6 @@ class Valvat
   UnknownLookupError = Class.new(LookupError)
 
   HTTPError = Class.new(LookupError)
+
+  AuthorizationError = Class.new(LookupError)
 end

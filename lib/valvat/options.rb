@@ -23,6 +23,10 @@ class Valvat
     def [](key)
       @options.key?(key) ? @options[key] : Valvat.config[key]
     end
+
+    def dig(*keys)
+      @options.dig(*keys).nil? ? Valvat.config.dig(*keys) : @options.dig(*keys)
+    end
   end
 
   def self.Options(options)

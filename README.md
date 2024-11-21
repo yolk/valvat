@@ -7,7 +7,7 @@ Validates european vat numbers. Standalone or as a ActiveModel validator.
 
 ## A note on Brexit
 
-Valvat supports validating VAT-IDs from the UK by syntax, checksum and using the HMRC API (for backwards compatibility only with the `:uk` option set to true). Validation against the VIES web service stopped working early 2021.
+Valvat supports validating VAT-IDs from the UK by syntax, checksum and using the HMRC API (for backwards compatibility only with the `:uk` option with Authentication credentials). Validation against the VIES web service stopped working early 2021.
 
 Northern Ireland received its own VAT number prefix - XI which is supported by VIES web service so any XI-prefixed VAT numbers should be validated as any EU VAT number.
 
@@ -72,14 +72,21 @@ Valvat::Lookup.validate("DE345789003")
 # => true or false or nil
 ```
 
-To keep backwards compatibility lookups of UK VAT numbers against the HMRC API are only performed with the option `:uk` set to true.
+To keep backwards compatibility lookups of UK VAT numbers against the HMRC API are only performed with the option `:uk` with Authentication credentials.
 
 ```ruby
-Valvat::Lookup.validate("GB553557881", uk: true)
+Valvat::Lookup.validate(
+  "GB553557881",
+  uk: {
+    live: true,
+    client_id: '<client_id>',
+    client_secret: '<client_secret>'
+  }
+)
 # => true or false or nil
 ```
 
-Without this option the lookup of UK VAT number always returns `false`.
+When set `uk: false` or `uk: nil` the lookup of UK VAT number always returns `false`.
 
 *IMPORTANT* Keep in mind that the web service might be offline at some time for all or some member states. If this happens `exists?` or `Valvat::Lookup.validate` will return `nil`. See *Handling of maintenance errors* for further details.
 
@@ -189,9 +196,13 @@ Instead of passing in the same options again and again, Valvat allows to alter i
 
 ```ruby
 Valvat.configure(
-  uk: true,
   raise_error: true,
-  http: { read_timeout: 5 }
+  http: { read_timeout: 5 },
+  uk: {
+    live: true, # Live mode for switching between Sandbox and Production API (TRUE by default)
+    client_id: <client_id> # Required for OAuth 2.0 Authentication
+    client_secret: <client_secret> # Required for OAuth 2.0 Authentication
+  }
 )
 ```
 
@@ -230,7 +241,7 @@ validates :vat_number, valvat: { lookup: true }
 To also perform an lookup via HMRC for UK VAT numbers:
 
 ```ruby
-validates :vat_number, valvat: { lookup: { uk: true } }
+validates :vat_number, valvat: { lookup: { uk: { client_id: '<client_id>', client_secret: '<client_secret>' } } }
 ```
 
 By default this will validate to true if the web service is down. To fail in this case simply add the `:fail_if_down` option:
@@ -329,6 +340,12 @@ This basically just removes trailing spaces and ensures all chars are uppercase.
 ## Usage with IPv6
 
 There seems to be a problem when using the VIES service over IPv6. Sadly this is nothing this gem can address. For details and proposed solutions have a look at [this question on StackOverflow](http://stackoverflow.com/questions/15616833/vies-vat-api-soap-error-ipv6). Thanks to George Palmer for bringing up this issue.
+
+## HMRC API v2.0
+- Version 2 is the recommended version of this API. Version 1 will be removed in January 2025.
+- See more details https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/vat-registered-companies-api/2.0.
+- New configuration was added to support API v2.0 with OAuth 2.0 Authentication. See configuration section.
+- Valid VAT numbers for HMRC lookup on Sandbox https://github.com/hmrc/vat-registered-companies-api/blob/main/public/api/conf/2.0/test-data/vrn.csv
 
 ## Links
 
