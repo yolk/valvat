@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'base'
+require_relative '../hmrc/access_token'
 require 'net/http'
 require 'json'
 require 'time'
@@ -8,16 +9,19 @@ require 'time'
 class Valvat
   class Lookup
     class HMRC < Base
-      ENDPOINT_URL = 'https://api.service.hmrc.gov.uk/organisations/vat/check-vat-number/lookup'
+      PRODUCTION_ENDPOINT_URL = 'https://api.service.hmrc.gov.uk/organisations/vat/check-vat-number/lookup'
+      SANDBOX_ENDPOINT_URL = 'https://test-api.service.hmrc.gov.uk/organisations/vat/check-vat-number/lookup'
       HEADERS = {
         # https://developer.service.hmrc.gov.uk/api-documentation/docs/reference-guide#versioning
-        'Accept' => 'application/vnd.hmrc.1.0+json'
+        'Accept' => 'application/vnd.hmrc.2.0+json'
       }.freeze
 
       def perform
         return { valid: false } unless @options[:uk]
 
         parse(fetch(endpoint_uri).body)
+      rescue Valvat::HMRC::AccessToken::Error => e
+        { error: e }
       end
 
       private
@@ -25,11 +29,12 @@ class Valvat
       def endpoint_uri
         endpoint = "/#{@vat.to_s_wo_country}"
         endpoint += "/#{@requester.to_s_wo_country}" if @requester
-        URI.parse(ENDPOINT_URL + endpoint)
+        endpoint_url = @options.dig(:uk, :live) ? PRODUCTION_ENDPOINT_URL : SANDBOX_ENDPOINT_URL
+        URI.parse(endpoint_url + endpoint)
       end
 
       def build_request(uri)
-        Net::HTTP::Get.new(uri.request_uri, HEADERS)
+        Net::HTTP::Get.new(uri.request_uri, build_headers!)
       end
 
       def parse(body)
@@ -72,7 +77,8 @@ class Valvat
         'SCHEDULED_MAINTENANCE' => ServiceUnavailable,
         'SERVER_ERROR' => ServiceUnavailable,
         'INVALID_REQUEST' => InvalidRequester,
-        'GATEWAY_TIMEOUT' => Timeout
+        'GATEWAY_TIMEOUT' => Timeout,
+        'INVALID_CREDENTIALS' => AuthorizationError
       }.freeze
 
       def build_fault(raw)
@@ -81,6 +87,14 @@ class Valvat
 
         exception = FAULTS[fault] || UnknownLookupError
         { error: exception.new("#{fault}#{raw['message'] ? " (#{raw['message']})" : ''}", self.class) }
+      end
+
+      def build_headers!
+        HEADERS.merge('Authorization' => "Bearer #{fetch_access_token!}")
+      end
+
+      def fetch_access_token!
+        @fetch_access_token ||= Valvat::HMRC::AccessToken.fetch(@options)
       end
     end
   end

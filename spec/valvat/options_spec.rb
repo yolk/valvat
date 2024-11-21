@@ -5,11 +5,17 @@ require 'spec_helper'
 describe Valvat::Options do
   describe '#[]' do
     it 'returns global config by default' do
-      expect(described_class.new({})[:uk]).to be(false)
+      expect(described_class.new({})[:uk]).to include(
+        {
+          live: true,
+          client_id: '<client_id>',
+          client_secret: '<client_secret>'
+        }
+      )
     end
 
     it 'returns option if set' do
-      expect(described_class.new({ uk: true })[:uk]).to be(true)
+      expect(described_class.new({ uk: false })[:uk]).to be(false)
     end
 
     context 'when options contains deprecated key' do

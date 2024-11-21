@@ -3,6 +3,70 @@
 require 'spec_helper'
 
 describe Valvat::Lookup do
+  shared_context 'with hmrc configuration' do
+    let(:uk) { { live: false, client_id: '<client_id>', client_secret: '<client_secret>' } }
+    let(:vat_number) { nil }
+    let(:authentication_response) do
+      {
+        status: 200,
+        body: {
+          access_token: '<access_token>',
+          token_type: 'bearer',
+          expires_in: 14_400,
+          scope: 'read:vat'
+        }.to_json
+      }
+    end
+    let(:lookup_request_url) { "https://test-api.service.hmrc.gov.uk/organisations/vat/check-vat-number/lookup/#{vat_number}" }
+    let(:lookup_response) do
+      {
+        status: 200,
+        body: {
+          target: {
+            address: {
+              line1: '1 PRINCIPAL PLACE',
+              line2: 'WORSHIP STREET',
+              line3: 'LONDON',
+              postcode: 'EC2A 2FA',
+              countryCode: 'GB'
+            },
+            vatNumber: vat_number,
+            name: 'AMAZON EU SARL'
+          },
+          processingDate: '2024-11-19T15:11:52+00:00'
+        }.to_json
+      }
+    end
+
+    before do
+      Valvat.configure(uk: uk)
+
+      stub_request(:post, 'https://test-api.service.hmrc.gov.uk/oauth/token')
+        .with(
+          body: {
+            scope: Valvat::HMRC::AccessToken::SCOPE,
+            grant_type: Valvat::HMRC::AccessToken::GRANT_TYPE,
+            client_id: uk[:client_id],
+            client_secret: uk[:client_secret]
+          }
+        )
+        .to_return(authentication_response)
+
+      stub_request(:get, lookup_request_url)
+        .with(
+          headers: {
+            'Accept' => 'application/vnd.hmrc.2.0+json',
+            'Authorization' => 'Bearer <access_token>'
+          }
+        )
+        .to_return(lookup_response)
+    end
+
+    after do
+      Valvat.configure(uk: uk.merge(live: true))
+    end
+  end
+
   describe '#validate' do
     context 'with existing EU VAT number' do
       it 'returns true' do
@@ -35,19 +99,21 @@ describe Valvat::Lookup do
     end
 
     context 'with existing GB VAT number' do
+      include_context 'with hmrc configuration'
+
+      let!(:vat_number) { '727255821' }
+
       it 'returns true' do
-        result = described_class.validate('GB727255821', uk: true)
-        skip 'HMRC is down' if result.nil?
+        result = described_class.validate("GB#{vat_number}")
         expect(result).to be(true)
       end
 
       it 'returns details in format similar to VIES' do
-        result = described_class.validate('GB727255821', detail: true, uk: true)
-        skip 'HMRC is down' if result.nil?
+        result = described_class.validate("GB#{vat_number}", detail: true)
         expect(result).to match({
                                   request_date: kind_of(Time),
                                   country_code: 'GB',
-                                  vat_number: '727255821',
+                                  vat_number: vat_number,
                                   name: 'AMAZON EU SARL',
                                   address: "1 PRINCIPAL PLACE\nWORSHIP STREET\nLONDON\nEC2A 2FA\nGB",
                                   valid: true
@@ -72,9 +138,21 @@ describe Valvat::Lookup do
     end
 
     context 'with not existing GB VAT number' do
+      include_context 'with hmrc configuration'
+
+      let(:vat_number) { '727255820' }
+      let(:lookup_response) do
+        {
+          status: 404,
+          body: {
+            code: 'NOT_FOUND',
+            message: 'targetVrn does not match a registered company'
+          }.to_json
+        }
+      end
+
       it 'returns false' do
-        result =  described_class.validate('GB727255820', uk: true)
-        skip 'HMRC is down' if result.nil?
+        result =  described_class.validate("GB#{vat_number}")
         expect(result).to be(false)
       end
     end
@@ -122,34 +200,85 @@ describe Valvat::Lookup do
       end
 
       context 'with GB VAT number' do
+        include_context 'with hmrc configuration'
+
+        let(:vat_number) { '727255821' }
+        let(:lookup_request_url) { "https://test-api.service.hmrc.gov.uk/organisations/vat/check-vat-number/lookup/#{vat_number}/#{vat_number}" }
+        let(:lookup_response) do
+          {
+            status: 200,
+            body: {
+              target: {
+                address: {
+                  line1: '1 PRINCIPAL PLACE',
+                  line2: 'WORSHIP STREET',
+                  line3: 'LONDON',
+                  postcode: 'EC2A 2FA',
+                  countryCode: 'GB'
+                },
+                vatNumber: vat_number,
+                name: 'AMAZON EU SARL'
+              },
+              requester: vat_number,
+              consultationNumber: 'RLH-RFQ-AFW',
+              processingDate: '2024-11-19T15:11:52+00:00'
+            }.to_json
+          }
+        end
+
         it 'returns hash of details with request number' do
-          response = described_class.validate('GB727255821', requester: 'GB727255821', uk: true)
-          skip 'HMRC is down' if response.nil?
-          expect(response).to match({
-                                      request_date: kind_of(Time),
-                                      request_identifier: /\A\w\w\w-\w\w\w-\w\w\w\Z/,
-                                      country_code: 'GB',
-                                      vat_number: '727255821',
-                                      name: 'AMAZON EU SARL',
-                                      address: "1 PRINCIPAL PLACE\nWORSHIP STREET\nLONDON\nEC2A 2FA\nGB",
-                                      valid: true
-                                    })
+          response = described_class.validate("GB#{vat_number}", requester: "GB#{vat_number}")
+          expect(response).to include(
+            request_date: kind_of(Time),
+            request_identifier: 'RLH-RFQ-AFW',
+            country_code: 'GB',
+            vat_number: vat_number,
+            name: 'AMAZON EU SARL',
+            address: "1 PRINCIPAL PLACE\nWORSHIP STREET\nLONDON\nEC2A 2FA\nGB",
+            valid: true
+          )
         end
 
-        it 'raises exception if requester is not from GB' do
-          expect do
-            described_class.validate('GB727255821', requester: 'IE6388047V', uk: true)
-          end.to raise_error(Valvat::InvalidRequester,
-                             'The HMRC web service returned the error: ' \
-                             'INVALID_REQUEST (Invalid requesterVrn - Vrn parameters should be 9 or 12 digits)')
+        context 'when requester is not from GB' do # rubocop: disable RSpec/NestedGroups
+          let(:lookup_request_url) { "https://test-api.service.hmrc.gov.uk/organisations/vat/check-vat-number/lookup/#{vat_number}/6388047V" }
+          let(:lookup_response) do
+            {
+              status: 422,
+              body: {
+                code: 'INVALID_REQUEST',
+                message: 'Invalid requesterVrn - Vrn parameters should be 9 or 12 digits'
+              }.to_json
+            }
+          end
+
+          it 'raises exception' do
+            expect do
+              described_class.validate("GB#{vat_number}", requester: 'IE6388047V')
+            end.to raise_error(Valvat::InvalidRequester,
+                               'The HMRC web service returned the error: ' \
+                               'INVALID_REQUEST (Invalid requesterVrn - Vrn parameters should be 9 or 12 digits)')
+          end
         end
 
-        it 'raises exception if requester is not valid' do
-          expect do
-            described_class.validate('GB727255821', requester: 'GB6388047', uk: true)
-          end.to raise_error(Valvat::InvalidRequester,
-                             'The HMRC web service returned the error: ' \
-                             'INVALID_REQUEST (Invalid requesterVrn - Vrn parameters should be 9 or 12 digits)')
+        context 'when requester is not valid' do # rubocop: disable RSpec/NestedGroups
+          let(:lookup_request_url) { "https://test-api.service.hmrc.gov.uk/organisations/vat/check-vat-number/lookup/#{vat_number}/6388047" }
+          let(:lookup_response) do
+            {
+              status: 422,
+              body: {
+                code: 'INVALID_REQUEST',
+                message: 'Invalid requesterVrn - Vrn parameters should be 9 or 12 digits'
+              }.to_json
+            }
+          end
+
+          it 'raises exception' do
+            expect do
+              described_class.validate("GB#{vat_number}", requester: 'GB6388047')
+            end.to raise_error(Valvat::InvalidRequester,
+                               'The HMRC web service returned the error: ' \
+                               'INVALID_REQUEST (Invalid requesterVrn - Vrn parameters should be 9 or 12 digits)')
+          end
         end
       end
 
@@ -366,31 +495,54 @@ describe Valvat::Lookup do
   describe '#validate with HMRC test enviroment' do
     # https://developer.service.hmrc.gov.uk/api-documentation/docs/testing
     # https://github.com/hmrc/vat-registered-companies-api/blob/master/public/api/conf/1.0/test-data/vrn.csv
-    subject(:result) { described_class.validate('GB123456789', uk: true) }
+    subject(:result) { described_class.validate("GB#{vat_number}") }
 
-    before do
-      stub_const('Valvat::Lookup::HMRC::ENDPOINT_URL', 'https://test-api.service.hmrc.gov.uk/organisations/vat/check-vat-number/lookup')
-    end
+    include_context 'with hmrc configuration'
+
+    let(:vat_number) { '123456789' }
 
     context 'with valid request with valid VAT number' do
-      it 'returns true' do
-        expect(described_class.validate('GB553557881', uk: true)).to be(true)
-        expect(described_class.validate('GB146295999727', uk: true)).to be(true)
+      context 'when VAT is 553557881' do
+        let(:vat_number) { '553557881' }
+
+        it 'returns true' do
+          expect(result).to be(true)
+        end
+      end
+
+      context 'when VAT is 146295999727' do
+        let(:vat_number) { '146295999727' }
+
+        it 'returns true' do
+          expect(result).to be(true)
+        end
       end
     end
 
     context 'with valid request with an invalid VAT number' do
+      let(:lookup_response) do
+        {
+          status: 404,
+          body: {
+            code: 'NOT_FOUND',
+            message: 'targetVrn does not match a registered company'
+          }.to_json
+        }
+      end
+
       it 'returns false' do
         expect(result).to be(false)
       end
     end
 
     describe 'Error : MESSAGE_THROTTLED_OUT' do
-      before do
-        stub_request(:get, /test-api\.service\.hmrc\.gov\.uk/).to_return(
+      let(:lookup_response) do
+        {
           status: 429,
-          body: '{"code":"MESSAGE_THROTTLED_OUT"}'
-        )
+          body: {
+            code: 'MESSAGE_THROTTLED_OUT'
+          }.to_json
+        }
       end
 
       it 'raises error' do
@@ -398,16 +550,18 @@ describe Valvat::Lookup do
       end
 
       it 'returns nil with raise_error set to false' do
-        expect(described_class.validate('GB123456789', raise_error: false, uk: true)).to be_nil
+        expect(described_class.validate('GB123456789', raise_error: false)).to be_nil
       end
     end
 
     describe 'Error : SCHEDULED_MAINTENANCE' do
-      before do
-        stub_request(:get, /test-api\.service\.hmrc\.gov\.uk/).to_return(
+      let(:lookup_response) do
+        {
           status: 503,
-          body: '{"code":"SCHEDULED_MAINTENANCE"}'
-        )
+          body: {
+            code: 'SCHEDULED_MAINTENANCE'
+          }.to_json
+        }
       end
 
       it 'returns nil' do
@@ -416,17 +570,19 @@ describe Valvat::Lookup do
 
       it 'raises error with raise_error set to false' do
         expect do
-          described_class.validate('GB123456789', raise_error: true, uk: true)
+          described_class.validate('GB123456789', raise_error: true)
         end.to raise_error(Valvat::ServiceUnavailable, 'The HMRC web service returned the error: SCHEDULED_MAINTENANCE')
       end
     end
 
     describe 'Error : SERVER_ERROR' do
-      before do
-        stub_request(:get, /test-api\.service\.hmrc\.gov\.uk/).to_return(
+      let(:lookup_response) do
+        {
           status: 503,
-          body: '{"code":"SERVER_ERROR"}'
-        )
+          body: {
+            code: 'SERVER_ERROR'
+          }.to_json
+        }
       end
 
       it 'returns nil' do
@@ -435,17 +591,19 @@ describe Valvat::Lookup do
 
       it 'raises error with raise_error set to false' do
         expect do
-          described_class.validate('GB123456789', raise_error: true, uk: true)
+          described_class.validate('GB123456789', raise_error: true)
         end.to raise_error(Valvat::ServiceUnavailable, 'The HMRC web service returned the error: SERVER_ERROR')
       end
     end
 
     describe 'Error : GATEWAY_TIMEOUT' do
-      before do
-        stub_request(:get, /test-api\.service\.hmrc\.gov\.uk/).to_return(
+      let(:lookup_response) do
+        {
           status: 504,
-          body: '{"code":"GATEWAY_TIMEOUT"}'
-        )
+          body: {
+            code: 'GATEWAY_TIMEOUT'
+          }.to_json
+        }
       end
 
       it 'raises error' do
@@ -453,7 +611,7 @@ describe Valvat::Lookup do
       end
 
       it 'returns nil with raise_error set to false' do
-        expect(described_class.validate('GB123456789', raise_error: false, uk: true)).to be_nil
+        expect(described_class.validate('GB123456789', raise_error: false)).to be_nil
       end
     end
 
@@ -468,17 +626,19 @@ describe Valvat::Lookup do
 
       it 'also raises error with raise_error set to false (not handled)' do
         expect do
-          described_class.validate('GB123456789', raise_error: false, uk: true)
+          described_class.validate('GB123456789', raise_error: false)
         end.to raise_error(Net::OpenTimeout)
       end
     end
 
     describe 'Error : INTERNAL_SERVER_ERROR' do
-      before do
-        stub_request(:get, /test-api\.service\.hmrc\.gov\.uk/).to_return(
-          status: 500,
-          body: '{"code":"INTERNAL_SERVER_ERROR"}'
-        )
+      let(:lookup_response) do
+        {
+          status: 504,
+          body: {
+            code: 'INTERNAL_SERVER_ERROR'
+          }.to_json
+        }
       end
 
       it 'raises error' do
@@ -486,7 +646,57 @@ describe Valvat::Lookup do
       end
 
       it 'returns nil with raise_error set to false' do
-        expect(described_class.validate('GB123456789', raise_error: false, uk: true)).to be_nil
+        expect(described_class.validate('GB123456789', raise_error: false)).to be_nil
+      end
+    end
+
+    describe 'Error : INVALID_CREDENTIALS' do
+      let(:lookup_response) do
+        {
+          status: 401,
+          body: {
+            code: 'INVALID_CREDENTIALS',
+            message: 'Invalid Authentication information provided'
+          }.to_json
+        }
+      end
+
+      it 'raises error' do
+        expect do
+          result
+        end.to raise_error(
+          Valvat::AuthorizationError,
+          'The HMRC web service returned the error: INVALID_CREDENTIALS (Invalid Authentication information provided)'
+        )
+      end
+
+      it 'returns nil with raise_error set to false' do
+        expect(described_class.validate('GB123456789', raise_error: false)).to be_nil
+      end
+    end
+
+    describe 'Valvat::HMRC::AccessToken::Error : invalid_client' do
+      let(:authentication_response) do
+        {
+          status: 401,
+          body: {
+            error: 'invalid_client',
+            error_description: 'invalid client id or secret'
+          }.to_json
+        }
+      end
+
+      it 'raises error' do
+        expect do
+          result
+        end.to raise_error(
+          Valvat::HMRC::AccessToken::Error,
+          'Failed to fetch access token: invalid client id or secret'
+        )
+      end
+
+      it 'returns nil with raise_error set to false' do
+        expect(described_class.validate('GB123456789', raise_error: false)).to be_nil
       end
     end
   end

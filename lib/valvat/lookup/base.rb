@@ -10,6 +10,7 @@ class Valvat
         @vat = Valvat(vat)
         @options = Valvat::Options(options)
         @requester = @options[:requester] && Valvat(@options[:requester])
+        @rate_limit = @options[:rate_limit]
       end
 
       def perform
@@ -40,13 +41,13 @@ class Valvat
       def fetch(uri, limit = 0)
         response = send_request(uri)
 
-        if response == Net::HTTPRedirection && limit < 5
+        if response == Net::HTTPRedirection && limit < @rate_limit
           fetch(URI.parse(response['Location']), limit + 1)
         else
           response
         end
       rescue Errno::ECONNRESET, IOError
-        raise if limit > 5
+        raise if limit > @rate_limit
 
         fetch(uri, limit + 1)
       end
