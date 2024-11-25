@@ -71,7 +71,7 @@ class Valvat
     end
 
     def configure(options)
-      @data = @data.deep_merge(Utils.deep_symbolize_keys(options))
+      @data = Utils.deep_merge(@data, Utils.deep_symbolize_keys(options))
     end
 
     def initialize
