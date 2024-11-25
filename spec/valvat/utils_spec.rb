@@ -122,4 +122,25 @@ describe Valvat::Utils do
       expect(described_class.deep_symbolize_keys({ 'a' => 1, :b => { 'c' => 3 } })).to eql({ a: 1, b: { c: 3 } })
     end
   end
+
+  describe '#deep_merge' do
+    let(:original_hash) { { a: 1, b: { c: 3 }, e: { w: 9 } } }
+    let(:hash_to_merge) { { b: { d: 4 }, e: { w: 10 }, y: 11 } }
+
+    it 'deep merge the nested hashes' do
+      expect(described_class.deep_merge(original_hash, hash_to_merge)).to eql(
+        {
+          a: 1,
+          b: {
+            c: 3,
+            d: 4
+          },
+          e: {
+            w: 10
+          },
+          y: 11
+        }
+      )
+    end
+  end
 end

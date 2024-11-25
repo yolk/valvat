@@ -45,5 +45,10 @@ class Valvat
         val.is_a?(Hash) ? deep_symbolize_keys(val) : val
       end
     end
+
+    def self.deep_merge(original_hash, hash_to_merge)
+      merger = proc { |_key, v1, v2| v1.is_a?(Hash) && v2.is_a?(Hash) ? v1.merge(v2, &merger) : v2 }
+      original_hash.merge(hash_to_merge, &merger)
+    end
   end
 end
