@@ -6,7 +6,7 @@ describe Valvat::HMRC::AccessToken do
   subject(:fetch_access_token) { described_class.fetch(Valvat::Options(options)) }
 
   let!(:options) { { uk: uk } }
-  let(:uk) { { live: false } }
+  let(:uk) { { sandbox: true } }
 
   shared_examples 'return access token' do
     it 'return access token' do

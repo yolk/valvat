@@ -6,7 +6,7 @@ describe Valvat::Lookup::HMRC do
   subject(:lookup) { described_class.new("GB#{vat_number}", options).perform }
 
   let(:options) { { uk: uk } }
-  let(:uk) { { live: false, client_id: '<client_id>', client_secret: '<client_secret>' } }
+  let(:uk) { { sandbox: true, client_id: '<client_id>', client_secret: '<client_secret>' } }
   let(:vat_number) { '553557881' }
   let(:authentication_response) do
     {
@@ -81,7 +81,7 @@ describe Valvat::Lookup::HMRC do
   end
 
   after do
-    Valvat.configure(uk: uk.merge(live: true))
+    Valvat.configure(uk: false)
   end
 
   context 'with valid data' do
@@ -127,6 +127,7 @@ describe Valvat::Lookup::HMRC do
       it 'returns error' do
         expect { lookup }.not_to raise_error
         expect(lookup[:error]).to be_a(Valvat::HMRC::AccessToken::Error)
+        expect(lookup[:valid]).to be_nil
       end
     end
 
@@ -148,9 +149,7 @@ describe Valvat::Lookup::HMRC do
     context 'when missing Authentication credentials (the default)' do
       let(:uk) { super().merge(client_id: nil, client_secret: nil) }
 
-      it 'returns false' do
-        expect(lookup[:valid]).to be(false)
-      end
+      include_examples 'returns error'
     end
 
     context 'when Authentication failed' do

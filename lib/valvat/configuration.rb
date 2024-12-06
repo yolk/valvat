@@ -43,16 +43,11 @@ class Valvat
       # Use lookup via HMRC for VAT numbers from the UK
       # if set to false lookup will always return false for UK VAT numbers
       # HMRC options:
-      # - API credentials for OAuth 2.0 Authentication
-      # - Live mode for switching between Sandbox and Production API:
-      # * TRUE - Production API
-      # * FALSE - Sandbox API
+      # :client_id and :client_secret     API credentials for OAuth 2.0 Authentication
+      # :sandbox                          Use sandboxed instead of production API (defaults to false)
       # See more details https://developer.service.hmrc.gov.uk/api-documentation/docs/development-practices
-      uk: {
-        live: true,
-        client_id: nil,
-        client_secret: nil
-      }.freeze,
+      #
+      uk: false,
 
       # Rate limit for Lookup and HMRC authentication requests
       rate_limit: 5

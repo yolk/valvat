@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe Valvat::Lookup do
   shared_context 'with hmrc configuration' do
-    let(:uk) { { live: false, client_id: '<client_id>', client_secret: '<client_secret>' } }
+    let(:uk) { { sandbox: true, client_id: '<client_id>', client_secret: '<client_secret>' } }
     let(:vat_number) { nil }
     let(:authentication_response) do
       {
@@ -63,7 +63,7 @@ describe Valvat::Lookup do
     end
 
     after do
-      Valvat.configure(uk: uk.merge(live: true))
+      Valvat.configure(uk: false)
     end
   end
 

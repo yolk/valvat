@@ -18,6 +18,8 @@ class Valvat
           @options[key] ||= @options[deprecated]
         end
       end
+
+      check_uk_key
     end
 
     def [](key)
@@ -26,6 +28,15 @@ class Valvat
 
     def dig(*keys)
       @options.dig(*keys).nil? ? Valvat.config.dig(*keys) : @options.dig(*keys)
+    end
+
+    private
+
+    def check_uk_key
+      return if @options[:uk] != true || silence
+
+      puts 'DEPRECATED: The option :uk is not allowed to be set to `true` anymore. ' \
+           'Using the HMRC API requires authentication credentials.'
     end
   end
 

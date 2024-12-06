@@ -80,7 +80,6 @@ To keep backwards compatibility lookups of UK VAT numbers against the HMRC API a
 Valvat::Lookup.validate(
   "GB553557881",
   uk: {
-    live: true,
     client_id: '<client_id>',
     client_secret: '<client_secret>'
   }
@@ -201,7 +200,7 @@ Valvat.configure(
   raise_error: true,
   http: { read_timeout: 5 },
   uk: {
-    live: true, # Live mode for switching between Sandbox and Production API (TRUE by default)
+    sandbox: false, # Use production mode (the default)
     client_id: <client_id> # Required for OAuth 2.0 Authentication
     client_secret: <client_secret> # Required for OAuth 2.0 Authentication
   }

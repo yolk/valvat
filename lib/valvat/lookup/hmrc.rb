@@ -17,9 +17,7 @@ class Valvat
       }.freeze
 
       def perform
-        return { valid: false } unless @options[:uk].is_a?(Hash) &&
-                                       @options.dig(:uk, :client_id) &&
-                                       @options.dig(:uk, :client_secret)
+        return { valid: false } unless @options[:uk].is_a?(Hash)
 
         parse(fetch(endpoint_uri).body)
       rescue Valvat::HMRC::AccessToken::Error => e
@@ -31,7 +29,7 @@ class Valvat
       def endpoint_uri
         endpoint = "/#{@vat.to_s_wo_country}"
         endpoint += "/#{@requester.to_s_wo_country}" if @requester
-        endpoint_url = @options.dig(:uk, :live) ? PRODUCTION_ENDPOINT_URL : SANDBOX_ENDPOINT_URL
+        endpoint_url = @options.dig(:uk, :sandbox) ? SANDBOX_ENDPOINT_URL : PRODUCTION_ENDPOINT_URL
         URI.parse(endpoint_url + endpoint)
       end
 

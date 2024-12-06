@@ -14,10 +14,12 @@ class Valvat
       GRANT_TYPE = 'client_credentials'
 
       def initialize(options = {})
-        @client_id = options.dig(:uk, :client_id).to_s
-        @client_secret = options.dig(:uk, :client_secret).to_s
+        uk_options = options[:uk].is_a?(Hash) ? options[:uk] : {}
+
+        @client_id = uk_options[:client_id].to_s
+        @client_secret = uk_options[:client_secret].to_s
         @rate_limit = options[:rate_limit]
-        @endpoint_uri = URI(options.dig(:uk, :live) ? PRODUCTION_ENDPOINT_URL : SANDBOX_ENDPOINT_URL)
+        @endpoint_uri = URI(uk_options[:sandbox] ? SANDBOX_ENDPOINT_URL : PRODUCTION_ENDPOINT_URL)
       end
 
       def self.fetch(options = {})
