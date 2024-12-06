@@ -88,7 +88,7 @@ Valvat::Lookup.validate(
 # => true or false or nil
 ```
 
-When `:uk` is not set (or to a falsy value) the lookup of UK VAT numbers always returns `false`.
+When `:uk` is not set (or not to a hash containing the required authentication credentials) the lookup of UK VAT numbers always returns `false`.
 
 *IMPORTANT* Keep in mind that the web service might be offline at some time for all or some member states. If this happens `exists?` or `Valvat::Lookup.validate` will return `nil`. See *Handling of maintenance errors* for further details.
 

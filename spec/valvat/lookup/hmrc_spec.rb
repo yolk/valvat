@@ -145,10 +145,12 @@ describe Valvat::Lookup::HMRC do
       include_examples 'returns hash with valid: false'
     end
 
-    context 'when missing Authentication credentials' do
+    context 'when missing Authentication credentials (the default)' do
       let(:uk) { super().merge(client_id: nil, client_secret: nil) }
 
-      include_examples 'returns error'
+      it 'returns false' do
+        expect(lookup[:valid]).to be(false)
+      end
     end
 
     context 'when Authentication failed' do

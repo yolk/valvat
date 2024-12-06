@@ -17,7 +17,9 @@ class Valvat
       }.freeze
 
       def perform
-        return { valid: false } unless @options[:uk]
+        return { valid: false } unless @options[:uk].is_a?(Hash) &&
+                                       @options.dig(:uk, :client_id) &&
+                                       @options.dig(:uk, :client_secret)
 
         parse(fetch(endpoint_uri).body)
       rescue Valvat::HMRC::AccessToken::Error => e

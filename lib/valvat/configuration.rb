@@ -54,7 +54,7 @@ class Valvat
         client_secret: nil
       }.freeze,
 
-      # Rate limit for Lookup and HMRC Authentication requests
+      # Rate limit for Lookup and HMRC authentication requests
       rate_limit: 5
     }.freeze
 
