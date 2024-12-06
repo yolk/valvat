@@ -7,17 +7,17 @@ Validates european vat numbers. Standalone or as a ActiveModel validator.
 
 ## A note on Brexit
 
-Valvat supports validating VAT-IDs from the UK by syntax, checksum and using the HMRC API (for backwards compatibility only with the `:uk` option set). You need to create an account on the [HMRC Developer Hub](https://developer.service.hmrc.gov.uk/developer/registration) to validate UK VAT numbers with valvat.
+Valvat supports validating VAT-IDs from the UK by syntax, checksum and using the HMRC API v2.0. Validation against the VIES web service stopped working early 2021.
 
-Validation against the VIES web service stopped working early 2021.
+Sadly with the deprecation of the HMRC API v1 on January 2025 there is no open accessible web service to validate UK vat numbers anymore. To use the current v2 of the HMRC API you will need to create an account on the [HMRC Developer Hub](https://developer.service.hmrc.gov.uk/developer/registration) and then apply for production credentials. The second step is a little bit more involved and can take up to ten business days. See the configuration section below how to use valvat with your HMRC authentication credentials.
 
 Northern Ireland received its own VAT number prefix - XI which is supported by VIES web service so any XI-prefixed VAT numbers should be validated as any EU VAT number.
 
 ## Features
 
 * Simple syntax verification
-* Lookup via the VIES web service
-* (Optional) lookup via the HMRC web service (for UK VAT numbers)
+* Lookup via the VIES web service (for EU VAT numbers)
+* Lookup via the HMRC web service (for UK VAT numbers)
 * ActiveModel/Rails integration
 * Works standalone without ActiveModel
 * Minimal runtime dependencies
@@ -74,7 +74,7 @@ Valvat::Lookup.validate("DE345789003")
 # => true or false or nil
 ```
 
-To keep backwards compatibility lookups of UK VAT numbers against the HMRC API are only performed when the option `:uk` is set to a hash containing your authentication credentials. You need to create an account on the [HMRC Developer Hub](https://developer.service.hmrc.gov.uk/developer/registration) to have access.
+Because the HMRC API requires authentication validation against HMRC is only performed when the option `:uk` is set to a hash containing your authentication credentials. You need to create an account on the [HMRC Developer Hub](https://developer.service.hmrc.gov.uk/developer/registration) and apply for production credentials to validate UK VAT numbers against HMRC.
 
 ```ruby
 Valvat::Lookup.validate(
@@ -87,7 +87,7 @@ Valvat::Lookup.validate(
 # => true or false or nil
 ```
 
-When `:uk` is not set (or not to a hash containing the required authentication credentials) the lookup of UK VAT numbers always returns `false`.
+When `:uk` is not set to a hash containing the required authentication credentials the lookup of UK VAT numbers always returns `false`.
 
 *IMPORTANT* Keep in mind that the web service might be offline at some time for all or some member states. If this happens `exists?` or `Valvat::Lookup.validate` will return `nil`. See *Handling of maintenance errors* for further details.
 
@@ -200,9 +200,9 @@ Valvat.configure(
   raise_error: true,
   http: { read_timeout: 5 },
   uk: {
-    sandbox: false, # Use production mode (the default)
-    client_id: <client_id> # Required for OAuth 2.0 Authentication
-    client_secret: <client_secret> # Required for OAuth 2.0 Authentication
+    sandbox: true, # Use sandbox mode
+    client_id: <client_id> # Required for HMRC API v2 authentication
+    client_secret: <client_secret> # Required for HMRC API v2 authentication
   }
 )
 ```
@@ -344,7 +344,7 @@ There seems to be a problem when using the VIES service over IPv6. Sadly this is
 
 ## HMRC API v2.0
 - Version 2 is the recommended version of this API. Version 1 will be removed in January 2025.
-- To use Version 2 of the HMRC API you need an account on the [HMRC Developer Hub](https://developer.service.hmrc.gov.uk/developer/registration).
+- To use Version 2 of the HMRC API you need to create an account on the [HMRC Developer Hub](https://developer.service.hmrc.gov.uk/developer/registration) and then apply for production credentials. The second step is a little bit more involved and can take up to ten business days.
 - See more details https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/vat-registered-companies-api/2.0.
 - New configuration was added to support API v2.0 with OAuth 2.0 Authentication. See configuration section.
 - Valid VAT numbers for HMRC lookup on Sandbox https://github.com/hmrc/vat-registered-companies-api/blob/main/public/api/conf/2.0/test-data/vrn.csv
