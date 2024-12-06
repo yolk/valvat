@@ -7,7 +7,9 @@ Validates european vat numbers. Standalone or as a ActiveModel validator.
 
 ## A note on Brexit
 
-Valvat supports validating VAT-IDs from the UK by syntax, checksum and using the HMRC API (for backwards compatibility only with the `:uk` option with Authentication credentials). Validation against the VIES web service stopped working early 2021.
+Valvat supports validating VAT-IDs from the UK by syntax, checksum and using the HMRC API (for backwards compatibility only with the `:uk` option set). You need to create an account on the [HMRC Developer Hub](https://developer.service.hmrc.gov.uk/developer/registration) to validate UK VAT numbers with valvat.
+
+Validation against the VIES web service stopped working early 2021.
 
 Northern Ireland received its own VAT number prefix - XI which is supported by VIES web service so any XI-prefixed VAT numbers should be validated as any EU VAT number.
 
@@ -72,7 +74,7 @@ Valvat::Lookup.validate("DE345789003")
 # => true or false or nil
 ```
 
-To keep backwards compatibility lookups of UK VAT numbers against the HMRC API are only performed with the option `:uk` with Authentication credentials.
+To keep backwards compatibility lookups of UK VAT numbers against the HMRC API are only performed when the option `:uk` is set to a hash containing your authentication credentials. You need to create an account on the [HMRC Developer Hub](https://developer.service.hmrc.gov.uk/developer/registration) to have access.
 
 ```ruby
 Valvat::Lookup.validate(
@@ -86,7 +88,7 @@ Valvat::Lookup.validate(
 # => true or false or nil
 ```
 
-When set `uk: false` or `uk: nil` the lookup of UK VAT number always returns `false`.
+When `:uk` is not set (or to a falsy value) the lookup of UK VAT numbers always returns `false`.
 
 *IMPORTANT* Keep in mind that the web service might be offline at some time for all or some member states. If this happens `exists?` or `Valvat::Lookup.validate` will return `nil`. See *Handling of maintenance errors* for further details.
 
@@ -343,6 +345,7 @@ There seems to be a problem when using the VIES service over IPv6. Sadly this is
 
 ## HMRC API v2.0
 - Version 2 is the recommended version of this API. Version 1 will be removed in January 2025.
+- To use Version 2 of the HMRC API you need an account on the [HMRC Developer Hub](https://developer.service.hmrc.gov.uk/developer/registration).
 - See more details https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/vat-registered-companies-api/2.0.
 - New configuration was added to support API v2.0 with OAuth 2.0 Authentication. See configuration section.
 - Valid VAT numbers for HMRC lookup on Sandbox https://github.com/hmrc/vat-registered-companies-api/blob/main/public/api/conf/2.0/test-data/vrn.csv
@@ -350,7 +353,7 @@ There seems to be a problem when using the VIES service over IPv6. Sadly this is
 ## Links
 
 * [VIES web service](http://ec.europa.eu/taxation_customs/vies)
-* [HMRC web service](https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/vat-registered-companies-api/1.0)
+* [HMRC web service](https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/vat-registered-companies-api/2.0)
 * [European vat number formats (german)](http://bzst.de/DE/Steuern_International/USt_Identifikationsnummer/Merkblaetter/Aufbau_USt_IdNr.html)
 * [European vat number formats on Wikipedia](http://en.wikipedia.org/wiki/European_Union_Value_Added_Tax)
 
