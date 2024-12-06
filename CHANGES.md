@@ -3,6 +3,7 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v1.4.4...master)
 
+* Added support for HMRC API v2.0 with OAuth 2.0 authentication [Denys Metelov](https://github.com/Skumring)
 * Resolved the rexml security vulnerabilities that affected versions < 3.3.6 by [Riana Ferreira](https://github.com/bad-vegan)
 
 ### 1.4.4 / 2024-07-11
