@@ -2,6 +2,7 @@ it:
   errors:
     messages:
       invalid_vat: IVA non valido per %{country_adjective}
+      vies_down: "Impossibile convalidare la tua partita IVA: Il servizio VIES non è disponibile, riprova più tardi."
   valvat:
     country_adjectives:
       eu: Europa
