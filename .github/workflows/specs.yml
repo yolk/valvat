@@ -32,6 +32,8 @@ jobs:
             gemfile: 'activemodel-7'
           - ruby-version: 'jruby-9.4.7.0'
             gemfile: 'activemodel-5'
+          - ruby-version: 'jruby-9.4.7.0'
+            gemfile: 'activemodel-8'
           - ruby-version: '2.6'
             gemfile: 'activemodel-8'
           - ruby-version: '2.7'
