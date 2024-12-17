@@ -17,7 +17,7 @@ jobs:
       BUNDLE_GEMFILE: gemfiles/${{ matrix.gemfile }}
     strategy:
       matrix:
-        ruby-version: ['2.6', '2.7', '3.0', '3.1', '3.2', '3.3', '3.4', 'jruby-9.4.7.0']
+        ruby-version: ['2.6', '2.7', '3.0', '3.1', '3.2', '3.3', '3.4', 'jruby-9.4.9.0']
         gemfile: [ 'standalone', 'activemodel-5', 'activemodel-6', 'activemodel-7', 'activemodel-8' ]
         exclude:
           - ruby-version: '3.3'
@@ -30,9 +30,9 @@ jobs:
             gemfile: 'activemodel-5'
           - ruby-version: '2.6'
             gemfile: 'activemodel-7'
-          - ruby-version: 'jruby-9.4.7.0'
+          - ruby-version: 'jruby-9.4.9.0'
             gemfile: 'activemodel-5'
-          - ruby-version: 'jruby-9.4.7.0'
+          - ruby-version: 'jruby-9.4.9.0'
             gemfile: 'activemodel-8'
           - ruby-version: '2.6'
             gemfile: 'activemodel-8'
