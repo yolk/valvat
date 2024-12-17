@@ -1,6 +1,8 @@
 
 ### dev
 
+* Added vies_down translation for italian locale [Lorenzo Zabot](https://github.com/Uaitt)
+
 [full changelog](http://github.com/yolk/valvat/compare/v2.0.0...master)
 
 ### 2.0.0 / 2024-12-06
