@@ -5,7 +5,7 @@
 
 ### 2.0.0 / 2024-12-06
 
-[full changelog](http://github.com/yolk/valvat/compare/v.4.4...v2.0.0)
+[full changelog](http://github.com/yolk/valvat/compare/v.1.4.4...v2.0.0)
 
 BREAKING CHANGE: To validate UK VAT numbers you have to provide authentication credentials for the HMRC API. From valvat v2 onwards, simply setting the `:uk` option to `true` will always return `false` (same as the default).
 
