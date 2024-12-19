@@ -46,5 +46,16 @@ describe Valvat::Options do
         end.to output("DEPRECATED: The option :savon is deprecated. Use :http instead.\n").to_stdout
       end
     end
+
+    context 'when options contains deprecated key uk set to true' do
+      it 'prints deprecation warning' do
+        expect do
+          described_class.new({ uk: true })
+        end.to output(
+          'DEPRECATED: The option :uk is not allowed to be set to `true` anymore. ' \
+          "Instead it needs to be set to your HMRC API authentication credentials.\n"
+        ).to_stdout
+      end
+    end
   end
 end

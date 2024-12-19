@@ -19,7 +19,7 @@ class Valvat
         end
       end
 
-      check_uk_key
+      check_uk_key(silence)
     end
 
     def [](key)
@@ -32,11 +32,11 @@ class Valvat
 
     private
 
-    def check_uk_key
+    def check_uk_key(silence)
       return if @options[:uk] != true || silence
 
       puts 'DEPRECATED: The option :uk is not allowed to be set to `true` anymore. ' \
-           'Using the HMRC API requires authentication credentials.'
+           'Instead it needs to be set to your HMRC API authentication credentials.'
     end
   end
 
