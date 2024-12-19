@@ -22,11 +22,28 @@ describe Valvat::Options do
                                  )
     end
 
-    context 'when options contains deprecated key' do
-      let(:options) { described_class.new({ requester_vat: 'DE123' }, silence: true) }
-
+    context 'when options contains deprecated key requester_vat' do
       it 'returns it on new key' do
-        expect(options[:requester]).to be('DE123')
+        expect(described_class.new({ requester_vat: 'DE123' }, silence: true)[:requester]).to be('DE123')
+      end
+
+      it 'prints deprecation warning' do
+        expect do
+          described_class.new({ requester_vat: 'DE123' })
+        end.to output("DEPRECATED: The option :requester_vat is deprecated. Use :requester instead.\n").to_stdout
+      end
+    end
+
+    context 'when options contains deprecated key savon' do
+      it 'returns it on new key' do
+        expect(described_class.new({ savon: { somekey: :somevalue } },
+                                   silence: true)[:http]).to eq({ somekey: :somevalue })
+      end
+
+      it 'prints deprecation warning' do
+        expect do
+          described_class.new({ savon: { somekey: :somevalue } })
+        end.to output("DEPRECATED: The option :savon is deprecated. Use :http instead.\n").to_stdout
       end
     end
   end

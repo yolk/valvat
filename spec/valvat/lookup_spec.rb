@@ -182,23 +182,6 @@ describe Valvat::Lookup do
                                 })
       end
 
-      it 'supports old :requester_vat option for backwards compatibility' do
-        result = described_class.validate('IE6388047V', requester_vat: 'LU21416127')
-
-        skip 'VIES is down' if result.nil?
-
-        expect(result).to match({
-                                  request_date: kind_of(Date),
-                                  request_identifier: /\A[\w\W]{16}\Z/,
-                                  country_code: 'IE',
-                                  vat_number: '6388047V',
-                                  name: 'GOOGLE IRELAND LIMITED',
-                                  company_type: nil,
-                                  address: '3RD FLOOR, GORDON HOUSE, BARROW STREET, DUBLIN 4',
-                                  valid: true
-                                })
-      end
-
       context 'with GB VAT number' do
         include_context 'with hmrc configuration'
 
