@@ -1,9 +1,10 @@
 
 ### dev
 
-* Added vies_down translation for italian locale [Lorenzo Zabot](https://github.com/Uaitt)
-
 [full changelog](http://github.com/yolk/valvat/compare/v2.0.0...master)
+
+* Valvat::Options#check_uk_key: Fixed missing silence variable
+* Added vies_down translation for italian locale [Lorenzo Zabot](https://github.com/Uaitt)
 
 ### 2.0.0 / 2024-12-06
 
