@@ -1,7 +1,11 @@
 
 ### dev
 
-[full changelog](http://github.com/yolk/valvat/compare/v2.0.0...master)
+[full changelog](http://github.com/yolk/valvat/compare/v2.0.1...master)
+
+### 2.0.1 / 2024-19-06
+
+[full changelog](http://github.com/yolk/valvat/compare/v.2.0.0...v2.0.1)
 
 * Valvat::Options#check_uk_key: Fixed missing silence variable
 * Added vies_down translation for italian locale [Lorenzo Zabot](https://github.com/Uaitt)
