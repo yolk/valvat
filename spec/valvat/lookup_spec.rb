@@ -73,12 +73,16 @@ describe Valvat::Lookup do
         result = described_class.validate('IE6388047V')
         skip 'VIES is down' if result.nil?
         expect(result).to be(true)
+      rescue Valvat::RateLimitError
+        sleep 5
       end
 
       it 'allows Valvat instance as input' do
         result = described_class.validate(Valvat.new('IE6388047V'))
         skip 'VIES is down' if result.nil?
         expect(result).to be(true)
+      rescue Valvat::RateLimitError
+        sleep 5
       end
 
       context 'with details' do
@@ -94,6 +98,8 @@ describe Valvat::Lookup do
                                     address: '3RD FLOOR, GORDON HOUSE, BARROW STREET, DUBLIN 4',
                                     valid: true
                                   })
+        rescue Valvat::RateLimitError
+          sleep 5
         end
       end
     end
@@ -106,6 +112,8 @@ describe Valvat::Lookup do
       it 'returns true' do
         result = described_class.validate("GB#{vat_number}")
         expect(result).to be(true)
+      rescue Valvat::RateLimitError
+        sleep 5
       end
 
       it 'returns details in format similar to VIES' do
@@ -118,6 +126,8 @@ describe Valvat::Lookup do
                                   address: "1 PRINCIPAL PLACE\nWORSHIP STREET\nLONDON\nEC2A 2FA\nGB",
                                   valid: true
                                 })
+      rescue Valvat::RateLimitError
+        sleep 5
       end
     end
 
@@ -126,6 +136,8 @@ describe Valvat::Lookup do
         result =  described_class.validate('IE6388048V')
         skip 'VIES is down' if result.nil?
         expect(result).to be(false)
+      rescue Valvat::RateLimitError
+        sleep 5
       end
 
       context 'with details' do
@@ -133,6 +145,8 @@ describe Valvat::Lookup do
           result = described_class.validate('LU21416128', detail: true)
           skip 'VIES is down' if result.nil?
           expect(result).to be(false)
+        rescue Valvat::RateLimitError
+          sleep 5
         end
       end
     end
@@ -180,6 +194,8 @@ describe Valvat::Lookup do
                                   address: '3RD FLOOR, GORDON HOUSE, BARROW STREET, DUBLIN 4',
                                   valid: true
                                 })
+      rescue Valvat::RateLimitError
+        sleep 5
       end
 
       context 'with GB VAT number' do
