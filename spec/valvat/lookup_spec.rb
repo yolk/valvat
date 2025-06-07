@@ -238,7 +238,7 @@ describe Valvat::Lookup do
           )
         end
 
-        context 'when requester is not from GB' do # rubocop: disable RSpec/NestedGroups
+        context 'when requester is not from GB' do
           let(:lookup_request_url) { "https://test-api.service.hmrc.gov.uk/organisations/vat/check-vat-number/lookup/#{vat_number}/6388047V" }
           let(:lookup_response) do
             {
@@ -259,7 +259,7 @@ describe Valvat::Lookup do
           end
         end
 
-        context 'when requester is not valid' do # rubocop: disable RSpec/NestedGroups
+        context 'when requester is not valid' do
           let(:lookup_request_url) { "https://test-api.service.hmrc.gov.uk/organisations/vat/check-vat-number/lookup/#{vat_number}/6388047" }
           let(:lookup_response) do
             {
