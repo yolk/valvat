@@ -14,7 +14,7 @@ class Valvat
         @vat = vat
       end
 
-      def validate
+      def validate # rubocop:disable Naming/PredicateMethod
         check_digit == given_check_digit
       end
 

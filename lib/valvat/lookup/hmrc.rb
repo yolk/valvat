@@ -15,6 +15,14 @@ class Valvat
         # https://developer.service.hmrc.gov.uk/api-documentation/docs/reference-guide#versioning
         'Accept' => 'application/vnd.hmrc.2.0+json'
       }.freeze
+      FAULTS = {
+        'MESSAGE_THROTTLED_OUT' => RateLimitError,
+        'SCHEDULED_MAINTENANCE' => ServiceUnavailable,
+        'SERVER_ERROR' => ServiceUnavailable,
+        'INVALID_REQUEST' => InvalidRequester,
+        'GATEWAY_TIMEOUT' => Timeout,
+        'INVALID_CREDENTIALS' => AuthorizationError
+      }.freeze
 
       def perform
         return { valid: false } unless @options[:uk].is_a?(Hash)
@@ -72,21 +80,12 @@ class Valvat
         address&.values&.join("\n")
       end
 
-      FAULTS = {
-        'MESSAGE_THROTTLED_OUT' => RateLimitError,
-        'SCHEDULED_MAINTENANCE' => ServiceUnavailable,
-        'SERVER_ERROR' => ServiceUnavailable,
-        'INVALID_REQUEST' => InvalidRequester,
-        'GATEWAY_TIMEOUT' => Timeout,
-        'INVALID_CREDENTIALS' => AuthorizationError
-      }.freeze
-
       def build_fault(raw)
         fault = raw['code']
         return { valid: false } if fault == 'NOT_FOUND'
 
         exception = FAULTS[fault] || UnknownLookupError
-        { error: exception.new("#{fault}#{raw['message'] ? " (#{raw['message']})" : ''}", self.class) }
+        { error: exception.new("#{fault}#{" (#{raw['message']})" if raw['message']}", self.class) }
       end
 
       def build_headers!

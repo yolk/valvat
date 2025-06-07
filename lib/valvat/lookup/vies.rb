@@ -34,6 +34,18 @@ class Valvat
         </soapenv:Envelope>
       XML
       BODY_TEMPLATE = ERB.new(BODY).freeze
+      FAULTS = {
+        'SERVICE_UNAVAILABLE' => ServiceUnavailable,
+        'MS_UNAVAILABLE' => MemberStateUnavailable,
+        'INVALID_REQUESTER_INFO' => InvalidRequester,
+        'TIMEOUT' => Timeout,
+        'VAT_BLOCKED' => BlockedError,
+        'IP_BLOCKED' => BlockedError,
+        'GLOBAL_MAX_CONCURRENT_REQ' => RateLimitError,
+        'GLOBAL_MAX_CONCURRENT_REQ_TIME' => RateLimitError,
+        'MS_MAX_CONCURRENT_REQ' => RateLimitError,
+        'MS_MAX_CONCURRENT_REQ_TIME' => RateLimitError
+      }.freeze
 
       private
 
@@ -74,19 +86,6 @@ class Valvat
         hash[:request_date] = Date.parse(hash[:request_date]) if hash.key?(:request_date)
         hash
       end
-
-      FAULTS = {
-        'SERVICE_UNAVAILABLE' => ServiceUnavailable,
-        'MS_UNAVAILABLE' => MemberStateUnavailable,
-        'INVALID_REQUESTER_INFO' => InvalidRequester,
-        'TIMEOUT' => Timeout,
-        'VAT_BLOCKED' => BlockedError,
-        'IP_BLOCKED' => BlockedError,
-        'GLOBAL_MAX_CONCURRENT_REQ' => RateLimitError,
-        'GLOBAL_MAX_CONCURRENT_REQ_TIME' => RateLimitError,
-        'MS_MAX_CONCURRENT_REQ' => RateLimitError,
-        'MS_MAX_CONCURRENT_REQ_TIME' => RateLimitError
-      }.freeze
 
       def build_fault(hash)
         fault = hash[:faultstring]
