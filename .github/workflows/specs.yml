@@ -1,4 +1,6 @@
 name: Specs
+permissions:
+  contents: read
 
 on:
   push:
