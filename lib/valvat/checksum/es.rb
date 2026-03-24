@@ -13,7 +13,7 @@ class Valvat
       CIF_MUST_BE_A_NUMBER_EXP = /\A[HJUV]/.freeze
       SPECIAL_NIF_EXP = /\A[KLM]/.freeze
 
-      def validate
+      def validate # rubocop:disable Naming/PredicateMethod
         passes_special_validations? && possible_check_digits.include?(given_check_digit)
       end
 

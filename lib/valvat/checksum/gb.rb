@@ -8,7 +8,7 @@ class Valvat
       GOV_NUMBER = /\A(GD[0-4]{1}\d{2})\Z/.freeze
       HEALTH_NUMBER = /\A(HA[5-9]{1}\d{2})\Z/.freeze
 
-      def validate # rubocop:disable Metrics/CyclomaticComplexity
+      def validate # rubocop:disable Metrics/CyclomaticComplexity,Naming/PredicateMethod
         # government departments and health authorities, so no checksum
         return true if gov_or_health?
         return false if all_zero?

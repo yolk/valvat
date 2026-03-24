@@ -33,7 +33,7 @@ class Valvat
       'SK' => /\ASK[0-9]{10}\Z/                                           # Slovakia
     }.freeze
 
-    def self.validate(vat)
+    def self.validate(vat) # rubocop:disable Naming/PredicateMethod
       vat = Valvat(vat)
       pattern = VAT_PATTERNS[vat.iso_country_code]
       !!(pattern && pattern =~ vat.to_s)
