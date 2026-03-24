@@ -62,9 +62,9 @@ class Valvat
       def parse(body)
         doc = REXML::Document.new(body)
         elements = doc.get_elements('/env:Envelope/env:Body').first.first
-        convert_values(elements.each_with_object({}) do |el, hash|
-          hash[convert_key(el.name)] = convert_value(el.text)
-        end)
+        convert_values(elements.to_h do |el|
+                         [convert_key(el.name), convert_value(el.text)]
+                       end)
       end
 
       def convert_key(key)

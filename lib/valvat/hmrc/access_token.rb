@@ -6,7 +6,8 @@ require 'json'
 class Valvat
   module HMRC
     class AccessToken
-      Error = Class.new(StandardError)
+      class Error < StandardError
+      end
 
       PRODUCTION_ENDPOINT_URL = 'https://api.service.hmrc.gov.uk/oauth/token'
       SANDBOX_ENDPOINT_URL = 'https://test-api.service.hmrc.gov.uk/oauth/token'

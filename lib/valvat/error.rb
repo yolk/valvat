@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Valvat
-  Error = Class.new(RuntimeError)
+  class Error < RuntimeError
+  end
 
   class LookupError < Error
     def initialize(message, kind)
@@ -18,19 +19,34 @@ class Valvat
       to_s.eql?(other.to_s)
     end
   end
-  MaintenanceError = Class.new(LookupError)
 
-  ServiceUnavailable = Class.new(MaintenanceError)
-  MemberStateUnavailable = Class.new(MaintenanceError)
+  class MaintenanceError < LookupError
+  end
 
-  Timeout = Class.new(LookupError)
-  InvalidRequester = Class.new(LookupError)
-  BlockedError = Class.new(LookupError)
-  RateLimitError = Class.new(LookupError)
+  class ServiceUnavailable < MaintenanceError
+  end
 
-  UnknownLookupError = Class.new(LookupError)
+  class MemberStateUnavailable < MaintenanceError
+  end
 
-  HTTPError = Class.new(LookupError)
+  class Timeout < LookupError
+  end
 
-  AuthorizationError = Class.new(LookupError)
+  class InvalidRequester < LookupError
+  end
+
+  class BlockedError < LookupError
+  end
+
+  class RateLimitError < LookupError
+  end
+
+  class UnknownLookupError < LookupError
+  end
+
+  class HTTPError < LookupError
+  end
+
+  class AuthorizationError < LookupError
+  end
 end
