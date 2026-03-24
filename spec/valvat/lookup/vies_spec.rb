@@ -7,6 +7,10 @@ describe Valvat::Lookup::VIES do
     response = described_class.new('IE6388047V', {}).perform
 
     skip 'VIES is down' if response[:error].is_a?(Valvat::MemberStateUnavailable)
+    if response[:error].is_a?(Valvat::RateLimitError)
+      sleep 5
+      skip 'VIES is overloaded'
+    end
 
     expect(response).to match({
                                 valid: true,

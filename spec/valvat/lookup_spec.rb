@@ -300,6 +300,8 @@ describe Valvat::Lookup do
                                     address: '3RD FLOOR, GORDON HOUSE, BARROW STREET, DUBLIN 4',
                                     valid: true
                                   })
+        rescue Valvat::RateLimitError
+          sleep 5
         end
       end
     end
