@@ -1,0 +1,35 @@
+eo:
+  errors:
+    messages:
+      invalid_vat: "ne estas valida %{country_adjective} AVI-numero"
+      vies_down: "Ne eblas kontroli la AVI-numeron: la VIES-servo ne estas disponebla. Reprovu poste."
+  valvat:
+    country_adjectives:
+      eu: eŭropa
+      at: aŭstra
+      be: belga
+      bg: bulgara
+      cy: kipra
+      cz: ĉeĥa
+      de: germana
+      dk: dana
+      ee: estona
+      es: hispana
+      fi: finna
+      fr: franca
+      gb: brita
+      gr: greka
+      hu: hungara
+      ie: irlanda
+      it: itala
+      lt: litova
+      lu: luksemburga
+      lv: latva
+      mt: malta
+      nl: nederlanda
+      pl: pola
+      pt: portugala
+      ro: rumana
+      se: sveda
+      si: slovena
+      sk: slovaka
