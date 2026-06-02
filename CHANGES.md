@@ -3,6 +3,8 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v2.0.1...master)
 
+* Resolved the rexml security vulnerabilities that affected versions < 3.4.2  by [Riana Ferreira](https://github.com/bad-vegan)
+
 ### 2.0.1 / 2024-19-06
 
 [full changelog](http://github.com/yolk/valvat/compare/v.2.0.0...v2.0.1)
