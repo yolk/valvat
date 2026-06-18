@@ -3,6 +3,8 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v2.0.1...master)
 
+* Add Esperanto (eo) translation [Robin van der Vliet](https://github.com/RobinvanderVliet)
+
 ### 2.0.1 / 2025-06-19
 
 [full changelog](http://github.com/yolk/valvat/compare/v.2.0.0...v2.0.1)
