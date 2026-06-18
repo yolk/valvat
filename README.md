@@ -21,7 +21,7 @@ Northern Ireland received its own VAT number prefix - XI which is supported by V
 * ActiveModel/Rails integration
 * Works standalone without ActiveModel
 * Minimal runtime dependencies
-* I18n locales for language specific error messages in English, German, French, Spanish, Italian, Portuguese, Polish, Swedish, Dutch, Danish, Czech, Slovakian, Hungarian, Bulgarian, Romanian, Latvian, Catalan, Norwegian, and Finnish.
+* I18n locales for language specific error messages in English, German, French, Spanish, Italian, Portuguese, Polish, Swedish, Dutch, Danish, Czech, Slovakian, Hungarian, Bulgarian, Romanian, Latvian, Catalan, Norwegian, Finnish, and Esperanto.
 * *Experimental* checksum verification
 
 valvat is tested and works with ruby MRI 3.2/3.3/4.0, jruby and ActiveModel 5/6/7/8. If you need support for ruby down to 1.9.3 and ActiveModel 3 and 4 use [v1.0.1](https://github.com/yolk/valvat/tree/v1.0.1).
