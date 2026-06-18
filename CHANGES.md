@@ -3,6 +3,7 @@
 
 [full changelog](http://github.com/yolk/valvat/compare/v2.0.1...master)
 
+* Resolved the rexml security vulnerabilities that affected versions < 3.4.2  by [Riana Ferreira](https://github.com/bad-vegan)
 * Add Esperanto (eo) translation [Robin van der Vliet](https://github.com/RobinvanderVliet)
 
 ### 2.0.1 / 2025-06-19
