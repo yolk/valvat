@@ -19,6 +19,14 @@ describe Valvat::Checksum::SI do
     expect(Valvat::Checksum.validate('SI11111107')).to be(false)
   end
 
+  it 'returns false when the weighted sum leaves a remainder of 1' do
+    expect(Valvat::Checksum.validate('SI10000020')).to be(false)
+  end
+
+  it 'returns true when the weighted sum is divisible by 11' do
+    expect(Valvat::Checksum.validate('SI10000070')).to be(true)
+  end
+
   it 'returns false on special case invalid VAT SI01111108' do
     expect(Valvat::Checksum.validate('SI01111108')).to be(false)
   end
