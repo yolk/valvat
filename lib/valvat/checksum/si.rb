@@ -10,7 +10,7 @@ class Valvat
 
       def check_digit
         chk = sum_of_figues_for_pt_si
-        chk == 10 ? 0 : chk
+        chk == 11 ? 0 : chk
       end
     end
   end
