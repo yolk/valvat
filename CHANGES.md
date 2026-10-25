@@ -5,6 +5,7 @@
 
 * Resolved the rexml security vulnerabilities that affected versions < 3.4.2  by [Riana Ferreira](https://github.com/bad-vegan)
 * Add Esperanto (eo) translation [Robin van der Vliet](https://github.com/RobinvanderVliet)
+* Load Valvat::Lookup and Valvat::HMRC on first use, so `require "valvat"` no longer loads REXML and Net::HTTP by [Clément Joubert](https://github.com/czj)
 
 ### 2.0.1 / 2025-06-19
 

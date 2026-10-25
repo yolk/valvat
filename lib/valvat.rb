@@ -7,10 +7,12 @@ require 'valvat/configuration'
 require 'valvat/syntax'
 require 'valvat/checksum'
 require 'valvat/version'
-require 'valvat/lookup'
 require 'active_model/validations/valvat_validator' if defined?(ActiveModel)
 
 class Valvat
+  autoload :HMRC, 'valvat/hmrc/access_token'
+  autoload :Lookup, 'valvat/lookup'
+
   def initialize(raw)
     @raw = Valvat::Utils.normalize(raw || '')
     @vat_country_code, @to_s_wo_country = to_a

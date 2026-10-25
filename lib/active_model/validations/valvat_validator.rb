@@ -2,7 +2,6 @@
 
 require 'active_model'
 require 'valvat/syntax'
-require 'valvat/lookup'
 
 module ActiveModel
   module Validations
